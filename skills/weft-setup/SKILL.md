@@ -38,7 +38,13 @@ surface decides, and every branch ends in the same OAuth grant.
    ```
    /plugin marketplace add weftlabs/weft-claude-plugin
    /plugin install weft@weft-labs
+   /reload-plugins
    ```
+
+   Run the reload immediately after installation, before checking tools or using
+   `/weft:setup`. If Claude Code warns that reload will invalidate the prompt
+   cache, run `/reload-plugins --force`; restarting Claude Code also activates
+   the plugin.
 
    If the `weft_*` tools already respond, a connection exists — stop;
    do not add a second manual MCP connection beside it. If the user has no account, use
