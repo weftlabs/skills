@@ -1692,6 +1692,8 @@ class BenchmarkContractTest(unittest.TestCase):
         self.assertIn("![Benchmark chart](benchmarks/chart.svg)", block)
         self.assertIn("Claim scope:", block)
         self.assertIn("Development pilot", block)
+        self.assertIn("number of unique tasks", block)
+        self.assertNotIn("number of independent tasks", block)
         self.assertIn("Paired case-level difference", block)
         self.assertIn("1 unique case", block)
         self.assertIn("Separately calculated native token-field medians", block)

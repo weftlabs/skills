@@ -2340,7 +2340,7 @@ def render_benchmark_block(
         "",
         evidence_statement,
         "",
-        "The same clean-room tasks run without the skill and with the skill. Repeated generations are nested within each task; they do not increase the number of independent tasks. Results are descriptive paired observations. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.",
+        "The same clean-room tasks run without the skill and with the skill. Repeated generations are nested within each task; they do not increase the number of unique tasks. Results are descriptive paired observations. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.",
         "",
         "The evidence writer redacts host paths, clean-room temporary paths, and opaque harness trace IDs from published native transcripts. Answers and token telemetry remain inspectable.",
         "",
