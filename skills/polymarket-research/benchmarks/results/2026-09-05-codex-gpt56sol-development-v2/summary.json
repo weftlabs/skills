@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "skill": "polymarket-research",
+  "evidence_class": "development",
+  "generated_at": "2026-09-05T19:56:54Z",
+  "manifest_digest": "7c5ceb1a274f4c50e08301acfadc68940c11c22d251bd9e3a956890fcd391f35",
+  "skill_digest": "9116abb6a401f568d4299b1255dc08e58ec049274e35a67d67f224aa594d683e",
+  "minimum_repetitions": 3,
+  "results": [
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "arm": "without_weft",
+      "valid_runs": 9,
+      "excluded_pairs": 0,
+      "median_time_seconds": 24.315,
+      "accomplishment_rate": 0.6667,
+      "median_tokens": 19150,
+      "median_token_usage": {
+        "input_tokens": 17972,
+        "cached_input_tokens": 8320,
+        "output_tokens": 826,
+        "reasoning_output_tokens": 195,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "arm": "with_weft",
+      "valid_runs": 9,
+      "excluded_pairs": 0,
+      "median_time_seconds": 25.795,
+      "accomplishment_rate": 0.6667,
+      "median_tokens": 36605,
+      "median_token_usage": {
+        "input_tokens": 35578,
+        "cached_input_tokens": 19712,
+        "output_tokens": 1072,
+        "reasoning_output_tokens": 309,
+        "cache_write_input_tokens": 0
+      }
+    }
+  ],
+  "deltas": [
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "time_seconds": 14.02,
+      "accomplishment_percentage_points": 0,
+      "tokens": 18957,
+      "unique_cases": 3,
+      "method": "paired_case_level"
+    }
+  ],
+  "case_coverage": [
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "current-conflicted-market",
+      "valid_pairs": 3,
+      "excluded_pairs": 0
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "historical-cutoff-integrity",
+      "valid_pairs": 3,
+      "excluded_pairs": 0
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "unresolved-identity-stop",
+      "valid_pairs": 3,
+      "excluded_pairs": 0
+    }
+  ],
+  "exclusions": {
+    "pairs": 0,
+    "reasons": {},
+    "by_target": {}
+  },
+  "claim_scope": "Development pilot that measures whether the model follows the committed Polymarket Research procedure on three synthetic offline dossiers: a current conflicted market, a historical-cutoff request, and an unresolved market identity. It does not estimate skill efficacy or measure live web or API research, source freshness, probability calibration, forecast accuracy, trading performance, profitability, or paid-provider execution.",
+  "repetitions_run": 3,
+  "targets": [
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "harness_version": "codex-cli 0.153.4",
+      "model_configuration": "model identifier only; hosted model revision unavailable; harness-default reasoning and sampling; user config ignored; tools and network disabled"
+    }
+  ],
+  "test_evidence": false,
+  "case_ids": [
+    "current-conflicted-market",
+    "historical-cutoff-integrity",
+    "unresolved-identity-stop"
+  ],
+  "manifest_case_ids": [
+    "current-conflicted-market",
+    "historical-cutoff-integrity",
+    "unresolved-identity-stop"
+  ]
+}

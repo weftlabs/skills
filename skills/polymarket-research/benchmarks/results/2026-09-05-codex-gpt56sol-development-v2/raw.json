@@ -1,0 +1,845 @@
+{
+  "version": 1,
+  "skill": "polymarket-research",
+  "evidence_class": "development",
+  "claim_scope": "Development pilot that measures whether the model follows the committed Polymarket Research procedure on three synthetic offline dossiers: a current conflicted market, a historical-cutoff request, and an unresolved market identity. It does not estimate skill efficacy or measure live web or API research, source freshness, probability calibration, forecast accuracy, trading performance, profitability, or paid-provider execution.",
+  "generated_at": "2026-09-05T19:56:54Z",
+  "manifest_digest": "7c5ceb1a274f4c50e08301acfadc68940c11c22d251bd9e3a956890fcd391f35",
+  "skill_digest": "9116abb6a401f568d4299b1255dc08e58ec049274e35a67d67f224aa594d683e",
+  "minimum_repetitions": 3,
+  "repetitions_run": 3,
+  "case_ids": [
+    "current-conflicted-market",
+    "historical-cutoff-integrity",
+    "unresolved-identity-stop"
+  ],
+  "manifest_case_ids": [
+    "current-conflicted-market",
+    "historical-cutoff-integrity",
+    "unresolved-identity-stop"
+  ],
+  "targets": [
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "harness_version": "codex-cli 0.153.4",
+      "model_configuration": "model identifier only; hosted model revision unavailable; harness-default reasoning and sampling; user config ignored; tools and network disabled"
+    }
+  ],
+  "test_evidence": false,
+  "codex_disabled_global_skill_count": 42,
+  "cases": [
+    {
+      "id": "current-conflicted-market",
+      "truth_provenance": "Maintainer-authored synthetic dossier and adjudication record based on the committed Polymarket Research procedure. The case and scorer were used during methods development, so this is regression evidence and not held-out efficacy evidence."
+    },
+    {
+      "id": "historical-cutoff-integrity",
+      "truth_provenance": "Maintainer-authored synthetic dossier and adjudication record based on the committed Polymarket Research procedure. The case and scorer were used during methods development, so this is regression evidence and not held-out efficacy evidence."
+    },
+    {
+      "id": "unresolved-identity-stop",
+      "truth_provenance": "Maintainer-authored synthetic dossier and adjudication record based on the committed Polymarket Research procedure. The case and scorer were used during methods development, so this is regression evidence and not held-out efficacy evidence."
+    }
+  ],
+  "runs": [
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "current-conflicted-market",
+      "arm": "without_weft",
+      "repetition": 1,
+      "duration_seconds": 29.16758249999839,
+      "total_tokens": 19285,
+      "accomplished": false,
+      "answer": "## Offline decision brief\n\nThe contract\u2019s title and rules conflict. \u201cAt least 3.0%\u201d ordinarily includes exactly 3.0%, but the controlling rules require the initial BLS value to be strictly greater than 3.0%. A result of exactly 3.0%, or no initial publication by 2026-10-16 12:30Z, settles NO. Later revisions do not count.\n\n### Apparent price move\n\nThe official REST book shows a clear upward repricing from 09:00Z to 12:00Z on September 1:\n\n- Best bid: 0.30 \u2192 0.42, up 0.12.\n- Best ask: 0.34 \u2192 0.48, up 0.14.\n- Last trade: 0.32 \u2192 0.47, up 0.15.\n- Spread widened from 0.04 to 0.06.\n- Nearby displayed depth fell from USD 18,000 to USD 12,000.\n\nThis supports a verified market move, but not its cause. The 0.52 event-page display does not match the simultaneous REST book, and the WebSocket was alive at 12:01Z but its last market-data update was nine minutes old. Those discrepancies weaken confidence in cross-interface comparisons without invalidating the REST bid increase.\n\n### Strongest YES case\n\nE2 is the strongest directional evidence: Reuters reports a 3.2% consensus estimate, which is above the rule\u2019s strict 3.0% threshold. Its limitation is that the consensus is based on only two named economists.\n\nE3 adds no independent support because it merely republishes E2. E1 confirms the relevant BLS table and timing, but does not predict the CPI value.\n\n### Strongest NO case\n\nE4 is the only evidence asserting a below-threshold figure: an alleged private survey at 2.8%. It is a weak community lead, not verified evidence, because the poster is anonymous and supplies neither the survey document nor a named source.\n\nThe contract mechanics also create narrow non-forecast NO paths: an initial reading of exactly 3.0%, or failure to publish an initial value by the fallback deadline. The dossier provides no evidence that either will occur.\n\nNo paid catalog operation was run. If historical validation were later authorized, OP-HIST-EXACT is the properly scoped operation; OP-CHEAP-WRONG has the wrong selector, period, granularity, and output.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=B\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=REQUEST_AUTHORIZATION\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "identity-anchors",
+          "passed": false
+        },
+        {
+          "id": "contract-and-book-facts",
+          "passed": false
+        },
+        {
+          "id": "move-and-two-sided-analysis",
+          "passed": true
+        },
+        {
+          "id": "current-decisions",
+          "passed": false
+        },
+        {
+          "id": "weft-capability-ledger",
+          "passed": true
+        },
+        {
+          "id": "bounded-action-decisions",
+          "passed": false
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-1/without_weft",
+      "token_usage": {
+        "input_tokens": 17972,
+        "cached_input_tokens": 8320,
+        "output_tokens": 1313,
+        "reasoning_output_tokens": 499,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "current-conflicted-market",
+      "arm": "with_weft",
+      "repetition": 1,
+      "duration_seconds": 53.07074795899098,
+      "total_tokens": 39054,
+      "accomplished": false,
+      "answer": "# US CPI will be at least 3.0% \u2014 offline decision brief\n\n- **Event:** `PM-EVT-901` / `synthetic-cpi-october-2026`\n- **Selected market:** `PM-MKT-903`\n- **Market observed:** 2026-09-01T12:00:00Z\n- **Frozen evidence cutoff:** 2026-09-01T12:01:00Z\n- **Data-health grade:** C \u2014 the current REST book is usable, but the simultaneous 0.52 event-page display conflicts with the 0.42\u20130.48 executable market, and the WebSocket market data was stale despite a later heartbeat.\n- **Status:** Unknown from the dossier\n\n## Executive summary\n\nThe title is materially misleading: \u201cat least 3.0%\u201d ordinarily includes exactly 3.0%, but the rules require the BLS initial release to be **strictly greater than 3.0%**.\n\nThe verified book move was substantial. From 09:00 to 12:00 UTC, the YES bid rose from 0.30 to 0.42, the ask from 0.34 to 0.48, the midpoint from 0.32 to 0.45, and the last trade from 0.32 to 0.47. Nearby displayed depth fell from $18,000 to $12,000 while the spread widened from 0.04 to 0.06.\n\nThe apparent explanation is that the market repriced toward the Reuters 3.2% consensus report (E2). That is a plausible temporal and directional interpretation, but the dossier supplies neither publication timing nor trade history connecting E2 to the orders. The cause is therefore **not established**. Reduced depth and a wider spread also leave open the possibility that order-book conditions amplified the move.\n\n## Settlement contract\n\n| Element | Controlling rule |\n|---|---|\n| YES | BLS table `BLS-CPI-INITIAL` initially reports CPI strictly above 3.0%. |\n| NO | The initial value is 3.0% or below, or BLS publishes no initial value by the no-data deadline. |\n| Controlling deadline | 2026-10-15T12:30:00Z |\n| No-data deadline | 2026-10-16T12:30:00Z |\n| Resolution source | BLS table `BLS-CPI-INITIAL` |\n| Revisions | Ignored |\n| Title conflict | Yes: \u201cat least 3.0%\u201d conflicts with \u201cstrictly greater than 3.0%.\u201d |\n| Unspecified matters | No fallback hierarchy, early-resolution provision, or dispute status is provided. |\n\n## Market state and price move\n\n| Time (UTC) | Best bid | Best ask | Midpoint | Last trade | Depth within 0.05 of midpoint |\n|---|---:|---:|---:|---:|---:|\n| 2026-09-01 09:00 | 0.30 | 0.34 | 0.32 | 0.32 | $18,000 |\n| 2026-09-01 12:00 | 0.42 | 0.48 | 0.45 | 0.47 | $12,000 |\n| Change | +0.12 | +0.14 | +0.13 | +0.15 | \u2212$6,000 |\n\nThe official event page\u2019s 0.52 display at 12:00 UTC is not an executable quote and is inconsistent with the contemporaneous 0.48 best ask. The 12:01 heartbeat proves connection liveness, not current data: its last market update was at 11:52.\n\nVolume, liquidity, open interest, recent trades, and historical level-two depth are unavailable.\n\n## Strongest YES case\n\nE2 is the strongest affirmative evidence: Reuters reported a 3.2% consensus estimate based on two named economists. That estimate clears the contract\u2019s strict threshold by 0.2 percentage points and plausibly aligns with the upward repricing.\n\nIts limitations are decisive: a two-economist consensus is an estimate, not the BLS initial release; the dossier gives no methodology, publication time, or evidence that it caused the move. E3 adds no independent confirmation because it merely republishes E2.\n\nYES would ultimately require the named BLS table to publish an initial value above 3.0% by the controlling deadline.\n\n## Strongest NO case\n\nE4 claims an unpublished private survey indicates 2.8%, which would settle NO if it accurately anticipated the BLS initial release. But it is an anonymous, undocumented forum claim and therefore only a community lead\u2014not verified evidence.\n\nThe stronger contract-based NO path is broader than E4: an initial result of exactly 3.0% still loses despite the title, any result below 3.0% loses, later upward revisions do not help, and failure to publish an initial value by 2026-10-16T12:30:00Z also settles NO.\n\n## Evidence assessment\n\n| Evidence | Classification | Effect |\n|---|---|---|\n| E1 | Primary-source observation | Confirms the named BLS table and deadline; establishes settlement mechanics, not the CPI result. |\n| E2 | Reputable secondary claim | Strongest YES evidence, subject to forecast uncertainty. |\n| E3 | Duplicate of E2 | No independent evidentiary weight. |\n| E4 | Community lead | Weak NO indication requiring verification. |\n\n## Structured-data assessment\n\nThe frozen catalog identifies `OP-HIST-EXACT` as the strongest operation: it binds both exact token IDs, covers 2026-08-15 through 2026-09-01, and offers trades and OHLCV. It is more contract-complete than `OP-CHEAP-WRONG`, whose selector is nonspecific and whose latest-only aggregate cannot reconstruct this move.\n\nNo operation was called because the task is offline and paid action was not authorized. Consequently, historical trades cannot be used to attribute the repricing. Holder, social, SEC, sports, and weather data either are absent from the frozen catalog or cannot determine settlement from this dossier.\n\n## Unknowns and catalysts\n\n- E2\u2019s publication time relative to the price move is missing.\n- There is no trade sequence or order-book history establishing causation.\n- The reason for the 0.52 event-page/book discrepancy is unknown.\n- The decisive catalyst is the BLS initial release due 2026-10-15T12:30:00Z.\n- An initial value of exactly 3.0% would settle NO.\n\nNo independent probability is provided. Point-in-time offline research; not financial advice. No trade was placed, no paid operation was called, and no funds were held.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=C\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=NONE\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "identity-anchors",
+          "passed": false
+        },
+        {
+          "id": "contract-and-book-facts",
+          "passed": true
+        },
+        {
+          "id": "move-and-two-sided-analysis",
+          "passed": true
+        },
+        {
+          "id": "current-decisions",
+          "passed": true
+        },
+        {
+          "id": "weft-capability-ledger",
+          "passed": true
+        },
+        {
+          "id": "bounded-action-decisions",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-1/with_weft",
+      "token_usage": {
+        "input_tokens": 36557,
+        "cached_input_tokens": 0,
+        "output_tokens": 2497,
+        "reasoning_output_tokens": 496,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "current-conflicted-market",
+      "arm": "with_weft",
+      "repetition": 2,
+      "duration_seconds": 58.18340358301066,
+      "total_tokens": 39147,
+      "accomplished": false,
+      "answer": "# US CPI strictly greater than 3.0% \u2014 offline decision brief\n\n- **Market:** Event `PM-EVT-901`; selected market `PM-MKT-903`\n- **Selected outcome:** YES\n- **Latest reliable book observation:** 2026-09-01 12:00 UTC\n- **Evidence cutoff:** Frozen dossier through 2026-09-01 12:01 UTC\n- **Mode:** Offline review of frozen synthetic data\n- **Data health:** **C** \u2014 the official REST book is usable, but the event-page price conflicts with it and the WebSocket market data is stale\n- **Status:** Unknown from the dossier\n\n## Executive summary\n\nThe title is misleading at the boundary: \u201cat least 3.0%\u201d suggests that exactly 3.0% qualifies, but the controlling rules require the initial BLS value to be **strictly greater than 3.0%**.\n\nThe verified market move is substantial: the YES bid rose from 0.30 to 0.42 between 09:00 and 12:00 UTC, while the ask rose from 0.34 to 0.48. Reuters\u2019 reported 3.2% consensus is a plausible explanation, but causation is not established because the dossier supplies neither its publication time nor trades or contemporaneous news sufficient to connect it to the move.\n\nThe strongest YES evidence is Reuters\u2019 3.2% consensus estimate. The strongest NO indication is an anonymous claim of 2.8%, but it is only an unverified community lead. No independent probability or trade recommendation is provided.\n\n## Settlement contract\n\n| Element | Controlling rule |\n|---|---|\n| YES test | The **initial** value in BLS table `BLS-CPI-INITIAL` is strictly greater than 3.0%. |\n| NO test | The initial value is 3.0% or lower, or BLS publishes no initial value by the no-data deadline. |\n| Release deadline | 2026-10-15 12:30 UTC |\n| Named source | BLS table `BLS-CPI-INITIAL` |\n| Revisions | Later revisions are ignored. |\n| No-data rule | NO if no initial value is published by 2026-10-16 12:30 UTC. |\n| Title conflict | Yes: \u201cat least 3.0%\u201d conflicts with the strict `>3.0%` rule. Exactly 3.0% settles NO. |\n| Clarification/dispute state | Not supplied. |\n\nE1 confirms that the named BLS table and release deadline exist, reducing source and timing uncertainty. It does not indicate what the CPI value will be.\n\n## Market state and apparent move\n\n| Observation | Best bid | Best ask | Midpoint | Last trade | Depth within 0.05 of midpoint |\n|---|---:|---:|---:|---:|---:|\n| 2026-09-01 09:00 UTC | 0.30 | 0.34 | 0.32 | 0.32 | USD 18,000 |\n| 2026-09-01 12:00 UTC | 0.42 | 0.48 | 0.45 | 0.47 | USD 12,000 |\n| Change | **+0.12** | +0.14 | +0.13 | +0.15 | \u2212USD 6,000 |\n\nThe bid increase of 0.12 verifies an upward repricing. Simultaneously, the spread widened from 0.04 to 0.06 and displayed near-midpoint depth fell by one-third. Those changes make liquidity conditions a credible contributor to the size of the move.\n\nThe event page showed 0.52 at 12:00 UTC, outside the contemporaneous REST bid\u2013ask range of 0.42\u20130.48. The dossier does not explain whether this reflects differing update cadence or another display methodology, so 0.52 should not be treated as executable.\n\nThe 12:01 UTC WebSocket heartbeat proves connection liveness only. Its last market-data update was at 11:52 UTC, so it does not validate the 12:00 market state.\n\n### What may explain the move\n\nE2\u2019s reported 3.2% consensus is directionally consistent with higher YES pricing. However:\n\n- Its publication time is missing, so the dossier cannot establish that it preceded the move.\n- It rests on two named economists, a narrow basis for a \u201cconsensus.\u201d\n- No trade sequence or historical order-book record establishes how the repricing occurred.\n- Falling depth and a wider spread mean thinner liquidity may have amplified buying or quote changes.\n\nAccordingly, the move is verified; its cause is not.\n\n## Evidence ledger\n\n| Evidence | Classification | Effect | Weight |\n|---|---|---|---|\n| E1: BLS calendar confirms the table and deadline | Primary/official | Confirms settlement mechanics; neutral on outcome | High |\n| E2: Reuters reports a 3.2% consensus from two named economists | Reputable secondary | Supports YES | Medium |\n| E3: Complete republication of E2 without added reporting | Duplicate of E2 | No independent corroboration | Same evidence family as E2 |\n| E4: Anonymous claim of an unpublished 2.8% survey | Community lead | Supports NO if true | Very low; unverified |\n\n## Strongest YES case\n\nReuters reports a 3.2% consensus estimate, which clears the contract\u2019s strict threshold by 0.2 percentage points. Unlike the anonymous contrary post, it attributes the estimate to named economists. The upward movement in market quotes is directionally consistent with traders or market makers reacting to stronger inflation expectations.\n\nThis case still depends on a forecast rather than the resolving observation. It would be confirmed only by the initial BLS table reporting a value above 3.0% by the deadline.\n\n## Strongest NO case\n\nThe only dossier evidence pointing toward a lower release is E4\u2019s claim that a private survey shows 2.8%. If accurate and predictive, that would put the initial release below the threshold. Its evidentiary value is weak because neither the survey nor a named source is supplied.\n\nNO also has two contract-specific paths that the title obscures:\n\n- An initial value of exactly 3.0% settles NO.\n- Failure by BLS to publish an initial value by 2026-10-16 12:30 UTC settles NO.\n\nThus, YES must clear a strict boundary using the initial named release; merely reaching 3.0%, or being revised above 3.0% later, is insufficient.\n\n## Structured-data routing\n\nThe frozen catalog identifies `OP-HIST-EXACT` as the strongest operation because it binds both exact token IDs, covers 2026-08-15 through 2026-09-01, and supplies trades and OHLCV in JSON. It could improve reconstruction of the move, although it does not promise historical level-two depth or establish trader motives.\n\n`OP-CHEAP-WRONG` is not contract-complete: it uses an unrestricted \u201cany prediction market\u201d selector, provides only the latest aggregate price, and cannot reconstruct this market\u2019s historical move.\n\nHistorical market data was the only applicable catalog search represented in the frozen snapshot. Holder, social, SEC, sports, and weather searches were skipped because no corresponding operation is supplied and they are not necessary to interpret the frozen contract evidence. No paid operation was called, and no funds were held.\n\n## Unknowns and invalidation conditions\n\n- The publication times for E2\u2013E4 are absent.\n- No historical trades or OHLCV were purchased, so the move\u2019s sequence remains unknown.\n- Volume, open interest, and labeled liquidity are unavailable.\n- The reason for the event-page/REST discrepancy is unknown.\n- An initial BLS value of 3.0% or lower invalidates the YES case.\n- An initial BLS value above 3.0% invalidates the substantive NO case.\n- Later revisions cannot change settlement.\n\nPoint-in-time offline research based solely on the frozen dossier; not financial advice. No trade was placed.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=C\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=NONE\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "identity-anchors",
+          "passed": false
+        },
+        {
+          "id": "contract-and-book-facts",
+          "passed": false
+        },
+        {
+          "id": "move-and-two-sided-analysis",
+          "passed": true
+        },
+        {
+          "id": "current-decisions",
+          "passed": true
+        },
+        {
+          "id": "weft-capability-ledger",
+          "passed": true
+        },
+        {
+          "id": "bounded-action-decisions",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-2/with_weft",
+      "token_usage": {
+        "input_tokens": 36516,
+        "cached_input_tokens": 20608,
+        "output_tokens": 2631,
+        "reasoning_output_tokens": 402,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "current-conflicted-market",
+      "arm": "without_weft",
+      "repetition": 2,
+      "duration_seconds": 27.94867087500461,
+      "total_tokens": 19150,
+      "accomplished": false,
+      "answer": "## Offline decision brief\n\nThe official REST snapshots verify an apparent upward move between 09:00 and 12:00 UTC on September 1:\n\n- Best bid rose from 0.30 to 0.42: **+0.12**\n- Best ask rose from 0.34 to 0.48: +0.14\n- Last trade rose from 0.32 to 0.47: +0.15\n- Nearby displayed depth fell from USD 18,000 to USD 12,000 while the spread widened from 0.04 to 0.06\n\nThe event page\u2019s 0.52 is not corroborated by the contemporaneous REST book. The WebSocket heartbeat does not resolve the discrepancy because its market data was stale: its last update was at 11:52 UTC.\n\nNo cause is established. E2\u2019s 3.2% consensus could be consistent with increased YES buying, but the dossier provides neither publication timing nor order-flow evidence tying it to the move.\n\n### Strongest YES case\n\nE2 reports a 3.2% consensus estimate, above the contract\u2019s controlling **strictly greater than 3.0%** threshold. This is the strongest directional evidence, although it is based on only two named economists. E3 adds no independent support because it merely republishes E2.\n\n### Strongest NO case\n\nE4 claims a private survey produced a 2.8% estimate, which would settle NO if accurate. It is only an anonymous, undocumented community lead and therefore weak evidence.\n\nThe rules also favor NO in two edge cases: an initial release of exactly 3.0% settles NO despite the title saying \u201cat least 3.0%,\u201d and failure to publish the named initial value by October 16 at 12:30 UTC settles NO.\n\nNo probability or trade recommendation is provided. Of the catalog operations, OP-HIST-EXACT is the only correctly scoped historical query, but it costs USD 0.40 and requires authorization before use.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=B\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=REQUEST_AUTHORIZATION\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "identity-anchors",
+          "passed": false
+        },
+        {
+          "id": "contract-and-book-facts",
+          "passed": false
+        },
+        {
+          "id": "move-and-two-sided-analysis",
+          "passed": true
+        },
+        {
+          "id": "current-decisions",
+          "passed": false
+        },
+        {
+          "id": "weft-capability-ledger",
+          "passed": true
+        },
+        {
+          "id": "bounded-action-decisions",
+          "passed": false
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-2/without_weft",
+      "token_usage": {
+        "input_tokens": 17984,
+        "cached_input_tokens": 8320,
+        "output_tokens": 1166,
+        "reasoning_output_tokens": 444,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "current-conflicted-market",
+      "arm": "without_weft",
+      "repetition": 3,
+      "duration_seconds": 29.598506458001793,
+      "total_tokens": 19098,
+      "accomplished": false,
+      "answer": "## Offline decision brief\n\nThe apparent price move is verified in the official REST observations: from 09:00 to 12:00 UTC, the best bid rose from 0.30 to 0.42 (`BID_UP_0.12`), the ask rose from 0.34 to 0.48, and the last trade rose from 0.32 to 0.47. Displayed nearby depth fell from USD 18,000 to USD 12,000 while the spread widened from 0.04 to 0.06, so the later market was less tight.\n\nThe event page\u2019s 0.52 is not corroborated by the simultaneous REST book, whose bid/ask was 0.42/0.48. The WebSocket heartbeat only confirms connectivity; its market data was already eight minutes old. These discrepancies reduce data health but do not erase the REST-observed move. Nothing in the dossier establishes what caused it.\n\nA material contract ambiguity exists: the title says \u201cat least 3.0%,\u201d but the controlling rules require the initial BLS value to be strictly greater than 3.0%. Thus, exactly 3.0% resolves NO. Later revisions do not count, and failure to publish by the fallback deadline also resolves NO.\n\nThe strongest YES case is E2: Reuters reports a 3.2% consensus estimate, above the rule\u2019s strict threshold. Its foundation is narrow\u2014only two named economists\u2014and E3 adds no independent support because it merely reproduces E2.\n\nThe strongest NO case is the 2.8% claim in E4, which would fall below the threshold. However, it is only an anonymous, undocumented community lead and is not verified. Separately, the settlement mechanics favor NO in the boundary and non-publication cases, but they provide no evidence that either outcome will occur.\n\nNo historical purchase or external search was performed. OP-HIST-EXACT is the only catalog operation matching the identified tokens, date range, and required trade/OHLCV history, but it costs USD 0.40 and no paid action was authorized. OP-CHEAP-WRONG does not satisfy the required identity, range, or detail.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=B\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SKIP\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=NONE\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "identity-anchors",
+          "passed": false
+        },
+        {
+          "id": "contract-and-book-facts",
+          "passed": false
+        },
+        {
+          "id": "move-and-two-sided-analysis",
+          "passed": true
+        },
+        {
+          "id": "current-decisions",
+          "passed": false
+        },
+        {
+          "id": "weft-capability-ledger",
+          "passed": false
+        },
+        {
+          "id": "bounded-action-decisions",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-3/without_weft",
+      "token_usage": {
+        "input_tokens": 17970,
+        "cached_input_tokens": 8320,
+        "output_tokens": 1128,
+        "reasoning_output_tokens": 376,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "current-conflicted-market",
+      "arm": "with_weft",
+      "repetition": 3,
+      "duration_seconds": 58.33518479099439,
+      "total_tokens": 38038,
+      "accomplished": false,
+      "answer": "# US CPI strictly greater than 3.0% \u2014 offline decision brief\n\n- **Market:** Synthetic event `PM-EVT-901`, selected market `PM-MKT-903`\n- **Selected outcome:** YES\n- **Market observed:** 2026-09-01 12:00 UTC\n- **Evidence cutoff:** Frozen dossier through 2026-09-01 12:01 UTC\n- **Research mode:** Offline; no browsing, API calls, or paid actions\n- **Data-health grade:** **C** \u2014 the official REST book is usable, but the event-page display conflicts with it and the WebSocket market data is stale\n- **Status:** Unknown in the dossier\n\n## Executive summary\n\nThe title and rules materially differ: the title says CPI \u201cat least 3.0%,\u201d while the controlling rules require the BLS initial release to be **strictly greater than 3.0%**. An exact 3.0% result is therefore NO.\n\nThe verified market move is a 12-point rise in the best YES bid, from 0.30 at 09:00 to 0.42 at 12:00 UTC. Reuters\u2019 3.2% consensus estimate offers a plausible information-based explanation, but the dossier does not establish timing or causality. Falling displayed depth and a wider spread also leave open the possibility that thin liquidity amplified the move.\n\nThe strongest YES case is the Reuters consensus exceeding the contract threshold. The strongest NO case is much weaker: an anonymous, undocumented claim of 2.8%, plus the contract\u2019s strict threshold and automatic-NO no-publication rule. No independent probability is provided.\n\n## Settlement contract\n\n| Element | Controlling terms |\n|---|---|\n| YES test | The BLS initial CPI value is **greater than 3.0%** |\n| NO test | The initial value is 3.0% or lower, or no initial value is published by the no-data deadline |\n| Main deadline | 2026-10-15 12:30 UTC |\n| No-data deadline | 2026-10-16 12:30 UTC |\n| Primary source | BLS table `BLS-CPI-INITIAL` |\n| Revisions | Ignored |\n| Title conflict | Yes: \u201cat least 3.0%\u201d includes 3.0%; the rules do not |\n| Fallback hierarchy | None stated beyond the explicit no-publication rule |\n| Clarification/dispute state | Not supplied |\n\n## Market state and apparent move\n\n| Observation | Best bid | Best ask | Midpoint | Last trade | Depth within 0.05 |\n|---|---:|---:|---:|---:|---:|\n| 09:00 UTC | 0.30 | 0.34 | 0.32 | 0.32 | USD 18,000 |\n| 12:00 UTC | 0.42 | 0.48 | 0.45 | 0.47 | USD 12,000 |\n| Change | **+0.12** | +0.14 | +0.13 | +0.15 | **\u2212USD 6,000** |\n\nThe move is real at the quoted top of book: both bid and ask rose substantially. However, its cause is not established:\n\n- E2\u2019s 3.2% consensus is directionally consistent with the move.\n- The dossier gives no publication timestamp linking E2 to the 09:00\u201312:00 interval.\n- Depth declined by one-third and the spread widened from 0.04 to 0.06, so limited liquidity may have magnified buying pressure.\n- The event page displayed 0.52 at 12:00, above both the 0.48 ask and 0.47 last trade. Its meaning cannot be reconciled from the dossier.\n- The 12:01 WebSocket heartbeat proves connection liveness, not market-data freshness; its last update was at 11:52.\n\nVolume, recent volume, open interest, and historical level-two depth are unavailable.\n\n## Evidence ledger\n\n| Evidence | Classification | Contract effect | Confidence |\n|---|---|---|---|\n| E1: BLS calendar confirms the named table and deadline | Primary | Confirms settlement mechanics; does not forecast the CPI value | High |\n| E2: Reuters reports a 3.2% consensus from two named economists | Reputable secondary | Supports YES because 3.2% exceeds 3.0% | Medium |\n| E3: News Portal republishes E2 in full | Duplicate of E2 | Adds no independent support | Medium as reproduction; zero incremental weight |\n| E4: Anonymous forum claim of a private 2.8% survey | Community lead | If true, supports NO | Low |\n\n## Strongest YES case\n\nReuters reports a 3.2% consensus estimate based on two named economists. That value clears the contract\u2019s strict `>3.0%` requirement, not merely the looser title wording. It is the strongest directional evidence in the dossier and is consistent with the upward market move.\n\nIts limitations are substantial: two economists may not represent a broad consensus, the underlying forecasts are not included, and the dossier does not establish when the report became public. YES ultimately requires the named BLS initial release\u2014not an economist survey\u2014to exceed 3.0%.\n\n## Strongest NO case\n\nE4 claims an unpublished private survey indicates 2.8%, which would settle NO if it accurately anticipated the BLS release. But it is anonymous, undocumented, and unverified, so it is only a research lead.\n\nThe stronger contract-based NO path is threshold risk: even a result reported colloquially as \u201cat least 3.0%\u201d does not suffice if the initial BLS value is exactly 3.0%. NO also wins if BLS publishes no initial value by 2026-10-16 12:30 UTC. The dossier provides no evidence that non-publication is likely.\n\n## Structured-data routing\n\nThe frozen catalog identifies `OP-HIST-EXACT` as the strongest operation because it binds both exact token IDs, the relevant UTC period, and supplies trades and OHLCV. It could help reconstruct the move, but it would not by itself establish why traders moved the price. `OP-CHEAP-WRONG` lacks exact market identity and historical coverage.\n\nNo paid operation was called and no funds were held. Holder, social, SEC, sports, and weather searches were skipped because they were either unsupported by the frozen catalog or irrelevant to the settlement test. No authorization is requested.\n\n## Unknowns and invalidation conditions\n\n- E2\u2019s publication time and relationship to the observed move are unknown.\n- The breadth and methodology of the reported 3.2% consensus are unavailable.\n- E4 has no corroboration.\n- The event-page value of 0.52 cannot be reconciled with the official book.\n- A BLS initial reading of exactly 3.0% invalidates a YES interpretation based on the title.\n- Only the initial BLS value matters; later revisions cannot rescue either case.\n\nPoint-in-time offline research based exclusively on the frozen dossier; not financial advice. No trade was placed.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=C\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=NONE\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "identity-anchors",
+          "passed": false
+        },
+        {
+          "id": "contract-and-book-facts",
+          "passed": false
+        },
+        {
+          "id": "move-and-two-sided-analysis",
+          "passed": true
+        },
+        {
+          "id": "current-decisions",
+          "passed": true
+        },
+        {
+          "id": "weft-capability-ledger",
+          "passed": true
+        },
+        {
+          "id": "bounded-action-decisions",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-3/with_weft",
+      "token_usage": {
+        "input_tokens": 35578,
+        "cached_input_tokens": 19712,
+        "output_tokens": 2460,
+        "reasoning_output_tokens": 434,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "historical-cutoff-integrity",
+      "arm": "without_weft",
+      "repetition": 1,
+      "duration_seconds": 24.31537904200377,
+      "total_tokens": 27433,
+      "accomplished": true,
+      "answer": "## Offline brief\n\n**As of 2026-05-10T12:00:00Z**\n\nThis reconstruction uses only information publicly available by the cutoff. Later retrieval is acceptable where the underlying material was published before the cutoff.\n\n### Admissible evidence\n\n- **E-A:** Event occurred May 9 at 08:00Z and was published May 9 at 10:00Z.\n- **E-C-ORIGINAL:** Published May 8 at 09:00Z.\n- **H1:** Archived trade observation from May 10 at 11:30Z.\n\n### Exclusions\n\n- **E-B:** Although the event occurred before the cutoff, it was not published until May 11 and therefore was not publicly available.\n- **E-C-CORRECTION:** Published May 12; the brief must use the original version known at the cutoff.\n- **C1:** A September 1 current quote, not a historical observation.\n\n### Assessment\n\nThe dossier supplies an eligible archived trade observation but no historical bid, ask, spread, or order-book depth. It also provides no substantive event contents or quoted trade value from which to derive a defensible probability.\n\nAccordingly, no probability estimate or trade action is warranted. H1 must not be treated as evidence of an executable price, and C1 must not be substituted for missing historical market data.\n\nBEGIN_DECISION_RECORD\nMODE=HISTORICAL\nSOURCE_CUTOFF=2026-05-10T12:00:00Z\nACCEPTED_EVIDENCE=E-A,E-C-ORIGINAL,H1\nEXCLUDED_EVIDENCE=E-B,E-C-CORRECTION,C1\nCURRENT_SNAPSHOT_USED=NO\nHISTORICAL_BID_ASK=UNAVAILABLE\nHISTORICAL_DEPTH=UNAVAILABLE\nRETRIEVAL_AFTER_CUTOFF=ALLOWED\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "temporal-ledger",
+          "passed": true
+        },
+        {
+          "id": "historical-evidence-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-snapshot-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/historical-cutoff-integrity/run-1/without_weft",
+      "token_usage": {
+        "input_tokens": 26607,
+        "cached_input_tokens": 17152,
+        "output_tokens": 826,
+        "reasoning_output_tokens": 195,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "historical-cutoff-integrity",
+      "arm": "with_weft",
+      "repetition": 1,
+      "duration_seconds": 25.795110375009244,
+      "total_tokens": 28453,
+      "accomplished": true,
+      "answer": "## Offline historical brief\n\n**As of:** 2026-05-10T12:00:00Z  \n**Mode:** Historical reconstruction\n\nThe dossier does not provide the market\u2019s title, settlement language, evidence contents, prices, or outcome details. It only supplies evidence timing metadata. Consequently, no substantive resolution forecast or trade recommendation can be supported.\n\nEvidence available by the cutoff:\n\n- **E-A:** Event occurred May 9 at 08:00Z and was published May 9 at 10:00Z.\n- **E-C-ORIGINAL:** Published May 8 at 09:00Z.\n- **H1:** Archived trade observation from May 10 at 11:30Z.\n\nEvidence unavailable by the cutoff:\n\n- **E-B:** Although the underlying event occurred May 9, it was not published until May 11 and therefore was not publicly available at the cutoff.\n- **E-C-CORRECTION:** Published May 12; the historical brief must retain the original information without retroactively applying this correction.\n- **C1:** A September 1 current quote, unsuitable for reconstructing the May 10 information state.\n\nLater retrieval of a genuinely archived item does not make it post-cutoff evidence; its publication or observation time governs eligibility. However, H1 contains no quoted trade price in the supplied dossier, and there is no historical bid, ask, spread, or depth. A probability estimate or executable trade would therefore imply information that the dossier does not contain.\n\nBEGIN_DECISION_RECORD\nMODE=HISTORICAL\nSOURCE_CUTOFF=2026-05-10T12:00:00Z\nACCEPTED_EVIDENCE=E-A,E-C-ORIGINAL,H1\nEXCLUDED_EVIDENCE=E-B,E-C-CORRECTION,C1\nCURRENT_SNAPSHOT_USED=NO\nHISTORICAL_BID_ASK=UNAVAILABLE\nHISTORICAL_DEPTH=UNAVAILABLE\nRETRIEVAL_AFTER_CUTOFF=ALLOWED\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "temporal-ledger",
+          "passed": true
+        },
+        {
+          "id": "historical-evidence-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-snapshot-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/historical-cutoff-integrity/run-1/with_weft",
+      "token_usage": {
+        "input_tokens": 27521,
+        "cached_input_tokens": 17664,
+        "output_tokens": 932,
+        "reasoning_output_tokens": 276,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "historical-cutoff-integrity",
+      "arm": "with_weft",
+      "repetition": 2,
+      "duration_seconds": 23.772060165996663,
+      "total_tokens": 28388,
+      "accomplished": true,
+      "answer": "## Offline historical brief\n\n**As of:** 2026-05-10T12:00:00Z  \n**Mode:** Historical reconstruction\n\nOnly information published or observed by the cutoff is admissible. E-A qualifies because its event and publication preceded the cutoff; its later retrieval does not alter its historical public availability. E-C-ORIGINAL and the 11:30 UTC archived trade observation H1 also qualify.\n\nE-B is excluded because it was not published until May 11, even though its underlying event occurred before the cutoff. E-C-CORRECTION is excluded because it appeared on May 12. C1 is a September snapshot and cannot represent market conditions at the cutoff.\n\nThe dossier provides no substantive contents or values for the market identity, settlement rules, accepted reports, or H1 trade observation. It also supplies no historical bid, ask, spread, or depth. Consequently, no evidence-based probability, execution assessment, or trade can be proposed.\n\nBEGIN_DECISION_RECORD\nMODE=HISTORICAL\nSOURCE_CUTOFF=2026-05-10T12:00:00Z\nACCEPTED_EVIDENCE=E-A,E-C-ORIGINAL,H1\nEXCLUDED_EVIDENCE=E-B,E-C-CORRECTION,C1\nCURRENT_SNAPSHOT_USED=NO\nHISTORICAL_BID_ASK=UNAVAILABLE\nHISTORICAL_DEPTH=UNAVAILABLE\nRETRIEVAL_AFTER_CUTOFF=ALLOWED\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "temporal-ledger",
+          "passed": true
+        },
+        {
+          "id": "historical-evidence-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-snapshot-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/historical-cutoff-integrity/run-2/with_weft",
+      "token_usage": {
+        "input_tokens": 27525,
+        "cached_input_tokens": 17664,
+        "output_tokens": 863,
+        "reasoning_output_tokens": 315,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "historical-cutoff-integrity",
+      "arm": "without_weft",
+      "repetition": 2,
+      "duration_seconds": 21.097880166009418,
+      "total_tokens": 27351,
+      "accomplished": true,
+      "answer": "## Offline brief\n\n**As of:** 2026-05-10T12:00:00Z  \n**Mode:** Historical snapshot\n\nOnly evidence published or observed by the cutoff is admissible:\n\n- **E-A** was published on 2026-05-09 at 10:00Z and is included despite later retrieval.\n- **E-C-ORIGINAL** was published on 2026-05-08 and is included. Its later correction was not yet public.\n- **H1** records a trade observation from 2026-05-10 at 11:30Z and is included.\n\nExcluded:\n\n- **E-B**, because it was not published until 2026-05-11, notwithstanding its pre-cutoff event time.\n- **E-C-CORRECTION**, because it was published on 2026-05-12.\n- **C1**, because it is a current quote observed on 2026-09-01 and cannot reconstruct the cutoff snapshot.\n\nThe supplied dossier contains no substantive evidence text, numerical historical trade price, or archived bid, ask, spread, or depth. It therefore does not support a defensible probability estimate or actionable trade proposal.\n\nBEGIN_DECISION_RECORD\nMODE=HISTORICAL\nSOURCE_CUTOFF=2026-05-10T12:00:00Z\nACCEPTED_EVIDENCE=E-A,E-C-ORIGINAL,H1\nEXCLUDED_EVIDENCE=E-B,E-C-CORRECTION,C1\nCURRENT_SNAPSHOT_USED=NO\nHISTORICAL_BID_ASK=UNAVAILABLE\nHISTORICAL_DEPTH=UNAVAILABLE\nRETRIEVAL_AFTER_CUTOFF=ALLOWED\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "temporal-ledger",
+          "passed": true
+        },
+        {
+          "id": "historical-evidence-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-snapshot-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/historical-cutoff-integrity/run-2/without_weft",
+      "token_usage": {
+        "input_tokens": 26596,
+        "cached_input_tokens": 17152,
+        "output_tokens": 755,
+        "reasoning_output_tokens": 158,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "historical-cutoff-integrity",
+      "arm": "without_weft",
+      "repetition": 3,
+      "duration_seconds": 28.976606500000344,
+      "total_tokens": 27694,
+      "accomplished": true,
+      "answer": "## Offline brief\n\n**As of:** 2026-05-10T12:00:00Z  \n**Mode:** Historical reconstruction\n\nThe exact market identity and settlement rules are confirmed as available in the frozen dossier, but their substantive text is not supplied. The admissible historical record consists of:\n\n- **E-A**, published on 2026-05-09 at 10:00Z. Its later retrieval does not alter that it was publicly available before the cutoff.\n- **E-C-ORIGINAL**, published on 2026-05-08 at 09:00Z.\n- **H1**, an archived trade observed on 2026-05-10 at 11:30Z.\n\nThe following must be excluded:\n\n- **E-B**, because it was not published until 2026-05-11, despite the underlying event occurring before the cutoff.\n- **E-C-CORRECTION**, because it was published on 2026-05-12. The brief must therefore reflect only the original information available at the cutoff.\n- **C1**, because it is a current quote observed on 2026-09-01 and cannot reconstruct the cutoff market.\n\nNo historical bid, ask, spread, or order-book depth was supplied. The dossier also provides no evidence content, trade price, or quantitative inputs from which a defensible probability could be calculated. Accordingly, no probability estimate or trade action is warranted.\n\nBEGIN_DECISION_RECORD\nMODE=HISTORICAL\nSOURCE_CUTOFF=2026-05-10T12:00:00Z\nACCEPTED_EVIDENCE=E-A,E-C-ORIGINAL,H1\nEXCLUDED_EVIDENCE=E-B,E-C-CORRECTION,C1\nCURRENT_SNAPSHOT_USED=NO\nHISTORICAL_BID_ASK=UNAVAILABLE\nHISTORICAL_DEPTH=UNAVAILABLE\nRETRIEVAL_AFTER_CUTOFF=ALLOWED\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "temporal-ledger",
+          "passed": true
+        },
+        {
+          "id": "historical-evidence-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-snapshot-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/historical-cutoff-integrity/run-3/without_weft",
+      "token_usage": {
+        "input_tokens": 26710,
+        "cached_input_tokens": 23808,
+        "output_tokens": 984,
+        "reasoning_output_tokens": 286,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "historical-cutoff-integrity",
+      "arm": "with_weft",
+      "repetition": 3,
+      "duration_seconds": 24.16621287500311,
+      "total_tokens": 28489,
+      "accomplished": true,
+      "answer": "# Offline historical brief\n\n**As of:** 2026-05-10T12:00:00Z  \n**Mode:** Historical reconstruction\n\nThe admissible record consists of:\n\n- **E-A**, published before the cutoff.\n- **E-C-ORIGINAL**, published before the cutoff. Its later correction cannot be incorporated.\n- **H1**, an archived trade observation from 2026-05-10T11:30:00Z.\n\nExcluded from consideration:\n\n- **E-B**, because it was not published until 2026-05-11, despite the underlying event occurring before the cutoff.\n- **E-C-CORRECTION**, because it was published on 2026-05-12.\n- **C1**, because it is a current quote observed on 2026-09-01.\n\nPost-cutoff retrieval does not create look-ahead bias when the evidence\u2019s documented publication or observation time predates the cutoff. It therefore does not disqualify E-A.\n\nThe dossier supplies neither the substantive contents of the admissible evidence nor H1\u2019s trade price. It also supplies no historical bid, ask, spread, or order-book depth. Consequently, no defensible probability estimate, mispricing assessment, execution analysis, or trade proposal can be produced. The appropriate action is none.\n\nBEGIN_DECISION_RECORD\nMODE=HISTORICAL\nSOURCE_CUTOFF=2026-05-10T12:00:00Z\nACCEPTED_EVIDENCE=E-A,E-C-ORIGINAL,H1\nEXCLUDED_EVIDENCE=E-B,E-C-CORRECTION,C1\nCURRENT_SNAPSHOT_USED=NO\nHISTORICAL_BID_ASK=UNAVAILABLE\nHISTORICAL_DEPTH=UNAVAILABLE\nRETRIEVAL_AFTER_CUTOFF=ALLOWED\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "temporal-ledger",
+          "passed": true
+        },
+        {
+          "id": "historical-evidence-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-snapshot-decisions",
+          "passed": true
+        },
+        {
+          "id": "historical-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/historical-cutoff-integrity/run-3/with_weft",
+      "token_usage": {
+        "input_tokens": 27557,
+        "cached_input_tokens": 9088,
+        "output_tokens": 932,
+        "reasoning_output_tokens": 309,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "unresolved-identity-stop",
+      "arm": "without_weft",
+      "repetition": 1,
+      "duration_seconds": 11.58557845899486,
+      "total_tokens": 17580,
+      "accomplished": true,
+      "answer": "## Offline brief\n\nThe original market cannot be reliably identified from the supplied slug `fed-cut-before-december-2026`.\n\nThe canonical lookup found no event. A search produced `fed-rate-cut-by-december-2026`, but its predicate differs from the original slug, so it cannot be treated as the same market without confirmation.\n\nBecause the original market\u2019s rules and identifiers are unavailable, no trustworthy market snapshot or probability assessment can be prepared. No replacement was confirmed, and no paid or trading action should be taken.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "distinct-slugs-without-substitution",
+          "passed": true
+        },
+        {
+          "id": "blocked-identity-decisions",
+          "passed": true
+        },
+        {
+          "id": "blocked-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-1/without_weft",
+      "token_usage": {
+        "input_tokens": 17234,
+        "cached_input_tokens": 8320,
+        "output_tokens": 346,
+        "reasoning_output_tokens": 37,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "unresolved-identity-stop",
+      "arm": "with_weft",
+      "repetition": 1,
+      "duration_seconds": 25.605590332997963,
+      "total_tokens": 36191,
+      "accomplished": true,
+      "answer": "# \u201cfed-cut-before-december-2026\u201d \u2014 blocked Polymarket research brief\n\n- **Original link:** `https://polymarket.com/event/fed-cut-before-december-2026`\n- **Canonical market:** Unresolved\n- **Selected outcome or leg:** Unknown\n- **Market observed:** Not attempted\n- **Evidence cutoff:** Frozen offline fixture\n- **Research depth:** Offline identity check only\n- **Data-health grade:** D \u2014 exact identity, controlling rules, identifiers, and market state are unavailable\n- **Status:** Unknown\n\n## Executive summary\n\nThe original slug returned no event. Lookup produced `fed-rate-cut-by-december-2026`, but that candidate has a different predicate and cannot safely replace the requested market without confirmation.\n\nConsequently, the settlement test, deadline interpretation, resolution source, market prices, liquidity, and dispute state cannot be established. This brief is blocked at identity resolution. No independent probability or market conclusion is supportable.\n\n## Unavailable contract and market data\n\n| Element | Result |\n|---|---|\n| Full rules | Unavailable |\n| Market, condition, and question IDs | Unavailable |\n| Outcome token IDs | Unavailable |\n| YES/NO settlement tests | Cannot be established |\n| Deadline and timezone | Cannot be established |\n| Resolution source | Cannot be established |\n| Current order book and prices | Not attempted |\n| Candidate replacement | Unconfirmed; predicate differs |\n\n## Resolution needed\n\nThe user must confirm whether `fed-rate-cut-by-december-2026` is the intended replacement or provide another exact market link. Until then, comparing evidence, odds, or related contracts risks analyzing the wrong contract.\n\nNo external research, paid operation, wallet connection, or trade action was performed.\n\nPoint-in-time research; not financial advice. No trade was placed.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "distinct-slugs-without-substitution",
+          "passed": true
+        },
+        {
+          "id": "blocked-identity-decisions",
+          "passed": true
+        },
+        {
+          "id": "blocked-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-1/with_weft",
+      "token_usage": {
+        "input_tokens": 35119,
+        "cached_input_tokens": 20096,
+        "output_tokens": 1072,
+        "reasoning_output_tokens": 177,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "unresolved-identity-stop",
+      "arm": "with_weft",
+      "repetition": 2,
+      "duration_seconds": 34.27666158300417,
+      "total_tokens": 52078,
+      "accomplished": true,
+      "answer": "# \u201cfed-cut-before-december-2026\u201d \u2014 blocked offline brief\n\n- **Original URL:** `https://polymarket.com/event/fed-cut-before-december-2026`\n- **Research mode:** Offline fixture only\n- **Evidence cutoff:** 2026-09-05T19:55:53Z\n- **Data-health grade:** D \u2014 exact identity and controlling rules cannot be established\n- **Status:** Unknown\n\n## Executive summary\n\nThe original slug did not resolve to a canonical event. Lookup found `fed-rate-cut-by-december-2026`, but its predicate differs from the original slug, so it is not a safe replacement.\n\nBecause the user has not confirmed that candidate, the report must stop here. The settlement test, deadline interpretation, resolution source, identifiers, prices, liquidity, and probability cannot be established reliably.\n\n## Known and missing information\n\n| Item | Finding |\n|---|---|\n| Original slug | `fed-cut-before-december-2026` |\n| Canonical event | Unresolved |\n| Search candidate | `fed-rate-cut-by-december-2026` |\n| Candidate equivalence | Not established; predicate differs |\n| Replacement approval | Not provided |\n| Full rules | Unavailable |\n| Market and condition IDs | Unavailable |\n| Question and token IDs | Unavailable |\n| Market snapshot | Not attempted |\n| Independent probability | Omitted |\n\n## Decision\n\nThis is a blocked identity lookup, not a completed market brief. Treating the candidate as equivalent could attach the wrong settlement predicate and produce misleading rules, prices, or probabilities. No external research, paid request, market-data lookup, wallet connection, or trade was performed.\n\nPoint-in-time research; not financial advice. No trade was placed.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "distinct-slugs-without-substitution",
+          "passed": true
+        },
+        {
+          "id": "blocked-identity-decisions",
+          "passed": true
+        },
+        {
+          "id": "blocked-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-2/with_weft",
+      "token_usage": {
+        "input_tokens": 50686,
+        "cached_input_tokens": 34816,
+        "output_tokens": 1392,
+        "reasoning_output_tokens": 276,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "unresolved-identity-stop",
+      "arm": "without_weft",
+      "repetition": 2,
+      "duration_seconds": 11.974392208998324,
+      "total_tokens": 17612,
+      "accomplished": true,
+      "answer": "## Offline brief\n\nThe original market (`fed-cut-before-december-2026`) cannot be reliably identified from the frozen data.\n\nThe lookup found no canonical event. Search produced `fed-rate-cut-by-december-2026`, but its predicate differs from the original slug, so it cannot be treated as the same market without confirmation. The original market\u2019s rules and identifiers are unavailable.\n\nTherefore, no market snapshot, probability assessment, paid action, or trade proposal can be provided.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "distinct-slugs-without-substitution",
+          "passed": true
+        },
+        {
+          "id": "blocked-identity-decisions",
+          "passed": true
+        },
+        {
+          "id": "blocked-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-2/without_weft",
+      "token_usage": {
+        "input_tokens": 17236,
+        "cached_input_tokens": 8320,
+        "output_tokens": 376,
+        "reasoning_output_tokens": 77,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "unresolved-identity-stop",
+      "arm": "without_weft",
+      "repetition": 3,
+      "duration_seconds": 13.826610832998995,
+      "total_tokens": 17648,
+      "accomplished": true,
+      "answer": "## Offline brief\n\nThe original market cannot be reliably identified from the supplied slug `fed-cut-before-december-2026`.\n\nThe frozen lookup found no canonical event. Search produced `fed-rate-cut-by-december-2026`, but its predicate differs from the original wording, so it cannot be treated as the same market without confirmation.\n\nUnavailable information includes the original market\u2019s full resolution rules, market ID, condition ID, question ID, outcome token IDs, and market snapshot. Consequently, no probability estimate or actionable trading assessment can be provided. The brief remains blocked pending either the original market details or explicit confirmation of the replacement candidate.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "distinct-slugs-without-substitution",
+          "passed": true
+        },
+        {
+          "id": "blocked-identity-decisions",
+          "passed": true
+        },
+        {
+          "id": "blocked-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-3/without_weft",
+      "token_usage": {
+        "input_tokens": 17246,
+        "cached_input_tokens": 14976,
+        "output_tokens": 402,
+        "reasoning_output_tokens": 71,
+        "cache_write_input_tokens": 0
+      }
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "case_id": "unresolved-identity-stop",
+      "arm": "with_weft",
+      "repetition": 3,
+      "duration_seconds": 23.27802574999805,
+      "total_tokens": 36605,
+      "accomplished": true,
+      "answer": "# \u201cfed-cut-before-december-2026\u201d \u2014 blocked offline brief\n\n- **Supplied link:** `https://polymarket.com/event/fed-cut-before-december-2026`\n- **Identity:** Unresolved\n- **Data-health grade:** D \u2014 exact market identity and controlling rules cannot be established.\n- **Status:** Unknown\n\n## Executive summary\n\nThe original slug returned no event. Lookup found `fed-rate-cut-by-december-2026`, but its predicate differs from the supplied slug, so it cannot safely be substituted without confirmation.\n\nConsequently, the original market\u2019s full rules and identifiers are unavailable. No market snapshot or probability assessment was attempted. The report is blocked pending confirmation of the intended market.\n\n## Unavailable contract data\n\n- YES and NO settlement tests\n- Deadline and timezone\n- Resolution source and fallback hierarchy\n- Market, condition, question, and outcome-token IDs\n- Clarification, dispute, and resolution status\n\nSource: [frozen lookup fixture](<BENCHMARK_WORKDIR>/fixtures/unresolved-lookup.md).\n\nNo browsing, paid operation, wallet connection, or trade action occurred.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+      "checks": [
+        {
+          "id": "distinct-slugs-without-substitution",
+          "passed": true
+        },
+        {
+          "id": "blocked-identity-decisions",
+          "passed": true
+        },
+        {
+          "id": "blocked-action-boundary",
+          "passed": true
+        },
+        {
+          "id": "decision-record-at-end",
+          "passed": true
+        }
+      ],
+      "exclusion": null,
+      "exit_code": 0,
+      "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-3/with_weft",
+      "token_usage": {
+        "input_tokens": 35657,
+        "cached_input_tokens": 27008,
+        "output_tokens": 948,
+        "reasoning_output_tokens": 189,
+        "cache_write_input_tokens": 0
+      }
+    }
+  ]
+}

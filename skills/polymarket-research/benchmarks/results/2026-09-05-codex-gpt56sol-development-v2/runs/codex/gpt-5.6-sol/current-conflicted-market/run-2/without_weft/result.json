@@ -1,0 +1,51 @@
+{
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "case_id": "current-conflicted-market",
+  "arm": "without_weft",
+  "repetition": 2,
+  "duration_seconds": 27.94867087500461,
+  "total_tokens": 19150,
+  "accomplished": false,
+  "answer": "## Offline decision brief\n\nThe official REST snapshots verify an apparent upward move between 09:00 and 12:00 UTC on September 1:\n\n- Best bid rose from 0.30 to 0.42: **+0.12**\n- Best ask rose from 0.34 to 0.48: +0.14\n- Last trade rose from 0.32 to 0.47: +0.15\n- Nearby displayed depth fell from USD 18,000 to USD 12,000 while the spread widened from 0.04 to 0.06\n\nThe event page\u2019s 0.52 is not corroborated by the contemporaneous REST book. The WebSocket heartbeat does not resolve the discrepancy because its market data was stale: its last update was at 11:52 UTC.\n\nNo cause is established. E2\u2019s 3.2% consensus could be consistent with increased YES buying, but the dossier provides neither publication timing nor order-flow evidence tying it to the move.\n\n### Strongest YES case\n\nE2 reports a 3.2% consensus estimate, above the contract\u2019s controlling **strictly greater than 3.0%** threshold. This is the strongest directional evidence, although it is based on only two named economists. E3 adds no independent support because it merely republishes E2.\n\n### Strongest NO case\n\nE4 claims a private survey produced a 2.8% estimate, which would settle NO if accurate. It is only an anonymous, undocumented community lead and therefore weak evidence.\n\nThe rules also favor NO in two edge cases: an initial release of exactly 3.0% settles NO despite the title saying \u201cat least 3.0%,\u201d and failure to publish the named initial value by October 16 at 12:30 UTC settles NO.\n\nNo probability or trade recommendation is provided. Of the catalog operations, OP-HIST-EXACT is the only correctly scoped historical query, but it costs USD 0.40 and requires authorization before use.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=B\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=REQUEST_AUTHORIZATION\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+  "checks": [
+    {
+      "id": "identity-anchors",
+      "passed": false
+    },
+    {
+      "id": "contract-and-book-facts",
+      "passed": false
+    },
+    {
+      "id": "move-and-two-sided-analysis",
+      "passed": true
+    },
+    {
+      "id": "current-decisions",
+      "passed": false
+    },
+    {
+      "id": "weft-capability-ledger",
+      "passed": true
+    },
+    {
+      "id": "bounded-action-decisions",
+      "passed": false
+    },
+    {
+      "id": "decision-record-at-end",
+      "passed": true
+    }
+  ],
+  "exclusion": null,
+  "exit_code": 0,
+  "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-2/without_weft",
+  "token_usage": {
+    "input_tokens": 17984,
+    "cached_input_tokens": 8320,
+    "output_tokens": 1166,
+    "reasoning_output_tokens": 444,
+    "cache_write_input_tokens": 0
+  }
+}

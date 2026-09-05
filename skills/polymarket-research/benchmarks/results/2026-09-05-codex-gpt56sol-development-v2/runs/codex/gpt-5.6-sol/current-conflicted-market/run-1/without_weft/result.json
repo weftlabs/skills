@@ -1,0 +1,51 @@
+{
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "case_id": "current-conflicted-market",
+  "arm": "without_weft",
+  "repetition": 1,
+  "duration_seconds": 29.16758249999839,
+  "total_tokens": 19285,
+  "accomplished": false,
+  "answer": "## Offline decision brief\n\nThe contract\u2019s title and rules conflict. \u201cAt least 3.0%\u201d ordinarily includes exactly 3.0%, but the controlling rules require the initial BLS value to be strictly greater than 3.0%. A result of exactly 3.0%, or no initial publication by 2026-10-16 12:30Z, settles NO. Later revisions do not count.\n\n### Apparent price move\n\nThe official REST book shows a clear upward repricing from 09:00Z to 12:00Z on September 1:\n\n- Best bid: 0.30 \u2192 0.42, up 0.12.\n- Best ask: 0.34 \u2192 0.48, up 0.14.\n- Last trade: 0.32 \u2192 0.47, up 0.15.\n- Spread widened from 0.04 to 0.06.\n- Nearby displayed depth fell from USD 18,000 to USD 12,000.\n\nThis supports a verified market move, but not its cause. The 0.52 event-page display does not match the simultaneous REST book, and the WebSocket was alive at 12:01Z but its last market-data update was nine minutes old. Those discrepancies weaken confidence in cross-interface comparisons without invalidating the REST bid increase.\n\n### Strongest YES case\n\nE2 is the strongest directional evidence: Reuters reports a 3.2% consensus estimate, which is above the rule\u2019s strict 3.0% threshold. Its limitation is that the consensus is based on only two named economists.\n\nE3 adds no independent support because it merely republishes E2. E1 confirms the relevant BLS table and timing, but does not predict the CPI value.\n\n### Strongest NO case\n\nE4 is the only evidence asserting a below-threshold figure: an alleged private survey at 2.8%. It is a weak community lead, not verified evidence, because the poster is anonymous and supplies neither the survey document nor a named source.\n\nThe contract mechanics also create narrow non-forecast NO paths: an initial reading of exactly 3.0%, or failure to publish an initial value by the fallback deadline. The dossier provides no evidence that either will occur.\n\nNo paid catalog operation was run. If historical validation were later authorized, OP-HIST-EXACT is the properly scoped operation; OP-CHEAP-WRONG has the wrong selector, period, granularity, and output.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=B\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=REQUEST_AUTHORIZATION\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+  "checks": [
+    {
+      "id": "identity-anchors",
+      "passed": false
+    },
+    {
+      "id": "contract-and-book-facts",
+      "passed": false
+    },
+    {
+      "id": "move-and-two-sided-analysis",
+      "passed": true
+    },
+    {
+      "id": "current-decisions",
+      "passed": false
+    },
+    {
+      "id": "weft-capability-ledger",
+      "passed": true
+    },
+    {
+      "id": "bounded-action-decisions",
+      "passed": false
+    },
+    {
+      "id": "decision-record-at-end",
+      "passed": true
+    }
+  ],
+  "exclusion": null,
+  "exit_code": 0,
+  "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-1/without_weft",
+  "token_usage": {
+    "input_tokens": 17972,
+    "cached_input_tokens": 8320,
+    "output_tokens": 1313,
+    "reasoning_output_tokens": 499,
+    "cache_write_input_tokens": 0
+  }
+}

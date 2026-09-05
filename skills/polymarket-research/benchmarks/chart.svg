@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="808" viewBox="0 0 600 808" style="max-width:100%;height:auto" role="img" aria-labelledby="title desc">
+  <title id="title">Benchmark evidence: polymarket-research</title>
+  <desc id="desc">Development pilot that measures whether the model follows the committed Polymarket Research procedure on three synthetic offline dossiers: a current conflicted market, a historical-cutoff request, and an unresolved market identity. It does not estimate skill efficacy or measure live web or API research, source freshness, probability calibration, forecast accuracy, trading performance, profitability, or paid-provider execution. Raw paired observations for harness process time and tokens, and exact all-checks-passed counts. Descriptive evidence only.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="24" y="36" fill="#0f172a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" font-weight="700">Benchmark evidence: polymarket-research</text>
+  <text x="24" y="59" fill="#9f1239" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700">DEVELOPMENT PILOT · not efficacy evidence</text>
+  <text x="24" y="82" fill="#334155" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700">Claim scope</text>
+  <text x="24" y="100" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Development pilot that measures whether the model follows the committed Polymarket</text>
+  <text x="24" y="117" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Research procedure on three synthetic offline dossiers: a current conflicted</text>
+  <text x="24" y="134" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">market, a historical-cutoff request, and an unresolved market identity. It does</text>
+  <text x="24" y="151" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">not estimate skill efficacy or measure live web or API research, source freshness,</text>
+  <text x="24" y="168" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">probability calibration, forecast accuracy, trading performance, profitability, or</text>
+  <text x="24" y="185" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">paid-provider execution.</text>
+  <text x="24" y="210" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10">Case IDs: current-conflicted-market, historical-cutoff-integrity, unresolved-identity-stop</text>
+  <text x="24" y="230" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10">Measured 2026-09-05T19:56:54Z · 3 unique cases · repetitions nested within cases</text>
+  <text x="24" y="250" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Every dot and line is one complete paired run · vertical tick is the median</text>
+  <text x="24" y="280" fill="#0f172a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="700">Codex · gpt-5.6-sol</text>
+  <text x="576" y="280" text-anchor="end" fill="#475569" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">3 unique cases · 9 paired generations · 0 excluded</text>
+  <text x="24" y="299" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10">Harness version codex-cli 0.153.4 · model identifier gpt-5.6-sol</text>
+  <text x="32" y="332" fill="#0f172a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="700">Harness process time</text>
+  <line x1="170" y1="353" x2="560" y2="353" stroke="#94a3b8"/>
+  <text x="170" y="347" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">0</text>
+  <text x="560" y="347" text-anchor="end" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">58.3352 s</text>
+  <text x="32" y="392" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without declared bundle</text>
+  <text x="560" y="375" text-anchor="end" fill="#334155" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 24.315 s</text>
+  <text x="32" y="438" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With declared bundle</text>
+  <text x="560" y="421" text-anchor="end" fill="#0f766e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 25.795 s</text>
+  <line data-pair="current-conflicted-market:1" x1="365.00" y1="383.80" x2="524.80" y2="429.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="current-conflicted-market:2" x1="356.85" y1="385.20" x2="558.99" y2="431.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="current-conflicted-market:3" x1="367.88" y1="386.60" x2="560.00" y2="432.60" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="historical-cutoff-integrity:1" x1="332.56" y1="388.00" x2="342.45" y2="434.00" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="historical-cutoff-integrity:2" x1="311.05" y1="389.40" x2="328.93" y2="435.40" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="historical-cutoff-integrity:3" x1="363.72" y1="390.80" x2="331.56" y2="436.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="unresolved-identity-stop:1" x1="247.46" y1="392.20" x2="341.19" y2="438.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="unresolved-identity-stop:2" x1="250.05" y1="383.80" x2="399.16" y2="429.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="unresolved-identity-stop:3" x1="262.44" y1="385.20" x2="325.63" y2="431.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <circle cx="365.00" cy="383.80" r="4" fill="#475569" aria-label="Without skill, current-conflicted-market repetition 1, 29.1676 s"/>
+  <circle cx="524.80" cy="429.80" r="4" fill="#0f766e" aria-label="With skill, current-conflicted-market repetition 1, 53.0707 s"/>
+  <circle cx="356.85" cy="385.20" r="4" fill="#475569" aria-label="Without skill, current-conflicted-market repetition 2, 27.9487 s"/>
+  <circle cx="558.99" cy="431.20" r="4" fill="#0f766e" aria-label="With skill, current-conflicted-market repetition 2, 58.1834 s"/>
+  <circle cx="367.88" cy="386.60" r="4" fill="#475569" aria-label="Without skill, current-conflicted-market repetition 3, 29.5985 s"/>
+  <circle cx="560.00" cy="432.60" r="4" fill="#0f766e" aria-label="With skill, current-conflicted-market repetition 3, 58.3352 s"/>
+  <circle cx="332.56" cy="388.00" r="4" fill="#475569" aria-label="Without skill, historical-cutoff-integrity repetition 1, 24.3154 s"/>
+  <circle cx="342.45" cy="434.00" r="4" fill="#0f766e" aria-label="With skill, historical-cutoff-integrity repetition 1, 25.7951 s"/>
+  <circle cx="311.05" cy="389.40" r="4" fill="#475569" aria-label="Without skill, historical-cutoff-integrity repetition 2, 21.0979 s"/>
+  <circle cx="328.93" cy="435.40" r="4" fill="#0f766e" aria-label="With skill, historical-cutoff-integrity repetition 2, 23.7721 s"/>
+  <circle cx="363.72" cy="390.80" r="4" fill="#475569" aria-label="Without skill, historical-cutoff-integrity repetition 3, 28.9766 s"/>
+  <circle cx="331.56" cy="436.80" r="4" fill="#0f766e" aria-label="With skill, historical-cutoff-integrity repetition 3, 24.1662 s"/>
+  <circle cx="247.46" cy="392.20" r="4" fill="#475569" aria-label="Without skill, unresolved-identity-stop repetition 1, 11.5856 s"/>
+  <circle cx="341.19" cy="438.20" r="4" fill="#0f766e" aria-label="With skill, unresolved-identity-stop repetition 1, 25.6056 s"/>
+  <circle cx="250.05" cy="383.80" r="4" fill="#475569" aria-label="Without skill, unresolved-identity-stop repetition 2, 11.9744 s"/>
+  <circle cx="399.16" cy="429.80" r="4" fill="#0f766e" aria-label="With skill, unresolved-identity-stop repetition 2, 34.2767 s"/>
+  <circle cx="262.44" cy="385.20" r="4" fill="#475569" aria-label="Without skill, unresolved-identity-stop repetition 3, 13.8266 s"/>
+  <circle cx="325.63" cy="431.20" r="4" fill="#0f766e" aria-label="With skill, unresolved-identity-stop repetition 3, 23.278 s"/>
+  <path d="M 332.56 379 V 397" stroke="#334155" stroke-width="3"/>
+  <path d="M 342.45 425 V 443" stroke="#0f766e" stroke-width="3"/>
+  <line x1="24" y1="461" x2="576" y2="461" stroke="#e2e8f0"/>
+  <text x="32" y="492" fill="#0f172a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="700">All committed checks passed</text>
+  <text x="560" y="492" text-anchor="end" fill="#64748b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Exact run counts · no inferential interval</text>
+  <line x1="170" y1="513" x2="560" y2="513" stroke="#94a3b8"/>
+  <text x="170" y="507" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">0%</text>
+  <text x="560" y="507" text-anchor="end" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">100%</text>
+  <text x="32" y="552" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without declared bundle</text>
+  <path d="M 430.00 541 L 437.00 548 L 430.00 555 L 423.00 548 Z" fill="#475569"/>
+  <text x="560" y="538" text-anchor="end" fill="#475569" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">6/9 · 66.7%</text>
+  <text x="32" y="598" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With declared bundle</text>
+  <path d="M 430.00 587 L 437.00 594 L 430.00 601 L 423.00 594 Z" fill="#0f766e"/>
+  <text x="560" y="584" text-anchor="end" fill="#0f766e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">6/9 · 66.7%</text>
+  <text x="32" y="623" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12">Improved 0 · regressed 0 · unchanged 9</text>
+  <line x1="24" y1="638" x2="576" y2="638" stroke="#e2e8f0"/>
+  <text x="32" y="670" fill="#0f172a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="700">Tokens</text>
+  <line x1="170" y1="691" x2="560" y2="691" stroke="#94a3b8"/>
+  <text x="170" y="685" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">0</text>
+  <text x="560" y="685" text-anchor="end" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">52078</text>
+  <text x="32" y="730" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without declared bundle</text>
+  <text x="560" y="713" text-anchor="end" fill="#334155" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 19150</text>
+  <text x="32" y="776" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With declared bundle</text>
+  <text x="560" y="759" text-anchor="end" fill="#0f766e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 36605</text>
+  <line data-pair="current-conflicted-market:1" x1="314.42" y1="721.80" x2="462.47" y2="767.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="current-conflicted-market:2" x1="313.41" y1="723.20" x2="463.16" y2="769.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="current-conflicted-market:3" x1="313.02" y1="724.60" x2="454.86" y2="770.60" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="historical-cutoff-integrity:1" x1="375.44" y1="726.00" x2="383.08" y2="772.00" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="historical-cutoff-integrity:2" x1="374.83" y1="727.40" x2="382.59" y2="773.40" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="historical-cutoff-integrity:3" x1="377.39" y1="728.80" x2="383.35" y2="774.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="unresolved-identity-stop:1" x1="301.65" y1="730.20" x2="441.03" y2="776.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="unresolved-identity-stop:2" x1="301.89" y1="721.80" x2="560.00" y2="767.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <line data-pair="unresolved-identity-stop:3" x1="302.16" y1="723.20" x2="444.13" y2="769.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
+  <circle cx="314.42" cy="721.80" r="4" fill="#475569" aria-label="Without skill, current-conflicted-market repetition 1, 19285"/>
+  <circle cx="462.47" cy="767.80" r="4" fill="#0f766e" aria-label="With skill, current-conflicted-market repetition 1, 39054"/>
+  <circle cx="313.41" cy="723.20" r="4" fill="#475569" aria-label="Without skill, current-conflicted-market repetition 2, 19150"/>
+  <circle cx="463.16" cy="769.20" r="4" fill="#0f766e" aria-label="With skill, current-conflicted-market repetition 2, 39147"/>
+  <circle cx="313.02" cy="724.60" r="4" fill="#475569" aria-label="Without skill, current-conflicted-market repetition 3, 19098"/>
+  <circle cx="454.86" cy="770.60" r="4" fill="#0f766e" aria-label="With skill, current-conflicted-market repetition 3, 38038"/>
+  <circle cx="375.44" cy="726.00" r="4" fill="#475569" aria-label="Without skill, historical-cutoff-integrity repetition 1, 27433"/>
+  <circle cx="383.08" cy="772.00" r="4" fill="#0f766e" aria-label="With skill, historical-cutoff-integrity repetition 1, 28453"/>
+  <circle cx="374.83" cy="727.40" r="4" fill="#475569" aria-label="Without skill, historical-cutoff-integrity repetition 2, 27351"/>
+  <circle cx="382.59" cy="773.40" r="4" fill="#0f766e" aria-label="With skill, historical-cutoff-integrity repetition 2, 28388"/>
+  <circle cx="377.39" cy="728.80" r="4" fill="#475569" aria-label="Without skill, historical-cutoff-integrity repetition 3, 27694"/>
+  <circle cx="383.35" cy="774.80" r="4" fill="#0f766e" aria-label="With skill, historical-cutoff-integrity repetition 3, 28489"/>
+  <circle cx="301.65" cy="730.20" r="4" fill="#475569" aria-label="Without skill, unresolved-identity-stop repetition 1, 17580"/>
+  <circle cx="441.03" cy="776.20" r="4" fill="#0f766e" aria-label="With skill, unresolved-identity-stop repetition 1, 36191"/>
+  <circle cx="301.89" cy="721.80" r="4" fill="#475569" aria-label="Without skill, unresolved-identity-stop repetition 2, 17612"/>
+  <circle cx="560.00" cy="767.80" r="4" fill="#0f766e" aria-label="With skill, unresolved-identity-stop repetition 2, 52078"/>
+  <circle cx="302.16" cy="723.20" r="4" fill="#475569" aria-label="Without skill, unresolved-identity-stop repetition 3, 17648"/>
+  <circle cx="444.13" cy="769.20" r="4" fill="#0f766e" aria-label="With skill, unresolved-identity-stop repetition 3, 36605"/>
+  <path d="M 313.41 717 V 735" stroke="#334155" stroke-width="3"/>
+  <path d="M 444.13 763 V 781" stroke="#0f766e" stroke-width="3"/>
+  <line x1="24" y1="799" x2="576" y2="799" stroke="#e2e8f0"/>
+</svg>

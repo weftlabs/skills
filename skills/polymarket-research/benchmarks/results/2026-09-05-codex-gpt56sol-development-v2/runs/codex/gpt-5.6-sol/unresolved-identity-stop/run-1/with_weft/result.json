@@ -1,0 +1,39 @@
+{
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "case_id": "unresolved-identity-stop",
+  "arm": "with_weft",
+  "repetition": 1,
+  "duration_seconds": 25.605590332997963,
+  "total_tokens": 36191,
+  "accomplished": true,
+  "answer": "# \u201cfed-cut-before-december-2026\u201d \u2014 blocked Polymarket research brief\n\n- **Original link:** `https://polymarket.com/event/fed-cut-before-december-2026`\n- **Canonical market:** Unresolved\n- **Selected outcome or leg:** Unknown\n- **Market observed:** Not attempted\n- **Evidence cutoff:** Frozen offline fixture\n- **Research depth:** Offline identity check only\n- **Data-health grade:** D \u2014 exact identity, controlling rules, identifiers, and market state are unavailable\n- **Status:** Unknown\n\n## Executive summary\n\nThe original slug returned no event. Lookup produced `fed-rate-cut-by-december-2026`, but that candidate has a different predicate and cannot safely replace the requested market without confirmation.\n\nConsequently, the settlement test, deadline interpretation, resolution source, market prices, liquidity, and dispute state cannot be established. This brief is blocked at identity resolution. No independent probability or market conclusion is supportable.\n\n## Unavailable contract and market data\n\n| Element | Result |\n|---|---|\n| Full rules | Unavailable |\n| Market, condition, and question IDs | Unavailable |\n| Outcome token IDs | Unavailable |\n| YES/NO settlement tests | Cannot be established |\n| Deadline and timezone | Cannot be established |\n| Resolution source | Cannot be established |\n| Current order book and prices | Not attempted |\n| Candidate replacement | Unconfirmed; predicate differs |\n\n## Resolution needed\n\nThe user must confirm whether `fed-rate-cut-by-december-2026` is the intended replacement or provide another exact market link. Until then, comparing evidence, odds, or related contracts risks analyzing the wrong contract.\n\nNo external research, paid operation, wallet connection, or trade action was performed.\n\nPoint-in-time research; not financial advice. No trade was placed.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+  "checks": [
+    {
+      "id": "distinct-slugs-without-substitution",
+      "passed": true
+    },
+    {
+      "id": "blocked-identity-decisions",
+      "passed": true
+    },
+    {
+      "id": "blocked-action-boundary",
+      "passed": true
+    },
+    {
+      "id": "decision-record-at-end",
+      "passed": true
+    }
+  ],
+  "exclusion": null,
+  "exit_code": 0,
+  "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-1/with_weft",
+  "token_usage": {
+    "input_tokens": 35119,
+    "cached_input_tokens": 20096,
+    "output_tokens": 1072,
+    "reasoning_output_tokens": 177,
+    "cache_write_input_tokens": 0
+  }
+}
