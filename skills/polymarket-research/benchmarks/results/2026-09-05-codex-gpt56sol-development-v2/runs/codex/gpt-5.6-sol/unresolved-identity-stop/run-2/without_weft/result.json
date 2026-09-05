@@ -1,0 +1,39 @@
+{
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "case_id": "unresolved-identity-stop",
+  "arm": "without_weft",
+  "repetition": 2,
+  "duration_seconds": 11.974392208998324,
+  "total_tokens": 17612,
+  "accomplished": true,
+  "answer": "## Offline brief\n\nThe original market (`fed-cut-before-december-2026`) cannot be reliably identified from the frozen data.\n\nThe lookup found no canonical event. Search produced `fed-rate-cut-by-december-2026`, but its predicate differs from the original slug, so it cannot be treated as the same market without confirmation. The original market\u2019s rules and identifiers are unavailable.\n\nTherefore, no market snapshot, probability assessment, paid action, or trade proposal can be provided.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+  "checks": [
+    {
+      "id": "distinct-slugs-without-substitution",
+      "passed": true
+    },
+    {
+      "id": "blocked-identity-decisions",
+      "passed": true
+    },
+    {
+      "id": "blocked-action-boundary",
+      "passed": true
+    },
+    {
+      "id": "decision-record-at-end",
+      "passed": true
+    }
+  ],
+  "exclusion": null,
+  "exit_code": 0,
+  "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-2/without_weft",
+  "token_usage": {
+    "input_tokens": 17236,
+    "cached_input_tokens": 8320,
+    "output_tokens": 376,
+    "reasoning_output_tokens": 77,
+    "cache_write_input_tokens": 0
+  }
+}

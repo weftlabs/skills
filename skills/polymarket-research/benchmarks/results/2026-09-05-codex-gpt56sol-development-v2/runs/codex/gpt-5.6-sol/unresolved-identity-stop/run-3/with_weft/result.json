@@ -1,0 +1,39 @@
+{
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "case_id": "unresolved-identity-stop",
+  "arm": "with_weft",
+  "repetition": 3,
+  "duration_seconds": 23.27802574999805,
+  "total_tokens": 36605,
+  "accomplished": true,
+  "answer": "# \u201cfed-cut-before-december-2026\u201d \u2014 blocked offline brief\n\n- **Supplied link:** `https://polymarket.com/event/fed-cut-before-december-2026`\n- **Identity:** Unresolved\n- **Data-health grade:** D \u2014 exact market identity and controlling rules cannot be established.\n- **Status:** Unknown\n\n## Executive summary\n\nThe original slug returned no event. Lookup found `fed-rate-cut-by-december-2026`, but its predicate differs from the supplied slug, so it cannot safely be substituted without confirmation.\n\nConsequently, the original market\u2019s full rules and identifiers are unavailable. No market snapshot or probability assessment was attempted. The report is blocked pending confirmation of the intended market.\n\n## Unavailable contract data\n\n- YES and NO settlement tests\n- Deadline and timezone\n- Resolution source and fallback hierarchy\n- Market, condition, question, and outcome-token IDs\n- Clarification, dispute, and resolution status\n\nSource: [frozen lookup fixture](<BENCHMARK_WORKDIR>/fixtures/unresolved-lookup.md).\n\nNo browsing, paid operation, wallet connection, or trade action occurred.\n\nBEGIN_DECISION_RECORD\nMODE=BLOCKED\nIDENTITY=UNRESOLVED\nREPLACEMENT=UNCONFIRMED\nREPORT=BLOCKED\nRULES=UNAVAILABLE\nMARKET_SNAPSHOT=NOT_ATTEMPTED\nPROBABILITY=OMITTED\nPAID_ACTION=NONE\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+  "checks": [
+    {
+      "id": "distinct-slugs-without-substitution",
+      "passed": true
+    },
+    {
+      "id": "blocked-identity-decisions",
+      "passed": true
+    },
+    {
+      "id": "blocked-action-boundary",
+      "passed": true
+    },
+    {
+      "id": "decision-record-at-end",
+      "passed": true
+    }
+  ],
+  "exclusion": null,
+  "exit_code": 0,
+  "run_path": "runs/codex/gpt-5.6-sol/unresolved-identity-stop/run-3/with_weft",
+  "token_usage": {
+    "input_tokens": 35657,
+    "cached_input_tokens": 27008,
+    "output_tokens": 948,
+    "reasoning_output_tokens": 189,
+    "cache_write_input_tokens": 0
+  }
+}

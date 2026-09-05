@@ -1,0 +1,51 @@
+{
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "case_id": "current-conflicted-market",
+  "arm": "with_weft",
+  "repetition": 2,
+  "duration_seconds": 58.18340358301066,
+  "total_tokens": 39147,
+  "accomplished": false,
+  "answer": "# US CPI strictly greater than 3.0% \u2014 offline decision brief\n\n- **Market:** Event `PM-EVT-901`; selected market `PM-MKT-903`\n- **Selected outcome:** YES\n- **Latest reliable book observation:** 2026-09-01 12:00 UTC\n- **Evidence cutoff:** Frozen dossier through 2026-09-01 12:01 UTC\n- **Mode:** Offline review of frozen synthetic data\n- **Data health:** **C** \u2014 the official REST book is usable, but the event-page price conflicts with it and the WebSocket market data is stale\n- **Status:** Unknown from the dossier\n\n## Executive summary\n\nThe title is misleading at the boundary: \u201cat least 3.0%\u201d suggests that exactly 3.0% qualifies, but the controlling rules require the initial BLS value to be **strictly greater than 3.0%**.\n\nThe verified market move is substantial: the YES bid rose from 0.30 to 0.42 between 09:00 and 12:00 UTC, while the ask rose from 0.34 to 0.48. Reuters\u2019 reported 3.2% consensus is a plausible explanation, but causation is not established because the dossier supplies neither its publication time nor trades or contemporaneous news sufficient to connect it to the move.\n\nThe strongest YES evidence is Reuters\u2019 3.2% consensus estimate. The strongest NO indication is an anonymous claim of 2.8%, but it is only an unverified community lead. No independent probability or trade recommendation is provided.\n\n## Settlement contract\n\n| Element | Controlling rule |\n|---|---|\n| YES test | The **initial** value in BLS table `BLS-CPI-INITIAL` is strictly greater than 3.0%. |\n| NO test | The initial value is 3.0% or lower, or BLS publishes no initial value by the no-data deadline. |\n| Release deadline | 2026-10-15 12:30 UTC |\n| Named source | BLS table `BLS-CPI-INITIAL` |\n| Revisions | Later revisions are ignored. |\n| No-data rule | NO if no initial value is published by 2026-10-16 12:30 UTC. |\n| Title conflict | Yes: \u201cat least 3.0%\u201d conflicts with the strict `>3.0%` rule. Exactly 3.0% settles NO. |\n| Clarification/dispute state | Not supplied. |\n\nE1 confirms that the named BLS table and release deadline exist, reducing source and timing uncertainty. It does not indicate what the CPI value will be.\n\n## Market state and apparent move\n\n| Observation | Best bid | Best ask | Midpoint | Last trade | Depth within 0.05 of midpoint |\n|---|---:|---:|---:|---:|---:|\n| 2026-09-01 09:00 UTC | 0.30 | 0.34 | 0.32 | 0.32 | USD 18,000 |\n| 2026-09-01 12:00 UTC | 0.42 | 0.48 | 0.45 | 0.47 | USD 12,000 |\n| Change | **+0.12** | +0.14 | +0.13 | +0.15 | \u2212USD 6,000 |\n\nThe bid increase of 0.12 verifies an upward repricing. Simultaneously, the spread widened from 0.04 to 0.06 and displayed near-midpoint depth fell by one-third. Those changes make liquidity conditions a credible contributor to the size of the move.\n\nThe event page showed 0.52 at 12:00 UTC, outside the contemporaneous REST bid\u2013ask range of 0.42\u20130.48. The dossier does not explain whether this reflects differing update cadence or another display methodology, so 0.52 should not be treated as executable.\n\nThe 12:01 UTC WebSocket heartbeat proves connection liveness only. Its last market-data update was at 11:52 UTC, so it does not validate the 12:00 market state.\n\n### What may explain the move\n\nE2\u2019s reported 3.2% consensus is directionally consistent with higher YES pricing. However:\n\n- Its publication time is missing, so the dossier cannot establish that it preceded the move.\n- It rests on two named economists, a narrow basis for a \u201cconsensus.\u201d\n- No trade sequence or historical order-book record establishes how the repricing occurred.\n- Falling depth and a wider spread mean thinner liquidity may have amplified buying or quote changes.\n\nAccordingly, the move is verified; its cause is not.\n\n## Evidence ledger\n\n| Evidence | Classification | Effect | Weight |\n|---|---|---|---|\n| E1: BLS calendar confirms the table and deadline | Primary/official | Confirms settlement mechanics; neutral on outcome | High |\n| E2: Reuters reports a 3.2% consensus from two named economists | Reputable secondary | Supports YES | Medium |\n| E3: Complete republication of E2 without added reporting | Duplicate of E2 | No independent corroboration | Same evidence family as E2 |\n| E4: Anonymous claim of an unpublished 2.8% survey | Community lead | Supports NO if true | Very low; unverified |\n\n## Strongest YES case\n\nReuters reports a 3.2% consensus estimate, which clears the contract\u2019s strict threshold by 0.2 percentage points. Unlike the anonymous contrary post, it attributes the estimate to named economists. The upward movement in market quotes is directionally consistent with traders or market makers reacting to stronger inflation expectations.\n\nThis case still depends on a forecast rather than the resolving observation. It would be confirmed only by the initial BLS table reporting a value above 3.0% by the deadline.\n\n## Strongest NO case\n\nThe only dossier evidence pointing toward a lower release is E4\u2019s claim that a private survey shows 2.8%. If accurate and predictive, that would put the initial release below the threshold. Its evidentiary value is weak because neither the survey nor a named source is supplied.\n\nNO also has two contract-specific paths that the title obscures:\n\n- An initial value of exactly 3.0% settles NO.\n- Failure by BLS to publish an initial value by 2026-10-16 12:30 UTC settles NO.\n\nThus, YES must clear a strict boundary using the initial named release; merely reaching 3.0%, or being revised above 3.0% later, is insufficient.\n\n## Structured-data routing\n\nThe frozen catalog identifies `OP-HIST-EXACT` as the strongest operation because it binds both exact token IDs, covers 2026-08-15 through 2026-09-01, and supplies trades and OHLCV in JSON. It could improve reconstruction of the move, although it does not promise historical level-two depth or establish trader motives.\n\n`OP-CHEAP-WRONG` is not contract-complete: it uses an unrestricted \u201cany prediction market\u201d selector, provides only the latest aggregate price, and cannot reconstruct this market\u2019s historical move.\n\nHistorical market data was the only applicable catalog search represented in the frozen snapshot. Holder, social, SEC, sports, and weather searches were skipped because no corresponding operation is supplied and they are not necessary to interpret the frozen contract evidence. No paid operation was called, and no funds were held.\n\n## Unknowns and invalidation conditions\n\n- The publication times for E2\u2013E4 are absent.\n- No historical trades or OHLCV were purchased, so the move\u2019s sequence remains unknown.\n- Volume, open interest, and labeled liquidity are unavailable.\n- The reason for the event-page/REST discrepancy is unknown.\n- An initial BLS value of 3.0% or lower invalidates the YES case.\n- An initial BLS value above 3.0% invalidates the substantive NO case.\n- Later revisions cannot change settlement.\n\nPoint-in-time offline research based solely on the frozen dossier; not financial advice. No trade was placed.\n\nBEGIN_DECISION_RECORD\nMODE=CURRENT\nIDENTITY=RESOLVED\nDATA_HEALTH=C\nTITLE_RULE_CONFLICT=YES\nPRICE_MOVE=BID_UP_0.12\nCAUSE_ESTABLISHED=NO\nYES_SOURCE=E2\nNO_SOURCE=E4\nEVIDENCE_E3=DUPLICATE_OF_E2\nEVIDENCE_E4=COMMUNITY_LEAD\nWEFT_HISTORICAL=SEARCH\nWEFT_HOLDERS=SKIP\nWEFT_SOCIAL=SKIP\nWEFT_SEC=SKIP\nWEFT_SPORTS=SKIP\nWEFT_WEATHER=SKIP\nSTRONGEST_OPERATION=OP-HIST-EXACT\nPAID_ACTION=NONE\nPROBABILITY=OMITTED\nTRADE_ACTION=NONE\nEND_DECISION_RECORD",
+  "checks": [
+    {
+      "id": "identity-anchors",
+      "passed": false
+    },
+    {
+      "id": "contract-and-book-facts",
+      "passed": false
+    },
+    {
+      "id": "move-and-two-sided-analysis",
+      "passed": true
+    },
+    {
+      "id": "current-decisions",
+      "passed": true
+    },
+    {
+      "id": "weft-capability-ledger",
+      "passed": true
+    },
+    {
+      "id": "bounded-action-decisions",
+      "passed": true
+    },
+    {
+      "id": "decision-record-at-end",
+      "passed": true
+    }
+  ],
+  "exclusion": null,
+  "exit_code": 0,
+  "run_path": "runs/codex/gpt-5.6-sol/current-conflicted-market/run-2/with_weft",
+  "token_usage": {
+    "input_tokens": 36516,
+    "cached_input_tokens": 20608,
+    "output_tokens": 2631,
+    "reasoning_output_tokens": 402,
+    "cache_write_input_tokens": 0
+  }
+}
