@@ -76,8 +76,8 @@ Status lifecycle: `pending` (search works, keep polling) → `claimed`
 `expired` / `revoked` (terminal — stop; do not create a second bootstrap for
 the same request without asking the user).
 
-The `wbt_` credential is secret. Before claim, its 30-minute window permits
-only `search`, `status`, and `cancel`. Human approval promotes the same bearer
+The `wbt_` credential is secret. Before claim, its 30-minute search-only window
+permits `search`, `status`, and `cancel`. Human approval promotes the same bearer
 to durable `identity`, `search`, `balance`, `fetch`, `purchases`, `status`, and
 `revoke` capabilities until the human revokes it. Refusals on balance/fetch
 before the claim are the contract, not bugs. No subsidy or treasury funding is
