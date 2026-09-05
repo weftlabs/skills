@@ -36,7 +36,7 @@ rather than a held-out test set.
 
 **Evidence class: Development pilot.** These tasks were used while the skill and scorer were developed. They are regression evidence, not held-out efficacy evidence.
 
-The same clean-room tasks run without the skill and with the skill. Repeated generations are nested within each task; they do not increase the number of independent tasks. Results are descriptive paired observations. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.
+The same clean-room tasks run without the declared skill bundle and with the complete declared skill bundle. This comparison does not isolate one skill from its dependencies. Repeated generations are nested within each task; they do not increase the number of unique tasks. Results are descriptive paired observations. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.
 
 The evidence writer redacts host paths, clean-room temporary paths, and opaque harness trace IDs from published native transcripts. Answers and token telemetry remain inspectable.
 
@@ -44,13 +44,13 @@ The evidence writer redacts host paths, clean-room temporary paths, and opaque h
 
 | Harness / model | Arm | Harness process time, median | All committed checks passed | Tokens, median | Complete / excluded pairs |
 |---|---|---:|---:|---:|---:|
-| Codex / `gpt-5.6-sol` | without weft | 24.315s | 66.7% | 19150 | 9 / 0 |
-| Codex / `gpt-5.6-sol` | with weft | 25.795s | 66.7% | 36605 | 9 / 0 |
+| Codex / `gpt-5.6-sol` | without declared bundle | 24.315s | 66.7% | 19150 | 9 / 0 |
+| Codex / `gpt-5.6-sol` | with declared bundle | 25.795s | 66.7% | 36605 | 9 / 0 |
 | Codex / `gpt-5.6-sol` | Paired case-level difference | +14.02s | +0 pp | +18957 | — |
 
 **Separately calculated native token-field medians:**
-- Codex / `gpt-5.6-sol` / without weft: input 17972 (cached input 8320), output 826 (reasoning output 195), cache write input 0.
-- Codex / `gpt-5.6-sol` / with weft: input 35578 (cached input 19712), output 1072 (reasoning output 309), cache write input 0.
+- Codex / `gpt-5.6-sol` / without declared bundle: input 17972 (cached input 8320), output 826 (reasoning output 195), cache write input 0.
+- Codex / `gpt-5.6-sol` / with declared bundle: input 35578 (cached input 19712), output 1072 (reasoning output 309), cache write input 0.
 These category medians are supporting telemetry. They can come from different runs, and overlapping native fields such as cached input are not additive.
 
 Case-level analysis units: 3 unique cases. Actual repetitions per case: 3. Required complete pairs per target and case: 3. Excluded matched pairs: 0.

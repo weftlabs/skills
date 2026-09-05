@@ -21,9 +21,9 @@
   <line x1="170" y1="353" x2="560" y2="353" stroke="#94a3b8"/>
   <text x="170" y="347" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">0</text>
   <text x="560" y="347" text-anchor="end" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">58.3352 s</text>
-  <text x="32" y="392" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without skill</text>
+  <text x="32" y="392" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without declared bundle</text>
   <text x="560" y="375" text-anchor="end" fill="#334155" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 24.315 s</text>
-  <text x="32" y="438" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With skill</text>
+  <text x="32" y="438" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With declared bundle</text>
   <text x="560" y="421" text-anchor="end" fill="#0f766e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 25.795 s</text>
   <line data-pair="current-conflicted-market:1" x1="365.00" y1="383.80" x2="524.80" y2="429.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
   <line data-pair="current-conflicted-market:2" x1="356.85" y1="385.20" x2="558.99" y2="431.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
@@ -60,10 +60,10 @@
   <line x1="170" y1="513" x2="560" y2="513" stroke="#94a3b8"/>
   <text x="170" y="507" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">0%</text>
   <text x="560" y="507" text-anchor="end" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">100%</text>
-  <text x="32" y="552" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without skill</text>
+  <text x="32" y="552" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without declared bundle</text>
   <path d="M 430.00 541 L 437.00 548 L 430.00 555 L 423.00 548 Z" fill="#475569"/>
   <text x="560" y="538" text-anchor="end" fill="#475569" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">6/9 · 66.7%</text>
-  <text x="32" y="598" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With skill</text>
+  <text x="32" y="598" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With declared bundle</text>
   <path d="M 430.00 587 L 437.00 594 L 430.00 601 L 423.00 594 Z" fill="#0f766e"/>
   <text x="560" y="584" text-anchor="end" fill="#0f766e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">6/9 · 66.7%</text>
   <text x="32" y="623" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12">Improved 0 · regressed 0 · unchanged 9</text>
@@ -72,9 +72,9 @@
   <line x1="170" y1="691" x2="560" y2="691" stroke="#94a3b8"/>
   <text x="170" y="685" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">0</text>
   <text x="560" y="685" text-anchor="end" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">52078</text>
-  <text x="32" y="730" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without skill</text>
+  <text x="32" y="730" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without declared bundle</text>
   <text x="560" y="713" text-anchor="end" fill="#334155" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 19150</text>
-  <text x="32" y="776" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With skill</text>
+  <text x="32" y="776" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With declared bundle</text>
   <text x="560" y="759" text-anchor="end" fill="#0f766e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median 36605</text>
   <line data-pair="current-conflicted-market:1" x1="314.42" y1="721.80" x2="462.47" y2="767.80" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
   <line data-pair="current-conflicted-market:2" x1="313.41" y1="723.20" x2="463.16" y2="769.20" stroke="#94a3b8" stroke-width="1" opacity="0.65"/>
