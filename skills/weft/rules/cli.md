@@ -65,9 +65,8 @@ weft auth status
 # 5. After approval the same stored bearer is durable until revoked.
 weft me
 
-# 6. The balance is the truth. Before any paid fetch, ask the human to
-#    fund the wallet at
-#    https://weft.network/dashboard/wallet.
+# 6. Ask the human to verify the claim email so Weft can apply the one-time
+#    signup grant, then check the balance.
 weft balance
 ```
 
