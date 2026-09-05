@@ -17,13 +17,14 @@ paste, and you must never ask the user for a password, API key, or token.
 
 | Credential | Scope | Survives |
 |---|---|---|
-| OAuth grant (plugin or MCP) | the user's **account** | every surface, every device, container reclaim |
+| OAuth grant (plugin or MCP) | the user's account through one client credential store | sessions that retain that store |
 | CLI credential store | one machine | that machine only |
 
-Always establish the **account-level OAuth connection first** — it is the
-only credential whose scope matches a user rather than a machine, so it is
-never wasted work. The CLI is an optional machine-local add-on, offered
-last and only where it can survive.
+Always establish the OAuth connection for the current client first. The grant
+authorizes access to the user's account, but the client still needs its own
+persisted token store. A new device or rebuilt sandbox must connect again when
+that store is absent. The CLI is an optional machine-local add-on, offered last
+and only where it can survive.
 
 ## Step 1 — establish the account connection (always)
 
@@ -69,8 +70,8 @@ surface decides, and every branch ends in the same OAuth grant.
 
 The first tool call opens a browser sign-in; that is expected. The grant
 appears under the user's Weft Connections and is revocable at any time.
-It is account-scoped: a fresh session or a rebuilt sandbox finds it
-already connected — never redo setup.
+A fresh session in the same client stays connected only when its credential
+store persists. If that store is absent, connect the client again.
 
 ## Step 2 — no account yet?
 
@@ -88,41 +89,25 @@ gains balance and fetch access — treat it like money from the start.
   MCP connection beside the plugin, and do not use the shell flow below.
 - **Editable-config host (branch 2) with a persistent filesystem:** use
   the CLI's bootstrap — it stores the
-  credential in a mode-0600 local file and never prints it:
+  credential in a mode-0600 local file and never prints it. Read the email
+  through terminal input so user text is never inserted into shell syntax:
 
   ```sh
-  npx --package @weftlabs/cli weft bootstrap --email "THEIR_EMAIL" \
-    --agent-name "YOUR_AGENT_NAME" --reason "THE_TASK"
+  (
+    set -eu
+    printf 'Email: ' >&2
+    IFS= read -r WEFT_EMAIL
+    npx --package @weftlabs/cli weft bootstrap --email "$WEFT_EMAIL" \
+      --agent-name "MCP setup agent" --reason "Connect this client to Weft"
+  )
   ```
 
   Then either continue on the CLI, or configure the MCP server per
   branch 2 with OAuth after the claim.
-- **Manual MCP config without the CLI (last resort, branch 2 with a
-  persistent filesystem only):** keep the secret out
-  of the transcript — write the response to a file, show the human only
-  the non-secret fields, and pass the key by shell substitution:
-
-  ```sh
-  umask 077
-  curl -fsS -X POST "https://weft.network/api/v1/account_bootstraps" \
-    -H "Content-Type: application/json" \
-    -d '{"email":"THEIR_EMAIL","agent_name":"YOUR_AGENT_NAME"}' \
-    -o "$HOME/.weft_bootstrap.json"
-  jq '.data | del(.temporary_api_key)' "$HOME/.weft_bootstrap.json"
-  ```
-
-  Configure the MCP server as in branch 2, sending the key as a static
-  header via substitution so it never appears in the transcript — Claude
-  Code example:
-
-  ```sh
-  claude mcp add --transport http weft https://weft.network/mcp \
-    --header "Authorization: Bearer $(jq -r '.data.temporary_api_key' "$HOME/.weft_bootstrap.json")"
-  ```
-
-- **GUI-connected host (branch 3 or 4):** there is no safe bootstrap
+- **Host without the plugin or CLI, including branch 3 or 4:** there is no safe bootstrap
   path here, even if your own sandbox has a shell — an ephemeral
-  filesystem loses the credential with the container. Send the human to
+  filesystem loses the credential, and a static header can enter logs or
+  project configuration. Send the human to
   https://weft.network/signup to create the account in the
   browser, then connect with OAuth per Step 1. Do not improvise an HTTP
   flow.

@@ -6,8 +6,10 @@ Lookup table for [Step 1, branch 2](https://weft.network/setup.md) of
 use. Merge into existing structured config — never replace it. After any
 change, follow the host's reload step, then verify.
 
-For the no-account bootstrap variant, add the temporary key as a static
-`Authorization: Bearer` header alongside the `url` in the same shape.
+These configurations use OAuth. Do not add a temporary `wbt_` as a static
+header: command output, logs, or project configuration can expose it. The
+temporary MCP path uses the Claude Code plugin's private `headersHelper`; other
+clients use the CLI until claim, then connect here with OAuth.
 
 ## Claude Code (when not using the plugin)
 
@@ -88,6 +90,9 @@ Merge into the project's `.vscode/mcp.json`, then Command Palette →
 ```json
 { "servers": { "weft": { "type": "http", "url": "https://weft.network/mcp" } } }
 ```
+
+For a user with no account, create the account in the browser, then use this
+OAuth connection.
 
 ## GitHub Copilot CLI
 
