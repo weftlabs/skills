@@ -2253,7 +2253,7 @@ def render_benchmark_chart(summary: dict, raw: dict) -> str:
     group_start_y = measured_y + 30
     height = group_start_y + group_height * len(targets) - 12
     lines = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" style="max-width:100%;height:auto" role="img" aria-labelledby="title desc">',
         f'  <title id="title">Benchmark evidence: {chart_text(summary["skill"])}</title>',
         f'  <desc id="desc">{chart_text(summary["claim_scope"])} Raw paired observations for harness process time and tokens, and exact all-checks-passed counts. Descriptive evidence only.</desc>',
         '  <rect width="100%" height="100%" fill="#ffffff"/>',
@@ -2314,7 +2314,7 @@ def render_benchmark_chart(summary: dict, raw: dict) -> str:
 def render_unmeasured_chart() -> str:
     return "\n".join(
         [
-            '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260" viewBox="0 0 600 260" role="img" aria-labelledby="title desc">',
+            '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260" viewBox="0 0 600 260" style="max-width:100%;height:auto" role="img" aria-labelledby="title desc">',
             '  <title id="title">Benchmark evidence is unmeasured</title>',
             '  <desc id="desc">No observations, estimates, intervals, or comparisons are published.</desc>',
             '  <rect width="100%" height="100%" fill="#ffffff"/>',

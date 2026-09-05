@@ -1669,6 +1669,7 @@ class BenchmarkContractTest(unittest.TestCase):
         chart = self.benchmark.render_benchmark_chart(summary, raw)
         self.assertEqual(chart, self.benchmark.render_benchmark_chart(summary, raw))
         ET.fromstring(chart)
+        self.assertIn('style="max-width:100%;height:auto"', chart)
         self.assertIn("Benchmark evidence: fixture", chart)
         self.assertIn("DEVELOPMENT PILOT", chart)
         self.assertIn("1 unique case", chart)
@@ -1717,6 +1718,7 @@ class BenchmarkContractTest(unittest.TestCase):
     def test_unmeasured_benchmark_has_a_visible_chart_without_fake_values(self):
         chart = self.benchmark.render_unmeasured_chart()
         ET.fromstring(chart)
+        self.assertIn('style="max-width:100%;height:auto"', chart)
         self.assertIn("Benchmark evidence is unmeasured", chart)
         self.assertIn("Harness process time", chart)
         self.assertIn("All committed checks passed", chart)
