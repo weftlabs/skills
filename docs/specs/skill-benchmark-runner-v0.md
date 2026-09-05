@@ -46,6 +46,7 @@ silently overwritten or mixed with an older run.
 The JSON manifest contains:
 
 - version and skill name;
+- a maintainer-declared evidence class, `development` or `held_out`;
 - a plain-language claim scope that states what the benchmark does and does not
   measure;
 - one or more skill directories loaded only in `with_weft`;
@@ -69,7 +70,9 @@ path escapes, and paid-enabled manifests.
 - Load no Weft skill in `without_weft`; load the manifest skill set in
   `with_weft`.
 - Save the raw harness stream and final answer for each run.
-- Capture wall time and native total tokens. Pi totals include input, output,
+- Capture wall time and native total tokens. Preserve available input,
+  cached-input, output, reasoning-output, and cache-write categories as
+  supporting telemetry. Pi totals include input, output,
   cache-read, and cache-write categories exactly once. Missing tokens exclude
   the run.
 - Mark accomplishment true only when every committed check passes.
@@ -78,6 +81,10 @@ path escapes, and paid-enabled manifests.
 - Aggregate median harness process time, all-checks-passed rate, and median
   tokens by target and arm. Do not publish assertion percentage as
   accomplishment.
+- Treat each case as one case-level analysis unit. Treat repeated generations
+  as nested observations. Compute time and token differences from matched
+  repetition differences within each case, then aggregate across cases. Compute
+  accomplishment differences from paired per-case rates.
 - Generate a deterministic README block and SVG evidence plot from verified raw
   paired runs and their complete summary.
 - Recompute the summary from its sibling raw evidence before publication and
@@ -116,14 +123,17 @@ It shows:
   repetition connected across arms;
 - median markers for time and tokens;
 - exact successes over complete runs without an inferential interval;
-- paired check-pass transitions, pair count, harness version, model identifier,
-  case IDs, case count, and measurement time;
+- paired check-pass transitions, unique case count, paired-generation
+  count, harness version, model identifier, case IDs, and measurement time;
 - the full claim scope inside the SVG so a copied chart keeps its boundary.
 
 Raw JSON also records a canonical disclosure of harness model defaults.
 
-The README states the manifest claim scope and calls each delta an observed
-difference, not an impact. It makes no causal, statistical-significance,
+The README states the manifest claim scope and maintainer-declared evidence
+class. Development evidence is clearly labeled as a pilot and not as efficacy
+evidence. A held-out declaration is not presented as independently proven. Each delta
+is a paired case-level difference, not an impact. It makes no causal,
+statistical-significance,
 forecast-accuracy, or financial-return claim. A measured block also names the
 repetitions, skill digest, manifest digest, date, and raw-result path.
 The evidence does not claim an exact hosted-model revision when the harness does

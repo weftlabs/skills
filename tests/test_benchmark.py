@@ -323,6 +323,16 @@ class BenchmarkContractTest(unittest.TestCase):
             self.benchmark.validate_manifest(payload, ROOT)
 
         payload = json.loads((FIXTURE / "manifest.json").read_text())
+        del payload["evidence_class"]
+        with self.assertRaisesRegex(ValueError, "evidence_class"):
+            self.benchmark.validate_manifest(payload, ROOT)
+
+        payload = json.loads((FIXTURE / "manifest.json").read_text())
+        payload["evidence_class"] = "scientific"
+        with self.assertRaisesRegex(ValueError, "development or held_out"):
+            self.benchmark.validate_manifest(payload, ROOT)
+
+        payload = json.loads((FIXTURE / "manifest.json").read_text())
         payload["skills"] = [None]
         with self.assertRaisesRegex(ValueError, "relative path string"):
             self.benchmark.validate_manifest(payload, ROOT)
@@ -913,6 +923,16 @@ class BenchmarkContractTest(unittest.TestCase):
             ]
         )
         self.assertEqual(("done", 150), self.benchmark.parse_codex_output(codex))
+        self.assertEqual(
+            {
+                "input_tokens": 120,
+                "cached_input_tokens": 0,
+                "output_tokens": 30,
+                "reasoning_output_tokens": 0,
+                "cache_write_input_tokens": 0,
+            },
+            self.benchmark.parse_codex_token_usage(codex),
+        )
 
         pi = "\n".join(
             [
@@ -952,6 +972,16 @@ class BenchmarkContractTest(unittest.TestCase):
             ]
         )
         self.assertEqual(("done", 170), self.benchmark.parse_pi_output(pi))
+        self.assertEqual(
+            {
+                "input_tokens": 120,
+                "cached_input_tokens": 15,
+                "output_tokens": 30,
+                "reasoning_output_tokens": 0,
+                "cache_write_input_tokens": 5,
+            },
+            self.benchmark.parse_pi_token_usage(pi),
+        )
         total_only = json.dumps(
             {
                 "type": "message_end",
@@ -963,6 +993,24 @@ class BenchmarkContractTest(unittest.TestCase):
             }
         )
         self.assertEqual(("done", 115), self.benchmark.parse_pi_output(total_only))
+        self.assertIsNone(
+            self.benchmark.usage_total(
+                {"total_tokens": 999, "input_tokens": 10, "output_tokens": 5}
+            )
+        )
+        self.assertIsNone(
+            self.benchmark.pi_usage_total(
+                {
+                    "totalTokens": 999,
+                    "input": 10,
+                    "output": 5,
+                    "cacheRead": 2,
+                    "cacheWrite": 1,
+                }
+            )
+        )
+        invalid_category = codex.replace('"input_tokens": 120', '"input_tokens": -1')
+        self.assertIsNone(self.benchmark.parse_codex_token_usage(invalid_category))
         self.assertIsNone(self.benchmark.usage_total({"input": True, "output": 2}))
         self.assertIsNone(self.benchmark.usage_total({"input": -1, "output": 2}))
 
@@ -1459,9 +1507,72 @@ class BenchmarkContractTest(unittest.TestCase):
         self.assertEqual(100.0, delta["accomplishment_percentage_points"])
         self.assertEqual(1, summary["exclusions"]["by_target"]["codex:gpt"])
 
+    def test_summary_uses_cases_not_repetitions_as_the_paired_analysis_unit(self):
+        runs = []
+        case_values = {
+            "case-a": (0.0, 100.0),
+            "case-b": (50.0, 51.0),
+            "case-c": (100.0, 101.0),
+        }
+        for case_id, (without_time, with_time) in case_values.items():
+            for repetition in range(1, 4):
+                runs.extend(
+                    [
+                        self.benchmark.RunResult.fixture(
+                            "codex", "gpt", case_id, "without_weft", repetition,
+                            without_time, int(without_time + 10), False,
+                        ),
+                        self.benchmark.RunResult.fixture(
+                            "codex", "gpt", case_id, "with_weft", repetition,
+                            with_time, int(with_time + 20), True,
+                        ),
+                    ]
+                )
+
+        summary = self.benchmark.aggregate(
+            "fixture", "manifest", "skill", 3, runs,
+            targets=[self.benchmark.Target("codex", "gpt")],
+            case_ids=list(case_values),
+            evidence_class="development",
+        )
+        delta = summary["deltas"][0]
+        self.assertEqual(3, delta["unique_cases"])
+        self.assertEqual("paired_case_level", delta["method"])
+        self.assertEqual(1.0, delta["time_seconds"])
+        self.assertEqual(11, delta["tokens"])
+        self.assertEqual(100.0, delta["accomplishment_percentage_points"])
+        self.assertEqual("development", summary["evidence_class"])
+
+    def test_case_level_time_and_token_differences_preserve_repetition_pairs(self):
+        runs = []
+        without_values = ((0.0, 0), (10.0, 10), (20.0, 20))
+        with_values = ((11.0, 11), (21.0, 21), (1.0, 1))
+        for repetition, (without, with_skill) in enumerate(
+            zip(without_values, with_values, strict=True), start=1
+        ):
+            runs.extend(
+                [
+                    self.benchmark.RunResult.fixture(
+                        "codex", "gpt", "case", "without_weft", repetition,
+                        without[0], without[1], False,
+                    ),
+                    self.benchmark.RunResult.fixture(
+                        "codex", "gpt", "case", "with_weft", repetition,
+                        with_skill[0], with_skill[1], True,
+                    ),
+                ]
+            )
+
+        delta = self.benchmark.aggregate(
+            "fixture", "manifest", "skill", 3, runs
+        )["deltas"][0]
+        self.assertEqual(11.0, delta["time_seconds"])
+        self.assertEqual(11, delta["tokens"])
+
     def test_readme_publication_uses_only_three_headline_dimensions(self):
         summary = {
             "skill": "fixture",
+            "evidence_class": "development",
             "claim_scope": "Instruction-following on one frozen task. This does not measure live research.",
             "generated_at": "2026-09-01T00:00:00Z",
             "manifest_digest": "m1",
@@ -1489,6 +1600,13 @@ class BenchmarkContractTest(unittest.TestCase):
                     "median_time_seconds": 10.0,
                     "accomplishment_rate": 0.3333,
                     "median_tokens": 100,
+                    "median_token_usage": {
+                        "input_tokens": 80,
+                        "cached_input_tokens": 60,
+                        "output_tokens": 20,
+                        "reasoning_output_tokens": 5,
+                        "cache_write_input_tokens": 0,
+                    },
                 },
                 {
                     "harness": "codex",
@@ -1499,6 +1617,13 @@ class BenchmarkContractTest(unittest.TestCase):
                     "median_time_seconds": 12.0,
                     "accomplishment_rate": 1.0,
                     "median_tokens": 130,
+                    "median_token_usage": {
+                        "input_tokens": 100,
+                        "cached_input_tokens": 70,
+                        "output_tokens": 30,
+                        "reasoning_output_tokens": 8,
+                        "cache_write_input_tokens": 0,
+                    },
                 },
             ],
             "deltas": [
@@ -1508,6 +1633,8 @@ class BenchmarkContractTest(unittest.TestCase):
                     "time_seconds": 2.0,
                     "accomplishment_percentage_points": 66.67,
                     "tokens": 30,
+                    "unique_cases": 1,
+                    "method": "paired_case_level",
                 }
             ],
         }
@@ -1543,6 +1670,9 @@ class BenchmarkContractTest(unittest.TestCase):
         self.assertEqual(chart, self.benchmark.render_benchmark_chart(summary, raw))
         ET.fromstring(chart)
         self.assertIn("Benchmark evidence: fixture", chart)
+        self.assertIn("DEVELOPMENT PILOT", chart)
+        self.assertIn("1 unique case", chart)
+        self.assertIn("3 paired generations", chart)
         self.assertIn("Codex · gpt", chart)
         self.assertIn("Harness version codex 1.0 · model identifier gpt", chart)
         self.assertIn("Harness process time", chart)
@@ -1552,7 +1682,7 @@ class BenchmarkContractTest(unittest.TestCase):
         self.assertIn("With skill", chart)
         self.assertIn("Every dot and line is one complete paired run", chart)
         self.assertNotIn("Wilson", chart)
-        self.assertIn("n=3 complete pairs", chart)
+        self.assertNotIn("n=3 complete pairs", chart)
         self.assertIn("1/3", chart)
         self.assertIn("3/3", chart)
         self.assertIn("Improved 2 · regressed 0 · unchanged 1", chart)
@@ -1561,7 +1691,10 @@ class BenchmarkContractTest(unittest.TestCase):
         self.assertIn("Case IDs: case", chart)
         self.assertIn("![Benchmark chart](benchmarks/chart.svg)", block)
         self.assertIn("Claim scope:", block)
-        self.assertIn("Observed difference", block)
+        self.assertIn("Development pilot", block)
+        self.assertIn("Paired case-level difference", block)
+        self.assertIn("1 unique case", block)
+        self.assertIn("Separately calculated native token-field medians", block)
         self.assertNotIn("Weft impact", block)
         self.assertIn("descriptive", block)
         self.assertIn("Harness process time", block)
@@ -1605,6 +1738,7 @@ class BenchmarkContractTest(unittest.TestCase):
             manifest = {
                 "version": 1,
                 "skill": "fixture",
+                "evidence_class": "development",
                 "claim_scope": "Instruction-following on one frozen task. This does not measure live research.",
                 "skills": ["skills/fixture"],
                 "minimum_repetitions": 3,
@@ -1690,6 +1824,7 @@ class BenchmarkContractTest(unittest.TestCase):
             summary["repetitions_run"] = 3
             raw = {
                 "skill": "fixture",
+                "evidence_class": "development",
                 "claim_scope": manifest["claim_scope"],
                 "generated_at": summary["generated_at"],
                 "manifest_digest": manifest_digest,
@@ -1700,9 +1835,22 @@ class BenchmarkContractTest(unittest.TestCase):
                 "manifest_case_ids": ["case"],
                 "targets": summary["targets"],
                 "test_evidence": False,
+                "cases": [
+                    {
+                        "id": "case",
+                        "truth_provenance": "Committed fixture contract.",
+                    }
+                ],
                 "runs": [run.to_dict() for run in runs],
             }
             self.benchmark.verify_publication(summary, raw, manifest, repo, evidence)
+
+            raw["cases"][0]["truth_provenance"] = "changed"
+            with self.assertRaisesRegex(ValueError, "truth provenance"):
+                self.benchmark.verify_publication(
+                    summary, raw, manifest, repo, evidence
+                )
+            raw["cases"][0]["truth_provenance"] = "Committed fixture contract."
 
             raw["runs"][0]["exclusion"] = "timeout"
             with self.assertRaisesRegex(ValueError, "survivor bias"):
@@ -1866,6 +2014,7 @@ class BenchmarkContractTest(unittest.TestCase):
         manifest = {
             "version": 1,
             "skill": "fixture-weft-skill",
+            "evidence_class": "development",
             "claim_scope": "Instruction-following on two frozen fixture tasks. This does not measure live external work.",
             "skills": ["tests/fixtures/benchmark/skill"],
             "minimum_repetitions": 1,

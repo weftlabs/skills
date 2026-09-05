@@ -318,6 +318,7 @@ class RunResult:
     exclusion: str | None
     exit_code: int | None
     run_path: str
+    token_usage: dict[str, int] | None = None
 
     @classmethod
     def fixture(
@@ -348,6 +349,7 @@ class RunResult:
             exclusion=exclusion,
             exit_code=0 if exclusion is None else None,
             run_path=run_path,
+            token_usage=None,
         )
 
     def to_dict(self) -> dict:
@@ -418,6 +420,8 @@ def validate_manifest(payload: dict, repo_root: pathlib.Path = ROOT) -> dict:
         raise ValueError("manifest version must be 1")
     if not isinstance(payload.get("skill"), str) or not payload["skill"].strip():
         raise ValueError("manifest skill must be a non-empty string")
+    if payload.get("evidence_class") not in ("development", "held_out"):
+        raise ValueError("manifest evidence_class must be development or held_out")
     if (
         not isinstance(payload.get("claim_scope"), str)
         or not payload["claim_scope"].strip()
@@ -984,30 +988,46 @@ def usage_total(usage: object) -> int | None:
         components = None
     else:
         components = input_value + output_value
-    for key in ("total_tokens", "totalTokens"):
-        value = usage.get(key)
-        if valid_token_count(value):
-            return value
+    explicit_values = [
+        usage[key] for key in ("total_tokens", "totalTokens") if key in usage
+    ]
+    if explicit_values:
+        if not all(valid_token_count(value) for value in explicit_values):
+            return None
+        if len(set(explicit_values)) != 1:
+            return None
+        explicit_total = explicit_values[0]
+        if components is not None and explicit_total != components:
+            return None
+        return explicit_total
     return components
 
 
 def pi_usage_total(usage: object) -> int | None:
     if not isinstance(usage, dict):
         return None
-    for key in ("totalTokens", "total_tokens"):
-        value = usage.get(key)
-        if valid_token_count(value):
-            return value
     required = [usage.get("input"), usage.get("output")]
-    if not all(valid_token_count(value) for value in required):
-        return None
+    has_components = all(valid_token_count(value) for value in required)
     cache_values = []
     for key in ("cacheRead", "cacheWrite"):
         value = usage.get(key, 0)
         if not valid_token_count(value):
             return None
         cache_values.append(value)
-    return sum(required + cache_values)
+    components = sum(required + cache_values) if has_components else None
+    explicit_values = [
+        usage[key] for key in ("totalTokens", "total_tokens") if key in usage
+    ]
+    if explicit_values:
+        if not all(valid_token_count(value) for value in explicit_values):
+            return None
+        if len(set(explicit_values)) != 1:
+            return None
+        explicit_total = explicit_values[0]
+        if components is not None and explicit_total != components:
+            return None
+        return explicit_total
+    return components
 
 
 def text_content(value: object) -> str:
@@ -1052,6 +1072,46 @@ def parse_codex_output(raw: str) -> tuple[str | None, int | None]:
     return answer, tokens
 
 
+def empty_token_usage() -> dict[str, int]:
+    return {
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "cache_write_input_tokens": 0,
+    }
+
+
+def parse_codex_token_usage(raw: str) -> dict[str, int] | None:
+    usage = None
+    for event in json_events(raw):
+        candidate = event.get("usage")
+        if isinstance(candidate, dict) and usage_total(candidate) is not None:
+            usage = candidate
+    if usage is None:
+        return None
+    result = empty_token_usage()
+    aliases = {
+        "input_tokens": ("input_tokens", "inputTokens", "input"),
+        "cached_input_tokens": ("cached_input_tokens", "cachedInputTokens", "cacheRead"),
+        "output_tokens": ("output_tokens", "outputTokens", "output"),
+        "reasoning_output_tokens": ("reasoning_output_tokens", "reasoningOutputTokens"),
+        "cache_write_input_tokens": ("cache_write_input_tokens", "cacheWriteInputTokens", "cacheWrite"),
+    }
+    for field, keys in aliases.items():
+        values = [usage[key] for key in keys if key in usage]
+        if not values:
+            if field in ("input_tokens", "output_tokens"):
+                return None
+            continue
+        if not all(valid_token_count(value) for value in values):
+            return None
+        if len(set(values)) != 1:
+            return None
+        result[field] = values[0]
+    return result
+
+
 def parse_codex_failure(raw: str) -> str | None:
     for event in json_events(raw):
         item = event.get("item")
@@ -1089,6 +1149,36 @@ def parse_pi_output(raw: str) -> tuple[str | None, int | None]:
         answer,
         token_total if saw_assistant_message and complete_usage else None,
     )
+
+
+def parse_pi_token_usage(raw: str) -> dict[str, int] | None:
+    result = empty_token_usage()
+    saw_assistant_message = False
+    for event in json_events(raw):
+        if event.get("type") != "message_end":
+            continue
+        message = event.get("message")
+        if not isinstance(message, dict) or message.get("role") != "assistant":
+            continue
+        usage = message.get("usage")
+        if not isinstance(usage, dict) or pi_usage_total(usage) is None:
+            return None
+        if not valid_token_count(usage.get("input")) or not valid_token_count(
+            usage.get("output")
+        ):
+            return None
+        saw_assistant_message = True
+        for field, key in (
+            ("input_tokens", "input"),
+            ("cached_input_tokens", "cacheRead"),
+            ("output_tokens", "output"),
+            ("reasoning_output_tokens", "reasoning"),
+            ("cache_write_input_tokens", "cacheWrite"),
+        ):
+            value = usage.get(key, 0)
+            if valid_token_count(value):
+                result[field] += value
+    return result if saw_assistant_message else None
 
 
 def parse_pi_failure(raw: str) -> str | None:
@@ -1351,6 +1441,11 @@ def execute_one(
                 if target.harness == "codex"
                 else parse_pi_output(stdout)
             )
+            token_usage = (
+                parse_codex_token_usage(stdout)
+                if target.harness == "codex"
+                else parse_pi_token_usage(stdout)
+            )
             pi_failure = parse_pi_failure(stdout) if target.harness == "pi" else None
             codex_failure = (
                 parse_codex_failure(stdout) if target.harness == "codex" else None
@@ -1364,6 +1459,7 @@ def execute_one(
         except MalformedHarnessOutputError:
             answer = None
             tokens = None
+            token_usage = None
             pi_failure = None
             codex_failure = None
             pi_identity = None
@@ -1392,6 +1488,7 @@ def execute_one(
                 parse_failure,
                 exit_code,
                 run_relative.as_posix(),
+                token_usage,
             )
         elif codex_failure or pi_failure:
             result = RunResult(
@@ -1408,6 +1505,7 @@ def execute_one(
                 codex_failure or pi_failure,
                 exit_code,
                 run_relative.as_posix(),
+                token_usage,
             )
         elif answer is None:
             result = RunResult(
@@ -1424,6 +1522,7 @@ def execute_one(
                 "missing_final_answer",
                 exit_code,
                 run_relative.as_posix(),
+                token_usage,
             )
         elif tokens is None:
             result = RunResult(
@@ -1440,6 +1539,7 @@ def execute_one(
                 "missing_token_telemetry",
                 exit_code,
                 run_relative.as_posix(),
+                token_usage,
             )
         elif pi_output_limit:
             _, checks = grade_answer(case, answer)
@@ -1457,6 +1557,7 @@ def execute_one(
                 None,
                 exit_code,
                 run_relative.as_posix(),
+                token_usage,
             )
         else:
             accomplished, checks = grade_answer(case, answer)
@@ -1474,6 +1575,7 @@ def execute_one(
                 None,
                 exit_code,
                 run_relative.as_posix(),
+                token_usage,
             )
     (run_path / "result.json").write_text(
         json.dumps(result.to_dict(), indent=2) + "\n", encoding="utf-8"
@@ -1490,6 +1592,16 @@ def median(values: list[float | int]) -> float | int:
     )
 
 
+def median_token_usage(runs: list[RunResult]) -> dict[str, float | int] | None:
+    usages = [run.token_usage for run in runs if run.token_usage is not None]
+    if len(usages) != len(runs) or not usages:
+        return None
+    return {
+        field: median([usage[field] for usage in usages])
+        for field in empty_token_usage()
+    }
+
+
 def aggregate(
     skill: str,
     manifest_digest: str,
@@ -1499,6 +1611,7 @@ def aggregate(
     *,
     targets: list[Target] | None = None,
     case_ids: list[str] | None = None,
+    evidence_class: str = "development",
 ) -> dict:
     pairs: dict[tuple[str, str, str, int], dict[str, RunResult]] = defaultdict(dict)
     for run in runs:
@@ -1550,29 +1663,76 @@ def aggregate(
                 "median_tokens": median(
                     [run.total_tokens for run in group if run.total_tokens is not None]
                 ),
+                "median_token_usage": median_token_usage(group),
             }
         )
     deltas = []
-    by_target: dict[tuple[str, str], dict[str, dict]] = defaultdict(dict)
-    for row in rows:
-        by_target[(row["harness"], row["model"])][row["arm"]] = row
-    for (harness, model), arms in sorted(by_target.items()):
-        if not all(arm in arms for arm in ARMS):
+    target_keys = sorted({(run.harness, run.model) for run in valid})
+    for harness, model in target_keys:
+        target_runs = [
+            run for run in valid if run.harness == harness and run.model == model
+        ]
+        case_differences = []
+        for case_id in sorted({run.case_id for run in target_runs}):
+            case_runs = [run for run in target_runs if run.case_id == case_id]
+            repetition_pairs: dict[int, dict[str, RunResult]] = defaultdict(dict)
+            for run in case_runs:
+                repetition_pairs[run.repetition][run.arm] = run
+            pair_differences = []
+            for repetition in sorted(repetition_pairs):
+                arms = repetition_pairs[repetition]
+                if not all(arm in arms for arm in ARMS):
+                    continue
+                without = arms["without_weft"]
+                with_weft = arms["with_weft"]
+                pair_differences.append(
+                    {
+                        "time_seconds": (
+                            with_weft.duration_seconds - without.duration_seconds
+                        ),
+                        "accomplishment_percentage_points": (
+                            int(bool(with_weft.accomplished))
+                            - int(bool(without.accomplished))
+                        )
+                        * 100,
+                        "tokens": with_weft.total_tokens - without.total_tokens,
+                    }
+                )
+            if not pair_differences:
+                continue
+            case_differences.append(
+                {
+                    "time_seconds": median(
+                        [row["time_seconds"] for row in pair_differences]
+                    ),
+                    "accomplishment_percentage_points": statistics.mean(
+                        row["accomplishment_percentage_points"]
+                        for row in pair_differences
+                    ),
+                    "tokens": median(
+                        [row["tokens"] for row in pair_differences]
+                    ),
+                }
+            )
+        if not case_differences:
             continue
-        without, with_weft = arms["without_weft"], arms["with_weft"]
         deltas.append(
             {
                 "harness": harness,
                 "model": model,
-                "time_seconds": round(
-                    with_weft["median_time_seconds"] - without["median_time_seconds"], 3
+                "time_seconds": median(
+                    [row["time_seconds"] for row in case_differences]
                 ),
                 "accomplishment_percentage_points": round(
-                    (with_weft["accomplishment_rate"] - without["accomplishment_rate"])
-                    * 100,
+                    statistics.mean(
+                        row["accomplishment_percentage_points"]
+                        for row in case_differences
+                    ),
                     2,
                 ),
-                "tokens": with_weft["median_tokens"] - without["median_tokens"],
+                "tokens": median([row["tokens"] for row in case_differences]),
+                "unique_cases": len(case_differences),
+                "method": "paired_case_level",
             }
         )
     coverage = []
@@ -1596,6 +1756,7 @@ def aggregate(
     return {
         "version": 1,
         "skill": skill,
+        "evidence_class": evidence_class,
         "generated_at": utc_now(),
         "manifest_digest": manifest_digest,
         "skill_digest": skill_digest,
@@ -1629,6 +1790,16 @@ def validate_run_telemetry(run: RunResult) -> None:
         or run.total_tokens < 0
     ):
         raise ValueError("raw evidence requires a nonnegative token count")
+    if run.token_usage is not None:
+        if set(run.token_usage) != set(empty_token_usage()):
+            raise ValueError("raw evidence has invalid token composition fields")
+        if any(
+            isinstance(value, bool)
+            or not isinstance(value, int)
+            or value < 0
+            for value in run.token_usage.values()
+        ):
+            raise ValueError("raw evidence requires nonnegative token composition")
     if run.exclusion is None:
         if run.exit_code != 0:
             raise ValueError("valid raw evidence requires exit_code 0")
@@ -1675,12 +1846,19 @@ def verify_run_artifacts(
             if run.harness == "codex"
             else parse_pi_output(native_output)
         )
+        native_token_usage = (
+            parse_codex_token_usage(native_output)
+            if run.harness == "codex"
+            else parse_pi_token_usage(native_output)
+        )
     except (OSError, MalformedHarnessOutputError) as exc:
         raise ValueError(f"cannot parse native harness evidence: {exc}") from exc
     if native_answer != run.answer:
         raise ValueError("raw final answer does not match native harness evidence")
     if native_tokens != run.total_tokens:
         raise ValueError("raw token count does not match native token telemetry")
+    if native_token_usage != run.token_usage:
+        raise ValueError("raw token composition does not match native token telemetry")
     if run.harness == "codex" and parse_codex_failure(native_output) is not None:
         raise ValueError("valid Codex run contains a native harness failure")
     if run.harness == "pi":
@@ -1705,6 +1883,7 @@ def verify_publication(
         raise ValueError("test-harness evidence cannot be published")
     for field in (
         "skill",
+        "evidence_class",
         "claim_scope",
         "manifest_digest",
         "skill_digest",
@@ -1715,6 +1894,8 @@ def verify_publication(
     validate_generated_at(summary.get("generated_at"))
     if summary.get("skill") != manifest.get("skill"):
         raise ValueError("benchmark manifest and evidence have different skill names")
+    if summary.get("evidence_class") != manifest.get("evidence_class"):
+        raise ValueError("benchmark evidence class does not match the manifest")
     if summary.get("claim_scope") != manifest.get("claim_scope"):
         raise ValueError("benchmark evidence does not match the manifest claim scope")
     current_manifest_digest = canonical_digest(manifest)
@@ -1734,6 +1915,12 @@ def verify_publication(
         raise ValueError(
             "benchmark evidence does not contain every current manifest case"
         )
+    expected_case_provenance = [
+        {"id": case["id"], "truth_provenance": case["truth_provenance"]}
+        for case in manifest["cases"]
+    ]
+    if raw.get("cases") != expected_case_provenance:
+        raise ValueError("raw evidence truth provenance does not match the manifest")
     minimum = summary.get("minimum_repetitions")
     if (
         isinstance(minimum, bool)
@@ -1848,6 +2035,7 @@ def verify_publication(
         runs,
         targets=targets,
         case_ids=manifest_case_ids,
+        evidence_class=manifest["evidence_class"],
     )
     for field in ("results", "deltas", "case_coverage", "exclusions"):
         if summary.get(field) != recomputed.get(field):
@@ -1885,6 +2073,10 @@ def chart_number(value: float | int) -> str:
 
 def chart_text(value: object) -> str:
     return html.escape(str(value), quote=True)
+
+
+def count_phrase(count: int, singular: str, plural: str | None = None) -> str:
+    return f"{count} {singular if count == 1 else (plural or singular + 's')}"
 
 
 def target_raw_pairs(raw: dict, harness: str, model: str) -> list[tuple[dict, dict]]:
@@ -2041,6 +2233,11 @@ def render_benchmark_chart(summary: dict, raw: dict) -> str:
         {run["case_id"] for run in raw["runs"]}
     )
     case_text = ", ".join(case_ids)
+    evidence_label = (
+        "DEVELOPMENT PILOT · not efficacy evidence"
+        if summary.get("evidence_class") == "development"
+        else "MAINTAINER-DECLARED HELD-OUT · descriptive evidence"
+    )
     width = 600
     group_height = 560
     scope_start_y = 100
@@ -2054,7 +2251,7 @@ def render_benchmark_chart(summary: dict, raw: dict) -> str:
         f'  <desc id="desc">{chart_text(summary["claim_scope"])} Raw paired observations for harness process time and tokens, and exact all-checks-passed counts. Descriptive evidence only.</desc>',
         '  <rect width="100%" height="100%" fill="#ffffff"/>',
         f'  <text x="24" y="36" fill="#0f172a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" font-weight="700">Benchmark evidence: {chart_text(summary["skill"])}</text>',
-        '  <text x="24" y="59" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Descriptive paired observations · no causal or significance claim</text>',
+        f'  <text x="24" y="59" fill="#9f1239" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700">{chart_text(evidence_label)}</text>',
         '  <text x="24" y="82" fill="#334155" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700">Claim scope</text>',
     ]
     for index, scope_line in enumerate(scope_lines):
@@ -2064,7 +2261,7 @@ def render_benchmark_chart(summary: dict, raw: dict) -> str:
     lines.extend(
         [
             f'  <text x="24" y="{case_y}" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10">Case IDs: {chart_text(case_text)}</text>',
-            f'  <text x="24" y="{measured_y}" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10">Measured {chart_text(summary["generated_at"])} · {len(case_ids)} committed case(s)</text>',
+            f'  <text x="24" y="{measured_y}" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10">Measured {chart_text(summary["generated_at"])} · {chart_text(count_phrase(len(case_ids), "unique case"))} · repetitions nested within cases</text>',
             f'  <text x="24" y="{measured_y + 20}" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Every dot and line is one complete paired run · vertical tick is the median</text>',
         ]
     )
@@ -2074,10 +2271,11 @@ def render_benchmark_chart(summary: dict, raw: dict) -> str:
         with_skill = rows["with_weft"]
         version = target_version(summary, *key)
         label = f"{harness_title(key[0])} · {key[1]}"
+        unique_cases = len({pair[0]["case_id"] for pair in pairs})
         lines.extend(
             [
                 f'  <text x="24" y="{group_y}" fill="#0f172a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="700">{chart_text(label)}</text>',
-                f'  <text x="576" y="{group_y}" text-anchor="end" fill="#475569" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">n={len(pairs)} complete pairs · {without["excluded_pairs"]} excluded</text>',
+                f'  <text x="576" y="{group_y}" text-anchor="end" fill="#475569" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">{chart_text(count_phrase(unique_cases, "unique case"))} · {chart_text(count_phrase(len(pairs), "paired generation"))} · {without["excluded_pairs"]} excluded</text>',
                 f'  <text x="24" y="{group_y + 19}" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10">Harness version {chart_text(version)} · model identifier {chart_text(key[1])}</text>',
             ]
         )
@@ -2129,12 +2327,20 @@ def render_unmeasured_chart() -> str:
 def render_benchmark_block(
     summary: dict, raw_path: str, chart_path: str = BENCHMARK_CHART_PATH
 ) -> str:
+    development = summary.get("evidence_class") == "development"
+    evidence_statement = (
+        "**Evidence class: Development pilot.** These tasks were used while the skill and scorer were developed. They are regression evidence, not held-out efficacy evidence."
+        if development
+        else "**Evidence class: Maintainer-declared held-out.** The runner verifies the committed manifest and evidence, but it cannot prove that the maintainer kept these tasks separate from skill development. Results remain descriptive and do not establish causality."
+    )
     lines = [
         "## Benchmark",
         "",
         f"**Claim scope:** {summary['claim_scope']}",
         "",
-        "The same clean-room tasks run without the skill and with the skill. Results are descriptive paired observations; they do not establish causality or statistical significance. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.",
+        evidence_statement,
+        "",
+        "The same clean-room tasks run without the skill and with the skill. Repeated generations are nested within each task; they do not increase the number of independent tasks. Results are descriptive paired observations. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.",
         "",
         "The evidence writer redacts host paths, clean-room temporary paths, and opaque harness trace IDs from published native transcripts. Answers and token telemetry remain inspectable.",
         "",
@@ -2149,12 +2355,29 @@ def render_benchmark_block(
         )
     for row in summary["deltas"]:
         lines.append(
-            f"| {harness_title(row['harness'])} / `{row['model']}` | Observed difference | {signed(row['time_seconds'], 's')} | {signed(row['accomplishment_percentage_points'], ' pp')} | {signed(row['tokens'])} | — |"
+            f"| {harness_title(row['harness'])} / `{row['model']}` | Paired case-level difference | {signed(row['time_seconds'], 's')} | {signed(row['accomplishment_percentage_points'], ' pp')} | {signed(row['tokens'])} | — |"
         )
+    token_rows = [
+        row for row in summary["results"] if row.get("median_token_usage") is not None
+    ]
+    if token_rows:
+        lines.extend(["", "**Separately calculated native token-field medians:**"])
+        for row in token_rows:
+            usage = row["median_token_usage"]
+            lines.append(
+                f"- {harness_title(row['harness'])} / `{row['model']}` / {row['arm'].replace('_', ' ')}: input {usage['input_tokens']} (cached input {usage['cached_input_tokens']}), output {usage['output_tokens']} (reasoning output {usage['reasoning_output_tokens']}), cache write input {usage['cache_write_input_tokens']}."
+            )
+        lines.append(
+            "These category medians are supporting telemetry. They can come from different runs, and overlapping native fields such as cached input are not additive."
+        )
+    unique_cases = max(
+        (row.get("unique_cases", 0) for row in summary["deltas"]), default=0
+    )
     lines.extend(
         [
             "",
-            f"Actual repetitions per case: {summary['repetitions_run']}. Required complete pairs per target and case: {summary['minimum_repetitions']}. Excluded matched pairs: {summary.get('exclusions', {}).get('pairs', 0)}.",
+            f"Case-level analysis units: {count_phrase(unique_cases, 'unique case')}. Actual repetitions per case: {summary['repetitions_run']}. Required complete pairs per target and case: {summary['minimum_repetitions']}. Excluded matched pairs: {summary.get('exclusions', {}).get('pairs', 0)}.",
+            "The reported time and token differences are the medians of the per-case paired differences. The accomplishment difference is the mean of the per-case rate differences.",
             f"Measured: {summary['generated_at']}. Skill digest: `{summary['skill_digest']}`. Manifest digest: `{summary['manifest_digest']}`.",
             f"[Raw benchmark evidence]({raw_path})",
         ]
@@ -2324,6 +2547,7 @@ def command_run(args: argparse.Namespace) -> int:
     raw = {
         "version": 1,
         "skill": manifest["skill"],
+        "evidence_class": manifest["evidence_class"],
         "claim_scope": manifest["claim_scope"],
         "generated_at": generated_at,
         "manifest_digest": manifest_hash,
@@ -2349,6 +2573,7 @@ def command_run(args: argparse.Namespace) -> int:
         runs,
         targets=targets,
         case_ids=[case["id"] for case in cases],
+        evidence_class=manifest["evidence_class"],
     )
     summary["generated_at"] = generated_at
     summary["claim_scope"] = manifest["claim_scope"]

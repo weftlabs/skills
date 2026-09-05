@@ -2,11 +2,14 @@
 
 ## Purpose
 
-The runner lets a user measure the marginal effect of Weft on an agent task.
+The runner lets a user record a paired comparison for one agent task.
 It runs the same task twice with the same harness, model, safety policy, and fixtures:
 
 1. `without_weft`: no Weft skill is available;
-2. `with_weft`: the selected Weft skill set is available.
+2. `with_weft`: the complete skill bundle declared by the manifest is available.
+
+This comparison does not isolate one skill from its declared dependencies and
+does not estimate a causal effect.
 
 The public result has three dimensions only: harness process time, all committed
 checks passed, and total agent tokens. Each manifest also states the boundary of
@@ -20,7 +23,7 @@ flowchart LR
   O --> H[Harness adapter]
   H --> N[Without Weft]
   H --> W[With Weft]
-  N --> G[Independent grader]
+  N --> G[Precommitted deterministic grader]
   W --> G
   G --> J[Raw and summary JSON]
   J --> R[Generated README block and SVG chart]
@@ -30,7 +33,10 @@ The orchestrator owns isolation, paired scheduling, telemetry normalization,
 error classification, aggregation, and publication. An adapter only builds a
 non-interactive harness command and extracts its final answer and native token
 telemetry. The manifest owns prompts, fixtures, repetitions, skill paths,
-grading checks, and truth provenance.
+grading checks, truth provenance, and a maintainer-declared evidence class:
+`development` or `held_out`. The runner verifies that declaration against the
+published evidence. It cannot independently prove that a held-out task was not
+used during development.
 
 V0 permits real runs only on POSIX hosts. Windows process-tree termination and
 Codex filesystem-deny enforcement are not sufficient for publishable isolation.
@@ -78,7 +84,12 @@ fixture path and content in a delimited JSON task-input bundle.
 |---|---|
 | Harness process time | Maintainer-recorded monotonic wall-clock seconds from child-process start to exit. Clean-room preparation is outside this boundary. Public summaries use the median of complete runs. |
 | All committed checks passed | Complete runs where every precommitted check passes, divided by all complete runs. |
-| Tokens | Total native tokens reported by the harness for the task agent, including its subagents when the harness reports them. Pi uses `totalTokens`, which includes input, output, cache-read, and cache-write categories exactly once. Public summaries use the median. |
+| Tokens | Total native tokens reported by the harness for the task agent, including its subagents when the harness reports them. Pi uses `totalTokens`, which includes input, output, cache-read, and cache-write categories exactly once. Public summaries use the median and preserve available input, cached-input, output, reasoning-output, and cache-write medians as supporting telemetry. |
+
+The case is the analysis unit. Repeated generations estimate within-case
+variability; they do not increase the unique case count. The
+reported time and token differences are medians of per-case arm differences.
+The accomplishment difference is the mean of per-case rate differences.
 
 Missing token telemetry makes a run `unmeasurable`; it is never recorded as
 zero. Authentication failures, unavailable models, timeouts, malformed harness
@@ -110,20 +121,25 @@ target unmeasurable with a specific reason.
 ## Results and README publication
 
 The raw result records the prompt ID, arm, repetition, harness version and model
-identifier, skill-tree digest, manifest digest, duration, token count,
+identifier, skill-tree digest, manifest digest, duration, total token count,
+available native token-field counts,
 accomplishment checks, final answer, and exclusion. The summary contains only
 aggregate facts derived from raw valid runs. Both artifacts copy the manifest's
-claim scope so it cannot disappear when the result is shared.
+claim scope and maintainer-declared evidence class so these limits cannot disappear when the result
+is shared. Development evidence is visibly labeled as a pilot and cannot be
+presented as held-out efficacy evidence.
 
 `publish` replaces a marker-bounded section in the skill README and writes a
 deterministic SVG to `benchmarks/chart.svg`. The README embeds that stable path.
 The plot reads the verified raw evidence. For time and tokens it shows every
 paired observation and connects the same case/repetition across arms; median
-markers summarize the distribution without hiding it. For accomplishment it
+markers summarize the generated observations without hiding them. For
+accomplishment it
 shows exact all-checks-passed counts and paired
 improved/regressed/unchanged counts. It does not show inferential intervals:
 repeated runs of a fixed case do not define an independent sampled population.
-It also exposes the pair count, harness version, model identifier, case IDs,
+It also exposes the unique case count, paired-generation count, harness
+version, model identifier, case IDs,
 timestamp, and full claim scope. Raw JSON discloses the effective defaults that
 the harness exposes and says when the hosted model revision is unavailable.
 The
