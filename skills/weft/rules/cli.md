@@ -62,30 +62,34 @@ weft search "weather data API"
 # 4. Poll at the interval the bootstrap response returned — no faster.
 weft auth status
 
-# 5. After approval the stored credential is promoted in place.
+# 5. After approval the same stored bearer is durable until revoked.
 weft me
 
-# 6. The balance is the truth: a new wallet holds at most a one-time
-#    signup grant. To add money, send the human to
+# 6. The balance is the truth. Before any paid fetch, ask the human to
+#    fund the wallet at
 #    https://weft.network/dashboard/wallet.
 weft balance
 ```
 
-Status lifecycle: `pending` (search works, keep polling) → `claimed` /
-`consumed` (done — normal commands work) or `rejected` / `expired`
-(terminal — stop; do not create a second bootstrap for the same request
-without asking the user).
+Status lifecycle: `pending` (search works, keep polling) → `claimed`
+(done — the same bearer now supports normal buyer commands) or `rejected` /
+`expired` / `revoked` (terminal — stop; do not create a second bootstrap for
+the same request without asking the user).
 
-The temporary `wbt_` credential is secret, expires in 30 minutes, and is
-search-only until claimed. Refusals on balance/fetch before the claim are
-the contract, not bugs. The CLI stores every credential in a mode-0600
-local file and never prints secrets — neither do you.
+The `wbt_` credential is secret. Before claim, its 30-minute window permits
+only `search`, `status`, and `cancel`. Human approval promotes the same bearer
+to durable `identity`, `search`, `balance`, `fetch`, `purchases`, `status`, and
+`revoke` capabilities until the human revokes it. Refusals on balance/fetch
+before the claim are the contract, not bugs. No subsidy or treasury funding is
+required; paid fetch uses the human-funded wallet. The CLI stores every
+credential in a mode-0600 local file and never prints secrets — neither do you.
 
 ## Credentials
 
-Precedence: `--api-key-stdin`, then `WEFT_API_KEY`, then the stored
-bootstrap/OAuth credential. The CLI rejects API keys passed as command
-arguments so they never reach shell history. Never echo any credential —
+Precedence: `--api-key-stdin`, then `WEFT_API_KEY`, then the stored bootstrap
+or legacy OAuth credential. New bootstrap flows keep the same `wbt_` bearer
+and do not register an OAuth client or call `/oauth/token`. The CLI rejects API
+keys passed as command arguments so they never reach shell history. Never echo any credential —
 `wbt_`, `wk_`, or an OAuth token — into your output.
 
 ## Errors
