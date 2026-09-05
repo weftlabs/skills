@@ -91,7 +91,7 @@ gains balance and fetch access — treat it like money from the start.
   credential in a mode-0600 local file and never prints it:
 
   ```sh
-  npx --package @weft-labs/cli weft bootstrap --email "THEIR_EMAIL" \
+  npx --package @weftlabs/cli weft bootstrap --email "THEIR_EMAIL" \
     --agent-name "YOUR_AGENT_NAME" --reason "THE_TASK"
   ```
 
@@ -146,7 +146,7 @@ when all three hold:
   sandbox or container that is reclaimed after the task.
 
 ```sh
-npm install -g @weft-labs/cli
+npm install -g @weftlabs/cli
 ```
 
 One line to the user is enough: "Your account is connected. This machine

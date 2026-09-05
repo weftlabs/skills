@@ -4,7 +4,7 @@ Canonical agent skills for [Weft](https://weft.network) — search the agent
 web and pay any x402/MPP endpoint from a wallet the user controls.
 
 **This repo is the single source of truth.** Every other place a Weft
-skill appears — `weft.network`, the Claude plugin, the `@weft-labs/cli`
+skill appears — `weft.network`, the Claude plugin, the `@weftlabs/cli`
 npm package — is a byte-identical mirror pinned to one commit of this repo
 by a `SKILLS_REF` file and enforced by that consumer's CI drift check.
 Never edit a mirror. To change a skill: PR this repo, merge, then bump
@@ -52,7 +52,7 @@ Or point an agent at the hosted copies:
 |---|---|
 | `weft.network/setup.md` + `/skills/weft/SKILL.md` | vendored into `weft-app` at its `SKILLS_REF` commit, drift-checked in its CI |
 | Claude plugin `weftlabs/weft-claude-plugin` | vendors `skills/weft/` at its `SKILLS_REF` commit, drift-checked in its CI |
-| `@weft-labs/cli` npm package | bundles `skills/weft/` at its `SKILLS_REF` commit, drift-checked in its CI |
+| `@weftlabs/cli` npm package | bundles `skills/weft/` at its `SKILLS_REF` commit, drift-checked in its CI |
 
 ## License
 
