@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="808" viewBox="0 0 600 808" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="808" viewBox="0 0 600 808" style="max-width:100%;height:auto" role="img" aria-labelledby="title desc">
   <title id="title">Benchmark evidence: polymarket-research</title>
   <desc id="desc">Development pilot that measures whether the model follows the committed Polymarket Research procedure on three synthetic offline dossiers: a current conflicted market, a historical-cutoff request, and an unresolved market identity. It does not estimate skill efficacy or measure live web or API research, source freshness, probability calibration, forecast accuracy, trading performance, profitability, or paid-provider execution. Raw paired observations for harness process time and tokens, and exact all-checks-passed counts. Descriptive evidence only.</desc>
   <rect width="100%" height="100%" fill="#ffffff"/>
