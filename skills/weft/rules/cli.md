@@ -14,13 +14,13 @@ flag.
 ## Install
 
 ```sh
-npm install -g @weft-labs/cli
+npm install -g @weftlabs/cli
 ```
 
 Zero-install equivalent for any command below:
 
 ```sh
-npx --package @weft-labs/cli weft --help
+npx --package @weftlabs/cli weft --help
 ```
 
 ## Commands
