@@ -2079,6 +2079,13 @@ def count_phrase(count: int, singular: str, plural: str | None = None) -> str:
     return f"{count} {singular if count == 1 else (plural or singular + 's')}"
 
 
+def arm_title(arm: str) -> str:
+    return {
+        "without_weft": "without declared bundle",
+        "with_weft": "with declared bundle",
+    }.get(arm, arm.replace("_", " "))
+
+
 def target_raw_pairs(raw: dict, harness: str, model: str) -> list[tuple[dict, dict]]:
     grouped: dict[tuple[str, int], dict[str, dict]] = defaultdict(dict)
     for run in raw["runs"]:
@@ -2122,9 +2129,9 @@ def render_distribution_panel(
             f'  <line x1="170" y1="{y + 43}" x2="560" y2="{y + 43}" stroke="#94a3b8"/>',
             f'  <text x="170" y="{y + 37}" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">0</text>',
             f'  <text x="560" y="{y + 37}" text-anchor="end" fill="#64748b" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11">{axis_label}</text>',
-            f'  <text x="32" y="{y + 82}" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without skill</text>',
+            f'  <text x="32" y="{y + 82}" fill="#475569" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Without declared bundle</text>',
             f'  <text x="560" y="{y + 65}" text-anchor="end" fill="#334155" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median {chart_number(without_median)}{suffix}</text>',
-            f'  <text x="32" y="{y + 128}" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With skill</text>',
+            f'  <text x="32" y="{y + 128}" fill="#0f766e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">With declared bundle</text>',
             f'  <text x="560" y="{y + 111}" text-anchor="end" fill="#0f766e" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12">median {chart_number(with_median)}{suffix}</text>',
         ]
     )
@@ -2188,8 +2195,8 @@ def render_accomplishment_panel(
     )
     for arm_index, (label, successes, color) in enumerate(
         (
-            ("Without skill", without_successes, "#475569"),
-            ("With skill", with_successes, "#0f766e"),
+            ("Without declared bundle", without_successes, "#475569"),
+            ("With declared bundle", with_successes, "#0f766e"),
         )
     ):
         row_y = y + 78 + arm_index * 46
@@ -2340,7 +2347,7 @@ def render_benchmark_block(
         "",
         evidence_statement,
         "",
-        "The same clean-room tasks run without the skill and with the skill. Repeated generations are nested within each task; they do not increase the number of unique tasks. Results are descriptive paired observations. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.",
+        "The same clean-room tasks run without the declared skill bundle and with the complete declared skill bundle. This comparison does not isolate one skill from its dependencies. Repeated generations are nested within each task; they do not increase the number of unique tasks. Results are descriptive paired observations. Headline metrics are maintainer-recorded harness process time, all committed checks passed, and total agent tokens.",
         "",
         "The evidence writer redacts host paths, clean-room temporary paths, and opaque harness trace IDs from published native transcripts. Answers and token telemetry remain inspectable.",
         "",
@@ -2351,7 +2358,7 @@ def render_benchmark_block(
     ]
     for row in summary["results"]:
         lines.append(
-            f"| {harness_title(row['harness'])} / `{row['model']}` | {row['arm'].replace('_', ' ')} | {row['median_time_seconds']}s | {percentage(row['accomplishment_rate'])} | {row['median_tokens']} | {row['valid_runs']} / {row['excluded_pairs']} |"
+            f"| {harness_title(row['harness'])} / `{row['model']}` | {arm_title(row['arm'])} | {row['median_time_seconds']}s | {percentage(row['accomplishment_rate'])} | {row['median_tokens']} | {row['valid_runs']} / {row['excluded_pairs']} |"
         )
     for row in summary["deltas"]:
         lines.append(
@@ -2365,7 +2372,7 @@ def render_benchmark_block(
         for row in token_rows:
             usage = row["median_token_usage"]
             lines.append(
-                f"- {harness_title(row['harness'])} / `{row['model']}` / {row['arm'].replace('_', ' ')}: input {usage['input_tokens']} (cached input {usage['cached_input_tokens']}), output {usage['output_tokens']} (reasoning output {usage['reasoning_output_tokens']}), cache write input {usage['cache_write_input_tokens']}."
+                f"- {harness_title(row['harness'])} / `{row['model']}` / {arm_title(row['arm'])}: input {usage['input_tokens']} (cached input {usage['cached_input_tokens']}), output {usage['output_tokens']} (reasoning output {usage['reasoning_output_tokens']}), cache write input {usage['cache_write_input_tokens']}."
             )
         lines.append(
             "These category medians are supporting telemetry. They can come from different runs, and overlapping native fields such as cached input are not additive."
