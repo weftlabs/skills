@@ -56,8 +56,9 @@ weft bootstrap --email "human@example.com" \
 # 2. Search immediately — free, works while the claim is pending.
 weft search "weather data API"
 
-# 3. Tell the human to open the claim email and approve. Show them the
-#    user code from the bootstrap response so they can match this session.
+# 3. Ask the human to verify the claim email so Weft can apply the one-time
+#    signup grant, then approve. Show them the user code from the bootstrap
+#    response so they can match this session.
 
 # 4. Poll at the interval the bootstrap response returned — no faster.
 weft auth status
