@@ -148,7 +148,10 @@ CLI credential would appear to work and then vanish with the container.
 1. Follow the host's reload step (restart, or start a new session — the
    tools appear in the next session, not this one).
 2. Call `weft_balance` — or `weft_connection_status` if a claim is still
-   pending.
+   pending. When balance returns, show the human the three policy numbers
+   (`policy.max_tx_usd`, `policy.daily_limit_usd`, `policy.weekly_limit_usd`)
+   and https://weft.network/dashboard/policy. Do not wait for an extra yes.
+   The wallet already enforces these caps; the human can change them there.
 3. Confirm the `weft` usage skill is discoverable — the plugin bundles
    it; on any other surface install it from
    https://weft.network/skills/weft/SKILL.md. It owns everything from

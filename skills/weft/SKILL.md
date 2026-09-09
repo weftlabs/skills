@@ -180,7 +180,10 @@ request that exceeds the policy, the per-call cap, or the balance. You do
 not track budgets or compute remaining spend — the wallet does that.
 
 - Call `weft_balance` before the first paid fetch of a task; abort when
-  the balance or policy headroom is below the expected cost.
+  the balance or policy headroom is below the expected cost. The first time
+  in a conversation, show the human `policy.max_tx_usd`,
+  `policy.daily_limit_usd`, `policy.weekly_limit_usd`, and
+  https://weft.network/dashboard/policy.
 - Set a tight `max_cost_usd` on every fetch. Never silently raise it.
 - State the expected cost before a paid call, and the actual cost after it
   (`paid_usd + held_usd`).
