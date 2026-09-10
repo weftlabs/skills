@@ -25,6 +25,8 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-company-financial-snapshot`](skills/weft-company-financial-snapshot/SKILL.md) | Summarize one company’s reported financial facts with periods, units and filing evidence. | Experimental workflow; live test and saved-data replay |
 | [`weft-sec-filings-brief`](skills/weft-sec-filings-brief/SKILL.md) | Brief one company’s SEC filings with dated links, verified summaries and coverage limits. | Experimental workflow; live Massive test with SEC source checks |
 | [`weft-iban-bank-lookup`](skills/weft-iban-bank-lookup/SKILL.md) | Identify the bank and country behind a supplied IBAN, with validity and account-verification limits. | Experimental workflow; two live Pi examples |
+| [`weft-stock-news-sentiment`](skills/weft-stock-news-sentiment/SKILL.md) | Summarize bounded ticker news with dated sources and sentiment evidence. | Experimental; one live Pi trial |
+| [`weft-watchlist-technical-screen`](skills/weft-watchlist-technical-screen/SKILL.md) | Screen a supplied watchlist with dated RSI and MACD values. | Experimental; one live Pi trial |
 
 ## Install and update
 
@@ -73,6 +75,8 @@ npx skills add weftlabs/skills --skill weft-transcript-to-podcast
 npx skills add weftlabs/skills --skill weft-company-financial-snapshot
 npx skills add weftlabs/skills --skill weft-sec-filings-brief
 npx skills add weftlabs/skills --skill weft-iban-bank-lookup
+npx skills add weftlabs/skills --skill weft-stock-news-sentiment
+npx skills add weftlabs/skills --skill weft-watchlist-technical-screen
 ```
 
 Use the space-separated `--skill <name>` form. Do not use
