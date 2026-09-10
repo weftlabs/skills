@@ -1,0 +1,6 @@
+version: 1
+prompts:
+  - title: Brief recent material-event filings
+    prompt: "Brief me on the five most recent 8-K filings for [company and ticker]. Include amendments, filing dates and source links. Summarize only documents you can read and mark any missing text."
+  - title: Find annual filings since a date
+    prompt: "Make a sourced brief of up to five 10-K filings for [company or CIK] since [date within the last five years]. Include amendments and explain the report periods and any limits in the results."

@@ -22,6 +22,8 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-linkedin-post-sentiment`](skills/weft-linkedin-post-sentiment/SKILL.md) | Analyze sentiment, recurring themes, and uncertainty in comments on one LinkedIn post. | Experimental candidate; live validation pending |
 | [`weft-youtube-to-text`](skills/weft-youtube-to-text/SKILL.md) | Extract a supplied YouTube video's transcript into reusable text and timestamped JSON. | Experimental workflow; one live Pi test |
 | [`weft-transcript-to-podcast`](skills/weft-transcript-to-podcast/SKILL.md) | Summarize a saved transcript and generate a short MP3 through Weft and BlockRun. | Experimental workflow; one live Pi test |
+| [`weft-company-financial-snapshot`](skills/weft-company-financial-snapshot/SKILL.md) | Summarize one company’s reported financial facts with periods, units and filing evidence. | Experimental workflow; live test and saved-data replay |
+| [`weft-sec-filings-brief`](skills/weft-sec-filings-brief/SKILL.md) | Brief one company’s SEC filings with dated links, verified summaries and coverage limits. | Experimental workflow; live Massive test with SEC source checks |
 
 ## Install and update
 
@@ -67,6 +69,8 @@ npx skills add weftlabs/skills --skill weft-linkedin-commenter-discovery
 npx skills add weftlabs/skills --skill weft-linkedin-post-sentiment
 npx skills add weftlabs/skills --skill weft-youtube-to-text
 npx skills add weftlabs/skills --skill weft-transcript-to-podcast
+npx skills add weftlabs/skills --skill weft-company-financial-snapshot
+npx skills add weftlabs/skills --skill weft-sec-filings-brief
 ```
 
 Use the space-separated `--skill <name>` form. Do not use
