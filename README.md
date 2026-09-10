@@ -24,6 +24,7 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-transcript-to-podcast`](skills/weft-transcript-to-podcast/SKILL.md) | Summarize a saved transcript and generate a short MP3 through Weft and BlockRun. | Experimental workflow; one live Pi test |
 | [`weft-company-financial-snapshot`](skills/weft-company-financial-snapshot/SKILL.md) | Summarize one company’s reported financial facts with periods, units and filing evidence. | Experimental workflow; live test and saved-data replay |
 | [`weft-sec-filings-brief`](skills/weft-sec-filings-brief/SKILL.md) | Brief one company’s SEC filings with dated links, verified summaries and coverage limits. | Experimental workflow; live Massive test with SEC source checks |
+| [`weft-iban-bank-lookup`](skills/weft-iban-bank-lookup/SKILL.md) | Identify the bank and country behind a supplied IBAN, with validity and account-verification limits. | Experimental workflow; two live Pi examples |
 
 ## Install and update
 
@@ -71,6 +72,7 @@ npx skills add weftlabs/skills --skill weft-youtube-to-text
 npx skills add weftlabs/skills --skill weft-transcript-to-podcast
 npx skills add weftlabs/skills --skill weft-company-financial-snapshot
 npx skills add weftlabs/skills --skill weft-sec-filings-brief
+npx skills add weftlabs/skills --skill weft-iban-bank-lookup
 ```
 
 Use the space-separated `--skill <name>` form. Do not use
