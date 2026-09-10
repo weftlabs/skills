@@ -1,0 +1,6 @@
+version: 1
+prompts:
+  - title: Summarize company financials
+    prompt: "Give me a sourced financial snapshot of [company and ticker]. Include the latest available annual and quarterly revenue, net income, cash, debt and operating cash flow. Keep periods and units clear, and mark missing data."
+  - title: Read the latest annual figures
+    prompt: "Summarize the latest available annual financials for [company and ticker]. Show the reporting period, filing date and source for each figure. Tell me which figures you could verify."
