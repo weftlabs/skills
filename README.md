@@ -78,6 +78,21 @@ Each optional workflow also owns a `1600x900` `cover.webp` beside its
 internal mascot source or generation workflow. Core skills do not appear in the
 gallery and do not need a cover.
 
+Each skill also includes a `512x512` PNG named `logo.png` beside its
+`SKILL.md` for square directory listings, including agency.io. Use this image
+for the listing logo and `cover.webp` for a wide workflow gallery card.
+
+| Skill | Square logo |
+|---|---|
+| Weft | [logo.png](skills/weft/logo.png) |
+| Setup | [logo.png](skills/weft-setup/logo.png) |
+| Flight search | [logo.png](skills/weft-flights-search/logo.png) |
+| Lead enrichment | [logo.png](skills/weft-gtm-lead-enrichment/logo.png) |
+| Commenter discovery | [logo.png](skills/weft-linkedin-commenter-discovery/logo.png) |
+| Post sentiment | [logo.png](skills/weft-linkedin-post-sentiment/logo.png) |
+| YouTube to text | [logo.png](skills/weft-youtube-to-text/logo.png) |
+| Transcript to podcast | [logo.png](skills/weft-transcript-to-podcast/logo.png) |
+
 Or point an agent at the hosted copies:
 
 - Setup (start here): `https://weft.network/setup.md`
