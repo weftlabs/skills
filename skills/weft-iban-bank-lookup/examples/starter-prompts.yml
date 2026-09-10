@@ -1,0 +1,6 @@
+version: 1
+prompts:
+  - title: Find the bank behind an IBAN
+    prompt: "Look up the bank and country for this IBAN: [paste IBAN]. Include the source and explain what the check cannot verify. Do not send money."
+  - title: Check an example IBAN
+    prompt: "Check the public example IBAN GB82 WEST 1234 5698 7654 32 and identify its bank and BIC if available. Distinguish checksum validity from account verification."
