@@ -83,6 +83,14 @@ Use the space-separated `--skill <name>` form. Do not use
 `--skill=<name>`; affected Skills CLI versions can ignore that filter and
 install every skill in the repository.
 
+### Screenshots of real runs
+
+[Session previews](examples/session-previews/README.md) show a task, its result,
+the API providers used, and recorded paid/held amounts. They use existing Pi
+evidence, with edited excerpts clearly labeled. Use the
+[preview generator](tools/session-preview/README.md) to import a Pi session,
+review its public excerpt, and export HTML plus PNG screenshots.
+
 Each optional workflow also owns a `1600x900` `cover.webp` beside its
 `SKILL.md`. The public repository contains the finished cover, not Weft's
 internal mascot source or generation workflow. Core skills do not appear in the

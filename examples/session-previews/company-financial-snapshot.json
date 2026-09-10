@@ -1,0 +1,79 @@
+{
+  "id": "company-financial-snapshot",
+  "skill": "weft-company-financial-snapshot",
+  "title": "Read a company\u2019s financial snapshot",
+  "date": "10 September 2026",
+  "mode": "replay",
+  "prompt": "Show Apple\u2019s latest available annual and quarterly revenue, net income, cash, debt and operating cash flow. Keep the actual period for each figure and flag missing data.",
+  "intro": "Apple\u2019s revenue and net income are available. Cash and debt are missing from this provider response.",
+  "blocks": [
+    {
+      "type": "table",
+      "columns": [
+        "Metric",
+        "FY2025 \u00b7 USD",
+        "Q3 FY2026 \u00b7 USD"
+      ],
+      "rows": [
+        [
+          "Revenue",
+          "416,161,000,000",
+          "109,417,000,000"
+        ],
+        [
+          "Net income",
+          "112,010,000,000",
+          "29,789,000,000"
+        ],
+        [
+          "Cash",
+          "Unavailable",
+          "Unavailable"
+        ],
+        [
+          "Debt",
+          "Unavailable",
+          "Unavailable"
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Annual period: 29 Sep 2024\u201327 Sep 2025. Quarterly period: 29 Mar\u201327 Jun 2026. The saved SEC company facts matched these figures."
+    },
+    {
+      "type": "text",
+      "text": "Operating cash flow has a different quarterly period: Q1 FY2026. It must not be presented as Q3."
+    }
+  ],
+  "limits": "Corrected replay of saved Atlas data. \u201cLatest\u201d refers to the saved payload. Missing cash and debt were not guessed or replaced with liabilities.",
+  "providers": [
+    {
+      "name": "x402 Atlas",
+      "logo": "providers/x402-atlas.svg",
+      "service": "SEC financial data",
+      "receipts": [
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.01",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "reviewed": true,
+  "provenance": [
+    {
+      "file": "financial-snapshot.md",
+      "sha256": "9ca86ec9e1edf4a4d9e2f3ba124952c9dd0c21527fe5f6d4c6adf660b46496e1"
+    },
+    {
+      "file": "sanitized-receipt.json",
+      "sha256": "f13a93cd864ec4bad8e4a79a33e5dcce4ed7560cc044b9b88752bef5ca644505"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "d5258fd63351b2082bdc6fa85e11871b322064dbf199c0eab07b7916afb9f41c"
+    }
+  ]
+}

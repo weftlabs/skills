@@ -1,0 +1,76 @@
+{
+  "id": "transcript-to-podcast",
+  "skill": "weft-transcript-to-podcast",
+  "title": "Make a short podcast from a transcript",
+  "date": "10 September 2026",
+  "mode": "live",
+  "prompt": "Reuse the saved transcript and checked recap script. Generate one MP3 through Weft using BlockRun speech, with the stock Sarah voice.",
+  "intro": "The recap MP3 is ready. It runs for 5 minutes 21 seconds and was generated through Weft \u2192 BlockRun.",
+  "blocks": [
+    {
+      "type": "artifact",
+      "name": "recap.mp3",
+      "detail": "MP3 \u00b7 5:21 \u00b7 5.13 MB \u00b7 stock Sarah voice"
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Output check",
+        "Result"
+      ],
+      "rows": [
+        [
+          "Script",
+          "744 words \u00b7 4,952 characters"
+        ],
+        [
+          "Audio model",
+          "ElevenLabs Flash v2.5 via BlockRun"
+        ],
+        [
+          "Full-file decode",
+          "Passed"
+        ],
+        [
+          "Duration target",
+          "Within 15% of five minutes"
+        ]
+      ]
+    },
+    {
+      "type": "artifact",
+      "name": "script.txt + show-notes.md",
+      "detail": "AI-generated recap disclosure \u00b7 source link \u00b7 timestamps"
+    }
+  ],
+  "limits": "One speech generation; no local TTS. The saved transcript was not fetched again. Original transcript retrieval held $0.02 in a separate run. Listening quality was not assessed.",
+  "providers": [
+    {
+      "name": "BlockRun",
+      "logo": "providers/blockrun.png",
+      "service": "Speech generation",
+      "receipts": [
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.260981",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "reviewed": true,
+  "provenance": [
+    {
+      "file": "report.md",
+      "sha256": "a311d0aeae487e315af78f60b04ec4071c682e892a9c9daf9b5b6b613c4f4f22"
+    },
+    {
+      "file": "sanitized-receipt.json",
+      "sha256": "f13b6b2f226d204c775bf1a8fc7588d714ae49d35cf6dcec0d9c565796e2d57a"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "eacf953fd6730b1f81ce469a72a00cdc1e7711d1bd92bf20eac0c61513c4efeb"
+    }
+  ]
+}

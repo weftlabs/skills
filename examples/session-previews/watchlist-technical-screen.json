@@ -1,0 +1,106 @@
+{
+  "id": "watchlist-technical-screen",
+  "skill": "weft-watchlist-technical-screen",
+  "title": "Screen a watchlist with clear rules",
+  "date": "10 September 2026",
+  "mode": "replay",
+  "prompt": "Screen AAPL and MSFT for the completed session on December 29, 2023. Show RSI(14) below 30 and MACD(12,26,9) above its signal, separately and together.",
+  "intro": "Neither ticker matches both rules. The indicators were joined on the same daily-bar timestamp.",
+  "blocks": [
+    {
+      "type": "table",
+      "columns": [
+        "Ticker",
+        "RSI (14)",
+        "MACD",
+        "Signal",
+        "Both rules"
+      ],
+      "rows": [
+        [
+          "AAPL",
+          "51.185447",
+          "1.557442",
+          "2.424287",
+          "No match"
+        ],
+        [
+          "MSFT",
+          "57.931385",
+          "2.626518",
+          "3.107291",
+          "No match"
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Rules: RSI < 30 and MACD > signal. Tests used full-precision values before rounding."
+    },
+    {
+      "type": "text",
+      "text": "Daily close series; adjusted=true requested. Selected bar: 29 December 2023, 00:00 America/New_York."
+    }
+  ],
+  "limits": "Corrected replay of four saved responses. The midnight timestamp identifies a daily bar; it does not prove session completion. The requested session is historical. No trade was made.",
+  "providers": [
+    {
+      "name": "Massive",
+      "logo": "providers/massive.png",
+      "service": "RSI + MACD \u00b7 two tickers",
+      "receipts": [
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.01",
+          "status": "pending"
+        },
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.01",
+          "status": "pending"
+        },
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.01",
+          "status": "pending"
+        },
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.01",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "reviewed": true,
+  "provenance": [
+    {
+      "file": "watchlist-screen.md",
+      "sha256": "34db95d2f05d83a5b445b86b73b3e6a3d6838739d0ffbb8a588bb1723819da7a"
+    },
+    {
+      "file": "aapl-rsi-receipt.sanitized.json",
+      "sha256": "97e1d2c3976fe0d4cc773400567aba5606da4021e206c474eca43cd7bc40d2ff"
+    },
+    {
+      "file": "aapl-macd-receipt.sanitized.json",
+      "sha256": "ebfd9e673ea7430d95a9acfe7d955f958947c5c281d86da2ec19cd7fc4acc5ce"
+    },
+    {
+      "file": "msft-rsi-receipt.sanitized.json",
+      "sha256": "115e494f945e47dc49efde0288d3f9c36814ecf864c318333821ff4744d38203"
+    },
+    {
+      "file": "msft-macd-receipt.sanitized.json",
+      "sha256": "8884054ddd11676659d2f95be087cdc86ca63a39293756bf8e5816ab2d020318"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "d0fa551eea7972f6de18a7d3e0742eb6cd2060158b4454c96f8bdf4e44d0594f"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "577b931977f43c1c829f6f186ddd85116ad1267b622cfd93bc00c37482c373f4"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "sec-filings-brief",
+  "skill": "weft-sec-filings-brief",
+  "title": "Understand the latest SEC filings",
+  "date": "10 September 2026",
+  "mode": "live",
+  "prompt": "Brief Apple\u2019s five most recent 8-K-family filings since June 1, 2026, including amendments. Show source links and distinguish filing metadata from the documents you read.",
+  "intro": "Two filings match the date window. Both source documents were read and checked against SEC records.",
+  "blocks": [
+    {
+      "type": "table",
+      "columns": [
+        "Filed",
+        "Form",
+        "What the document covers"
+      ],
+      "rows": [
+        [
+          "01 Sep 2026",
+          "8-K/A",
+          "Compensation arrangements; amendment to the earlier CEO-transition filing."
+        ],
+        [
+          "30 Jul 2026",
+          "8-K",
+          "Quarterly results announcement; earnings release in Exhibit 99.1."
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "text": "The index returned two unique records, with no next page. The saved SEC submissions list contained the same two matching accessions."
+    },
+    {
+      "type": "artifact",
+      "name": "sec-filings-brief.md",
+      "detail": "Dated filing list \u00b7 source-document summaries \u00b7 coverage notes"
+    }
+  ],
+  "limits": "The requested limit was five; only two matched. Filing dates and report dates are kept separate. This is the revised Massive run; the earlier failed APIToll attempt is not included in this run\u2019s cost.",
+  "providers": [
+    {
+      "name": "Massive",
+      "logo": "providers/massive.png",
+      "service": "SEC filing index",
+      "receipts": [
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.01",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "reviewed": true,
+  "provenance": [
+    {
+      "file": "sec-filings-brief.md",
+      "sha256": "bd8a8d2bbeea11758a68b16922857e41aff6378f6206fe70bafe1d28b2e4ee50"
+    },
+    {
+      "file": "sanitized-receipt.json",
+      "sha256": "1b501f30f8f0a4a05a5437a0c4e508f12f4d0d71a281a63199ce9233f65db91a"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "d5258fd63351b2082bdc6fa85e11871b322064dbf199c0eab07b7916afb9f41c"
+    }
+  ]
+}

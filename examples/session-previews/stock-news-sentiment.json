@@ -1,0 +1,87 @@
+{
+  "id": "stock-news-sentiment",
+  "skill": "weft-stock-news-sentiment",
+  "title": "Turn stock news into a sentiment brief",
+  "date": "10 September 2026",
+  "mode": "replay",
+  "prompt": "Summarize Apple news from January 2\u20135, 2024. Use up to five stories, separate provider sentiment from your judgment, and explain the sample limits.",
+  "intro": "Three of five returned stories were relevant to Apple. The agent classified all three as negative; provider labels were unavailable.",
+  "blocks": [
+    {
+      "type": "table",
+      "columns": [
+        "Story / publisher",
+        "Agent label"
+      ],
+      "rows": [
+        [
+          "Is Apple Stock a Buy? \u00b7 The Motley Fool",
+          "Negative"
+        ],
+        [
+          "Qualcomm, Google and Samsung compete with Apple \u00b7 The Motley Fool",
+          "Negative"
+        ],
+        [
+          "Apple analyst downgrades \u00b7 Benzinga",
+          "Negative"
+        ]
+      ]
+    },
+    {
+      "type": "table",
+      "columns": [
+        "Sample check",
+        "Count"
+      ],
+      "rows": [
+        [
+          "Returned / included",
+          "5 / 3"
+        ],
+        [
+          "Excluded: insufficient Apple relevance",
+          "2"
+        ],
+        [
+          "Provider sentiment unknown",
+          "3 of 3"
+        ]
+      ]
+    }
+  ],
+  "limits": "Historical, metadata-only replay. The agent used titles and descriptions, not full articles. More records existed; the next page was not purchased. These labels do not describe all Apple news.",
+  "providers": [
+    {
+      "name": "Massive",
+      "logo": "providers/massive.png",
+      "service": "Stock news",
+      "receipts": [
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.01",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "reviewed": true,
+  "provenance": [
+    {
+      "file": "news-brief.md",
+      "sha256": "70d1c8fee584060fdcf901a97d37f9224faf6c4009800c4f6f5865cd2bba9a27"
+    },
+    {
+      "file": "receipt.sanitized.json",
+      "sha256": "508cb27d4d5e1da8b10366dd4e864fb5977d72fad00b52457fdc60d596660aa1"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "d0fa551eea7972f6de18a7d3e0742eb6cd2060158b4454c96f8bdf4e44d0594f"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "577b931977f43c1c829f6f186ddd85116ad1267b622cfd93bc00c37482c373f4"
+    }
+  ]
+}
