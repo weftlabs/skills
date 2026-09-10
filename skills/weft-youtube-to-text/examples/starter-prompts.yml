@@ -1,0 +1,6 @@
+version: 1
+prompts:
+  - title: Turn a video into text
+    prompt: "Extract the transcript from this YouTube video: [paste video URL]. Save readable text and a reusable transcript file. Tell me the actual language and whether timestamps are available."
+  - title: Save text for a short recap
+    prompt: "Get the transcript for [paste YouTube URL] so I can use it for a short spoken recap later. Preserve the full source text separately from any summary."

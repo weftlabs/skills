@@ -20,6 +20,8 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-gtm-lead-enrichment`](skills/weft-gtm-lead-enrichment/SKILL.md) | Enrich a LinkedIn profile, find or verify a work email, or retrieve a social newsfeed through OneShot Agent. | Optional workflow; experimental |
 | [`weft-linkedin-commenter-discovery`](skills/weft-linkedin-commenter-discovery/SKILL.md) | Find relevant leads among a LinkedIn post's comments, with profile links and comment evidence. | Experimental candidate; live validation pending |
 | [`weft-linkedin-post-sentiment`](skills/weft-linkedin-post-sentiment/SKILL.md) | Analyze sentiment, recurring themes, and uncertainty in comments on one LinkedIn post. | Experimental candidate; live validation pending |
+| [`weft-youtube-to-text`](skills/weft-youtube-to-text/SKILL.md) | Extract a supplied YouTube video's transcript into reusable text and timestamped JSON. | Experimental workflow; one live Pi test |
+| [`weft-transcript-to-podcast`](skills/weft-transcript-to-podcast/SKILL.md) | Summarize a saved transcript and generate a short MP3 through Weft and BlockRun. | Experimental workflow; one live Pi test |
 
 ## Install
 
@@ -34,6 +36,8 @@ npx skills add weftlabs/skills --skill weft-flights-search
 npx skills add weftlabs/skills --skill weft-gtm-lead-enrichment
 npx skills add weftlabs/skills --skill weft-linkedin-commenter-discovery
 npx skills add weftlabs/skills --skill weft-linkedin-post-sentiment
+npx skills add weftlabs/skills --skill weft-youtube-to-text
+npx skills add weftlabs/skills --skill weft-transcript-to-podcast
 ```
 
 Use the space-separated `--skill <name>` form. Do not use
