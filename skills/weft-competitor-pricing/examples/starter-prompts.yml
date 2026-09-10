@@ -1,0 +1,4 @@
+version: 1
+prompts:
+  - title: Compare competitor pricing
+    prompt: "Compare [competitor A pricing URL] and [competitor B pricing URL]. Preserve currency, seat or usage unit, billing commitment, source dates and unknowns."

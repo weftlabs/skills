@@ -1,0 +1,4 @@
+version: 1
+prompts:
+  - title: Understand customer feedback
+    prompt: "Analyze the customer reviews for [product] at [review URL]. Show evidence for praise and problems, sample/exclusion counts, and sentiment limits."
