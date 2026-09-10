@@ -1,0 +1,78 @@
+{
+  "id": "iban-bank-lookup",
+  "skill": "weft-iban-bank-lookup",
+  "title": "Find the bank behind an IBAN",
+  "date": "10 September 2026",
+  "mode": "live",
+  "prompt": "Check DE89 3704 0044 0532 0130 00. Which bank, country and BIC does it map to? Explain what the check does and does not verify.",
+  "intro": "The IBAN passes the checksum. Strale maps it to Commerzbank in Germany.",
+  "blocks": [
+    {
+      "type": "table",
+      "columns": [
+        "Field",
+        "Result"
+      ],
+      "rows": [
+        [
+          "Bank",
+          "Commerzbank"
+        ],
+        [
+          "BIC / SWIFT",
+          "COBADEFFXXX"
+        ],
+        [
+          "Country",
+          "Germany \u00b7 DE"
+        ],
+        [
+          "Local checksum",
+          "MOD-97 remainder 1 \u00b7 pass"
+        ],
+        [
+          "Bank code",
+          "37040044"
+        ],
+        [
+          "Branch",
+          "Unknown"
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "text": "The invalid DE00 variant was rejected locally before a paid lookup."
+    }
+  ],
+  "limits": "This public example checks structure and bank reference data. It does not prove that an account exists or belongs to a named person.",
+  "providers": [
+    {
+      "name": "Strale",
+      "logo": "providers/strale.svg",
+      "service": "Bank reference data",
+      "receipts": [
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.0216",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "reviewed": true,
+  "provenance": [
+    {
+      "file": "bank-lookup.md",
+      "sha256": "2f6bfa0238a639ebcbeb3597a4acdb93dd898b20f4ac32aab6b231a4a26c6952"
+    },
+    {
+      "file": "receipt.sanitized.json",
+      "sha256": "28f592479ba0d28c407887ee20cb80aafd90ab04a08204c41d2ad97b408aaaae"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "720047dcde26594082b18c6d9937aa53ad666929288f16bb50b1c16ebbacd8f8"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "youtube-to-text",
+  "skill": "weft-youtube-to-text",
+  "title": "Turn a YouTube video into text",
+  "date": "10 September 2026",
+  "mode": "live",
+  "prompt": "Extract https://www.youtube.com/watch?v=qDw3hWCxJtY into a readable transcript and timestamped JSON. Then draft a five-minute recap with source notes.",
+  "intro": "The English transcript is ready: about 8,010 words and 441 timestamped segments.",
+  "blocks": [
+    {
+      "type": "artifact",
+      "name": "transcript.txt",
+      "detail": "Readable transcript \u00b7 45,564 characters"
+    },
+    {
+      "type": "artifact",
+      "name": "transcript.json",
+      "detail": "441 valid segments \u00b7 provider-supplied timestamps"
+    },
+    {
+      "type": "artifact",
+      "name": "script.txt + show-notes.md",
+      "detail": "Original recap draft and source notes"
+    },
+    {
+      "type": "text",
+      "text": "The returned video ID matched the requested video. All 441 segments passed the structure check."
+    }
+  ],
+  "limits": "This run extracted text and drafted a recap. It did not generate audio. The transcript may contain speech-recognition errors; source claims were not independently verified.",
+  "providers": [
+    {
+      "name": "x402 Atlas",
+      "logo": "providers/x402-atlas.svg",
+      "service": "YouTube transcript",
+      "receipts": [
+        {
+          "paid_usd": "0.00",
+          "held_usd": "0.02",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "reviewed": true,
+  "provenance": [
+    {
+      "file": "results.json",
+      "sha256": "01221767eb5176ab3f751e604ddf37267164e779bfbbb6909edc9f0b1f1c79ed"
+    },
+    {
+      "file": "report.md",
+      "sha256": "3bdfe1c47f2dc97051087eca51457741b045451f703e5c7d9399e5ab55b6a57c"
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "b666dc0c667f7cb44ff41d8885017e28ea366e365c79c7d91067999767645b6e"
+    }
+  ]
+}
