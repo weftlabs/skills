@@ -23,7 +23,36 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-youtube-to-text`](skills/weft-youtube-to-text/SKILL.md) | Extract a supplied YouTube video's transcript into reusable text and timestamped JSON. | Experimental workflow; one live Pi test |
 | [`weft-transcript-to-podcast`](skills/weft-transcript-to-podcast/SKILL.md) | Summarize a saved transcript and generate a short MP3 through Weft and BlockRun. | Experimental workflow; one live Pi test |
 
-## Install
+## Install and update
+
+Install every Weft skill, then choose which agents to use:
+
+```sh
+npx skills add weftlabs/skills --skill '*'
+```
+
+Run this from your project directory for a project install. Add `--global` to
+make the skills available across projects. Keep the quotes around `'*'` so the
+shell does not expand it into filenames. For an unattended install to **all
+supported agents**, use `npx skills add weftlabs/skills --all`.
+
+Update installed skills:
+
+```sh
+npx skills update
+```
+
+The updater asks which scope to update. Use `npx skills update --global` for
+global installs or `npx skills update --project` for the current project. This
+updates installed skills from all sources, not only Weft. To refresh only Weft
+or include newly added Weft skills, rerun the all-Weft install command above
+with the same scope and agent selection.
+
+The commands follow the [Skills CLI documentation](https://github.com/vercel-labs/skills#readme).
+
+### Install selected skills
+
+Install only the core skills:
 
 ```sh
 npx skills add weftlabs/skills --skill weft --skill weft-setup
