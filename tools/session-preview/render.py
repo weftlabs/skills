@@ -9,6 +9,18 @@ from pathlib import Path
 import re
 
 
+def markdown(text):
+    """Render Markdown safely without loading remote images or raw HTML."""
+    from markdown_it import MarkdownIt
+
+    parser = MarkdownIt('commonmark', {'html': False}).enable('table').enable('strikethrough')
+    # Images in transcripts must not cause requests when opening an offline export.
+    parser.renderer.rules['image'] = lambda tokens, idx, options, env: escape(tokens[idx].content)
+    parser.renderer.rules['table_open'] = lambda tokens, idx, options, env: '<div class="table-scroll"><table>\n'
+    parser.renderer.rules['table_close'] = lambda tokens, idx, options, env: '</table></div>\n'
+    return parser.render(text)
+
+
 def escape(value):
     return html.escape(str(value), quote=True)
 
@@ -28,6 +40,8 @@ def visible_messages(path):
             b['text'] for b in content if b.get('type') == 'text' and b.get('text'))
         if text.strip():
             messages.append({'role': msg['role'], 'text': text})
+        if msg.get('errorMessage'):
+            messages.append({'role': msg['role'], 'text': msg['errorMessage']})
     return messages
 
 
@@ -65,8 +79,8 @@ def logo_data(root, filename):
     return f'data:{mime};base64,' + base64.b64encode(path.read_bytes()).decode()
 
 
-def render(data, root):
-    if data.get('reviewed') is not True or data.get('mode') not in ('live', 'replay'):
+def render(data, root, *, messages=None):
+    if messages is None and (data.get('reviewed') is not True or data.get('mode') not in ('live', 'replay')):
         raise ValueError('Only reviewed live or replay excerpts can be published')
     if not re.fullmatch(r'[a-z0-9-]+', data['id']):
         raise ValueError('Invalid example id')
@@ -79,8 +93,10 @@ def render(data, root):
         rows = p['receipts']
         receipts.extend(rows)
         statuses = ', '.join(sorted({r['status'] for r in rows})) or 'unknown'
+        logo = (f'<img alt="{escape(p["name"])} logo" src="{logo_data(root, p["logo"])}">'
+                if p.get('logo') else '')
         providers.append(f'''<div class="provider"><div class="provider-name">
-          <img alt="{escape(p['name'])} logo" src="{logo_data(root, p['logo'])}">
+          {logo}
           <div><strong>{escape(p['name'])}</strong><small>{escape(p['service'])}</small></div></div>
           <dl><div><dt>Paid</dt><dd>{money(total(rows, 'paid_usd'))}</dd></div>
           <div><dt>Held</dt><dd>{money(total(rows, 'held_usd'))}</dd></div></dl>
@@ -102,8 +118,22 @@ def render(data, root):
     committed = paid + held if paid is not None and held is not None else None
     css = Path(__file__).with_name('style.css').read_text()
     mode = 'Saved-data replay' if replay else 'Recorded live run'
+    if messages is not None:
+        mode = 'Private Pi session'
     ledger = 'Original retrieval cost' if replay else 'API cost at capture'
     replay_note = '<p class="replay-note">This replay: <strong>$0.00 new spend</strong></p>' if replay else ''
+    conversation = f'''<div class="user-row"><div class="user-bubble"><span class="message-label">YOU</span><p>{escape(data['prompt'])}</p></div></div>
+    <div class="assistant"><div class="assistant-label"><span class="agent-mark">w</span><strong>Agent</strong><span>with Weft</span></div>
+    <p class="intro">{escape(data['intro'])}</p>{''.join(blocks)}
+    <div class="limits"><strong>What this result covers</strong><p>{escape(data['limits'])}</p></div></div>'''
+    description = 'Edited task and result excerpt.<br>Original evidence retained.'
+    if messages is not None:
+        conversation = ''.join(
+            f'<div class="user-row"><div class="user-bubble"><span class="message-label">YOU</span><div class="session-text">{markdown(m["text"])}</div></div></div>'
+            if m['role'] == 'user' else
+            f'<div class="assistant"><div class="assistant-label"><span class="agent-mark">w</span><strong>Agent</strong><span>with Weft</span></div><div class="session-text">{markdown(m["text"])}</div></div>'
+            for m in messages)
+        description = 'Actual Pi message text, in file order.<br>Tools and reasoning omitted.<br>Private: review before sharing.'
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="referrer" content="no-referrer"><title>{escape(data['title'])} · Weft</title><style>{css}</style></head>
@@ -112,14 +142,11 @@ def render(data, root):
     <main><div class="heading"><div><span class="eyebrow">SKILL IN ACTION</span><h1>{escape(data['title'])}</h1>
     <p class="subtitle">{escape(data['skill'])}</p></div><span class="run-mode">{mode}</span></div>
     <div class="layout"><section class="conversation" aria-label="Conversation">
-    <div class="user-row"><div class="user-bubble"><span class="message-label">YOU</span><p>{escape(data['prompt'])}</p></div></div>
-    <div class="assistant"><div class="assistant-label"><span class="agent-mark">w</span><strong>Agent</strong><span>with Weft</span></div>
-    <p class="intro">{escape(data['intro'])}</p>{''.join(blocks)}
-    <div class="limits"><strong>What this result covers</strong><p>{escape(data['limits'])}</p></div></div>
+    {conversation}
     </section><aside aria-label="Providers and cost"><h2>APIs used</h2><p class="aside-sub">{ledger}</p>
     {''.join(providers)}<div class="total"><span>Paid + held</span><strong>{money(committed)}</strong></div>
     {replay_note}<p class="cost-note">Receipt amounts at the time of this run. Held funds are not settled payments. Agent model costs are not included.</p>
-    <div class="run-details"><h2>About this example</h2><p>Run in Pi<br>{escape(data['date'])}</p><p>Edited task and result excerpt.<br>Original evidence retained.</p></div>
+    <div class="run-details"><h2>About this example</h2><p>Run in Pi<br>{escape(data['date'])}</p><p>{description}</p></div>
     </aside></div><footer><span>weft.network</span><span>Recorded example · Results and prices can change</span></footer></main></body></html>'''
 
 
@@ -137,11 +164,34 @@ def build(source, output):
     return len(examples)
 
 
+def session(source, output, metadata=None):
+    """Render visible messages directly, without rewriting or public approval."""
+    details = json.loads(metadata.read_text()) if metadata else {}
+    messages = visible_messages(source)
+    if not messages:
+        raise ValueError('Session has no visible user or assistant text')
+    data = dict(id='session', title=details.get('title', 'Pi skill session'),
+                skill=details.get('skill', 'Recorded conversation'),
+                date=details.get('date', 'Date not supplied'), mode='recorded',
+                prompt='', intro='', blocks=[], limits='',
+                providers=details.get('providers', []), provenance=[{
+                    'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest()}])
+    output.mkdir(parents=True, exist_ok=True)
+    (output / 'session.html').write_text(render(data, metadata.parent if metadata else source.parent,
+                                               messages=messages))
+    (output / 'source.json').write_text(json.dumps({
+        'source_sha256': data['provenance'][0]['source_sha256'],
+        'message_count': len(messages), 'private': True,
+        'ordering': 'physical file order; includes all recorded branches',
+    }, indent=2) + '\n')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['import', 'build'])
+    parser.add_argument('command', choices=['import', 'build', 'session'])
     parser.add_argument('source', type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--metadata', type=Path, help='Session title, date, skill and receipt-backed providers')
     args = parser.parse_args()
     if args.command == 'import':
         draft = {'reviewed': False, 'source_sha256': hashlib.sha256(args.source.read_bytes()).hexdigest(),
@@ -149,5 +199,8 @@ if __name__ == '__main__':
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(draft, indent=2) + '\n')
         print('Private draft only: review and remove private content before publication.')
+    elif args.command == 'session':
+        session(args.source, args.output, args.metadata)
+        print(f'Private Pi session rendered to {args.output}; review before sharing.')
     else:
         print(f'Rendered {build(args.source, args.output)} examples to {args.output}')

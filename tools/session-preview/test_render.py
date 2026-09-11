@@ -6,6 +6,54 @@ import render
 
 
 class PreviewTests(unittest.TestCase):
+    def test_session_markdown_formats_blocks_and_inline_content(self):
+        page = render.markdown('## Result\n\n**Ready** and *checked* with `code`.\n\n'
+                               '- First\n- Second\n\n1. Ordered\n\n'
+                               '| Name | Value |\n|---|---|\n| Bank | Example |\n\n'
+                               '```python\nprint("ok")\n```\n\n[Source](https://example.com)')
+        for expected in ['<h2>Result</h2>', '<strong>Ready</strong>', '<em>checked</em>',
+                         '<code>code</code>', '<ul>', '<ol>', '<th>Name</th>',
+                         '<td>Example</td>', '<pre><code', 'href="https://example.com"']:
+            self.assertIn(expected, page)
+
+    def test_session_markdown_does_not_execute_html_or_load_images(self):
+        page = render.markdown('<script>alert(1)</script>\n\n'
+                               '[bad](javascript:alert%281%29)\n\n'
+                               '![remote](https://example.com/image.png)\n\n'
+                               '<img src=x onerror=alert(1)>')
+        self.assertNotIn('<script>', page)
+        self.assertNotIn('<img', page)
+        self.assertNotIn('href="javascript:', page)
+        self.assertIn('&lt;script&gt;', page)
+        self.assertIn('remote', page)
+
+    def test_direct_session_uses_template_and_preserves_text(self):
+        records = [
+            {'type': 'message', 'message': {'role': 'user', 'content': 'Exact question\nsecond line'}},
+            {'type': 'message', 'message': {'role': 'assistant', 'content': [
+                {'type': 'thinking', 'thinking': 'PRIVATE THOUGHT'},
+                {'type': 'text', 'text': 'Exact <answer>\nnext line'}]}},
+            {'type': 'message', 'message': {'role': 'assistant', 'content': [],
+                                          'errorMessage': 'Recorded failure'}},
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'trace.jsonl'
+            source.write_text('\n'.join(json.dumps(r) for r in records))
+            render.session(source, root / 'out')
+            page = (root / 'out/session.html').read_text()
+            self.assertIn('Exact question\nsecond line', page)
+            self.assertIn('Exact &lt;answer&gt;\nnext line', page)
+            self.assertIn('Recorded failure', page)
+            self.assertNotIn('PRIVATE THOUGHT', page)
+            self.assertIn('APIs used', page)
+            self.assertIn('Private Pi session', page)
+            self.assertIn('Unknown', page)
+            self.assertNotIn('Edited task and result excerpt.', page)
+            self.assertNotIn('$0.00', page)
+            provenance = json.loads((root / 'out/source.json').read_text())
+            self.assertEqual(provenance['message_count'], 3)
+
     def test_import_excludes_reasoning_tools_and_metadata(self):
         records = [
             {'type': 'session', 'secret': 'hidden'},
