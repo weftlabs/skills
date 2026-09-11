@@ -27,6 +27,11 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-iban-bank-lookup`](skills/weft-iban-bank-lookup/SKILL.md) | Identify the bank and country behind a supplied IBAN, with validity and account-verification limits. | Experimental workflow; two live Pi examples |
 | [`weft-stock-news-sentiment`](skills/weft-stock-news-sentiment/SKILL.md) | Summarize bounded ticker news with dated sources and sentiment evidence. | Experimental; one live Pi trial |
 | [`weft-watchlist-technical-screen`](skills/weft-watchlist-technical-screen/SKILL.md) | Screen a supplied watchlist with dated RSI and MACD values. | Experimental; one live Pi trial |
+| [`weft-local-business-leads`](skills/weft-local-business-leads/SKILL.md) | Build a bounded local business prospect list with location and contact evidence. | Experimental workflow; guided Pi test completed |
+| [`weft-hiring-signals`](skills/weft-hiring-signals/SKILL.md) | Find relevant job postings and group hiring evidence by company for GTM research. | Experimental workflow; guided Pi test completed |
+| [`weft-customer-review-analysis`](skills/weft-customer-review-analysis/SKILL.md) | Analyze review evidence into sourced customer themes and explicit sample limits. | Experimental workflow; guided Pi test completed |
+| [`weft-competitor-pricing`](skills/weft-competitor-pricing/SKILL.md) | Compare supplied competitor pricing pages with billing units and missing-data limits. | Experimental workflow; guided Pi test completed |
+| [`weft-company-registration-check`](skills/weft-company-registration-check/SKILL.md) | Check a Belgian company’s registered identity and status before account enrichment. | Experimental workflow; guided Pi test completed |
 
 ## Install and update
 
@@ -77,11 +82,25 @@ npx skills add weftlabs/skills --skill weft-sec-filings-brief
 npx skills add weftlabs/skills --skill weft-iban-bank-lookup
 npx skills add weftlabs/skills --skill weft-stock-news-sentiment
 npx skills add weftlabs/skills --skill weft-watchlist-technical-screen
+npx skills add weftlabs/skills --skill weft-local-business-leads
+npx skills add weftlabs/skills --skill weft-hiring-signals
+npx skills add weftlabs/skills --skill weft-customer-review-analysis
+npx skills add weftlabs/skills --skill weft-competitor-pricing
+npx skills add weftlabs/skills --skill weft-company-registration-check
 ```
 
 Use the space-separated `--skill <name>` form. Do not use
 `--skill=<name>`; affected Skills CLI versions can ignore that filter and
 install every skill in the repository.
+
+### GTM research workflows
+
+Start with local business leads or hiring signals to find candidate accounts.
+Use review analysis and competitor pricing to prepare a sourced research brief.
+The company registration check resolves a supplied Belgian enterprise number;
+it does not verify creditworthiness or VAT validity. Combine these records with
+lead enrichment when named business contacts are needed. These workflows do not
+send outreach or write to a CRM.
 
 ### Screenshots of real runs
 
@@ -116,6 +135,11 @@ for the listing logo and `cover.webp` for a wide workflow gallery card.
 | Post sentiment | [logo.png](skills/weft-linkedin-post-sentiment/logo.png) |
 | YouTube to text | [logo.png](skills/weft-youtube-to-text/logo.png) |
 | Transcript to podcast | [logo.png](skills/weft-transcript-to-podcast/logo.png) |
+| Local business leads | [logo.png](skills/weft-local-business-leads/logo.png) |
+| Hiring signals | [logo.png](skills/weft-hiring-signals/logo.png) |
+| Customer review analysis | [logo.png](skills/weft-customer-review-analysis/logo.png) |
+| Competitor pricing | [logo.png](skills/weft-competitor-pricing/logo.png) |
+| Company registration check | [logo.png](skills/weft-company-registration-check/logo.png) |
 
 Or point an agent at the hosted copies:
 

@@ -1,0 +1,4 @@
+version: 1
+prompts:
+  - title: Find local businesses
+    prompt: "Find up to ten [business category] in [city and country] for [product or research goal]. Give me a branch-level CSV and a short brief with source evidence and missing details. Do not contact anyone."

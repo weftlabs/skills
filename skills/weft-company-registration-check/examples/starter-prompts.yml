@@ -1,0 +1,6 @@
+version: 1
+prompts:
+  - title: Check a Belgian prospect
+    prompt: "Check Belgian enterprise number [number]. Return its registered identity and status with sources, unknown fields, and verification limits. Do not contact anyone."
+  - title: Resolve a supplier identity
+    prompt: "I have a Belgian supplier's brand name and enterprise number [number]. Check the registered legal entity before enrichment; do not infer VAT validity or creditworthiness."
