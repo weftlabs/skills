@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Catch up on news about a stock and see the positive and negative themes in the articles found.",
+  "steps": [
+    "Enter the stock ticker and the period you want to cover.",
+    "Your agent gathers available articles and groups their themes and reactions.",
+    "Get a news brief with dates, article links and a breakdown of the coverage. It does not predict the share price."
+  ],
+  "examples": [
+    "stock-news-sentiment"
+  ]
+}

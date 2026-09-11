@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Find people worth researching in a LinkedIn post’s comments, based on the roles or interests you want to reach.",
+  "steps": [
+    "Paste the LinkedIn post link and describe the people you are looking for.",
+    "Your agent reads the available comments and looks for matches to your criteria.",
+    "Get a shortlist with profile links and the comments that explain each match. No messages are sent."
+  ],
+  "examples": []
+}

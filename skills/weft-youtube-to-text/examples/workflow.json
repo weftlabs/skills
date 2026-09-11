@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Get a YouTube video’s available captions as text you can read, search or reuse in another task.",
+  "steps": [
+    "Paste the exact YouTube video link, or share a transcript you already have.",
+    "Your agent retrieves the available captions or reuses your existing transcript.",
+    "Get readable text with the video link, caption language and timestamps when available. Videos without captions are not supported."
+  ],
+  "examples": [
+    "youtube-to-text"
+  ]
+}

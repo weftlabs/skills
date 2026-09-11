@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Compare competitors’ prices and plan features side by side, including billing terms that change what you pay.",
+  "steps": [
+    "Add two to four pricing-page links and the features or usage you want to compare.",
+    "Your agent reads the available prices, plan details and billing terms.",
+    "Get a comparison with source links and clear notes where prices cannot be compared directly."
+  ],
+  "examples": []
+}

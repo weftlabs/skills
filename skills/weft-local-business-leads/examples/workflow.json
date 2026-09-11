@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Build a list of local businesses to research, with addresses and available website or phone details.",
+  "steps": [
+    "Choose a business type and a city or area.",
+    "Your agent finds matching business locations and removes duplicate listings.",
+    "Get a spreadsheet-ready list with source details and notes on missing information. Separate branches stay separate."
+  ],
+  "examples": []
+}

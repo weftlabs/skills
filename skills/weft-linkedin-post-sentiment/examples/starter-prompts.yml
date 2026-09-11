@@ -1,6 +1,11 @@
 version: 1
 prompts:
-  - title: Analyze audience sentiment
-    prompt: "Analyze the sentiment of comments on this LinkedIn post: [paste URL]. Show positive, negative, neutral, mixed, and unclear reactions, the main themes, and source examples. Explain the sample limits."
-  - title: Understand launch feedback
-    prompt: "What do the comments on our launch post say about [product or announcement]? Summarize praise, concerns, questions, and mixed reactions with evidence. Post: [paste URL]."
+  - title: "Read praise and concerns in LinkedIn comments"
+    prompt: |-
+      Analyze the sentiment of comments on this LinkedIn post. Show positive, negative, neutral, mixed and unclear reactions, main themes and source examples. Explain the sample limits.
+      
+      Input data
+      LinkedIn post URL:
+      Product or announcement (optional):
+      Focus: praise, concerns and questions
+

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "See a US public company’s revenue, profit, cash and debt in one table, with links to the reported figures.",
+  "steps": [
+    "Enter the company’s stock ticker and the period you want to check.",
+    "Your agent gathers the available figures and checks the company’s filings.",
+    "Get a table with dates, sources and any figures that could not be found."
+  ],
+  "examples": [
+    "company-financial-snapshot"
+  ]
+}

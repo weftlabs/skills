@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "See what customers praise and complain about in a product’s reviews, with examples behind each theme.",
+  "steps": [
+    "Share the product’s review-page link or reviews you already have.",
+    "Your agent groups the available feedback into praise, problems and repeated requests.",
+    "Get a brief with supporting review excerpts and a clear account of which reviews were available."
+  ],
+  "examples": []
+}

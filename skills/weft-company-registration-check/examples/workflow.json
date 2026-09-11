@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Check a Belgian company’s registered name, address and status before you research a prospect or supplier.",
+  "steps": [
+    "Enter the Belgian enterprise number for the company you want to check.",
+    "Your agent looks up the company’s official registration record.",
+    "Get the registered details and see what the record does and does not confirm."
+  ],
+  "examples": []
+}

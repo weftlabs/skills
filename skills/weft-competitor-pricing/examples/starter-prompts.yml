@@ -1,4 +1,13 @@
 version: 1
 prompts:
-  - title: Compare competitor pricing
-    prompt: "Compare [competitor A pricing URL] and [competitor B pricing URL]. Preserve currency, seat or usage unit, billing commitment, source dates and unknowns."
+  - title: "Compare public pricing with source evidence"
+    prompt: |-
+      Compare these competitors’ public pricing. Preserve currency, seat or usage unit, billing commitment, source dates and unknowns. Do not buy subscriptions or contact sales.
+      
+      Input data
+      Competitor A pricing URL:
+      Competitor B pricing URL:
+      Billing term: show monthly and annual separately
+      Seats or usage (optional):
+      Required features (optional):
+

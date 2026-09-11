@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Find companies advertising the roles or skills you care about, with job links to guide your prospect research.",
+  "steps": [
+    "Enter a role or skill and the location you want to search.",
+    "Your agent looks for matching job postings and groups them by company.",
+    "Get a shortlist with job evidence and notes on dates or details that need checking. Hiring alone does not show intent to buy."
+  ],
+  "examples": []
+}

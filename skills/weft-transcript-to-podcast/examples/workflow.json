@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Turn a long transcript into a short audio recap you can listen to, with the script and source notes included.",
+  "steps": [
+    "Share a transcript and choose the length and language of your recap.",
+    "Your agent writes a summary from the transcript and generates the narration.",
+    "Get an MP3, the script and notes linking the recap to its source."
+  ],
+  "examples": [
+    "transcript-to-podcast"
+  ]
+}

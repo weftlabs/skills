@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Find which bank and country an IBAN points to, and get its BIC/SWIFT code when available.",
+  "steps": [
+    "Paste the IBAN you want to check.",
+    "Your agent checks its format and looks up the available bank details.",
+    "Get a bank-details table. This check does not confirm who owns the account or whether it exists."
+  ],
+  "examples": [
+    "iban-bank-lookup"
+  ]
+}

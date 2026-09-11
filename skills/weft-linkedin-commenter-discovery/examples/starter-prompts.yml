@@ -1,6 +1,11 @@
 version: 1
 prompts:
-  - title: Find leads in comments
-    prompt: "Find up to 10 leads among the comments on this LinkedIn post: [paste URL]. My target audience is [describe]. Show profile links and the comment evidence behind each suggestion."
-  - title: Find relevant conversations
-    prompt: "From the comments on this LinkedIn post, find professionals discussing [topic or problem]. Give me a shortlist with source headlines, companies only where explicit, and reasons to contact them: [paste URL]."
+  - title: "Find relevant prospects in a LinkedIn post\u2019s comments"
+    prompt: |-
+      Find leads among the comments on this LinkedIn post. Show profile links and the comment evidence behind each suggestion. Include companies only where explicit. Do not contact anyone.
+      
+      Input data
+      LinkedIn post URL:
+      Target audience:
+      Topic or problem (optional):
+      Maximum leads: 10

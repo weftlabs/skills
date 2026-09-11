@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Find a cheaper way to get there. Compare flights, baggage and transfer costs, with any unconfirmed costs made clear.",
+  "steps": [
+    "Add where you are flying from and to, your dates, passengers and bags.",
+    "Your agent compares available routes and checks fares, baggage rules and ground transfers.",
+    "Get a shortlist with schedules, price sources and any costs still to confirm."
+  ],
+  "examples": []
+}
