@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Turn saved source text into a short narrated MP3 recap.",
+  "steps": [
+    "Reuse the supplied transcript and prepare a source-grounded script.",
+    "Generate narration through Weft using BlockRun.",
+    "Return the MP3, script and source notes with audio checks and limits."
+  ],
+  "examples": [
+    "transcript-to-podcast"
+  ]
+}

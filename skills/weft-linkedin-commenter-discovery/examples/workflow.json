@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Find relevant prospects in a LinkedIn post’s comments.",
+  "steps": [
+    "Read the supplied post and target-audience criteria.",
+    "Retrieve available comments through Weft.",
+    "Build a bounded shortlist with profile links and comment evidence."
+  ],
+  "examples": []
+}

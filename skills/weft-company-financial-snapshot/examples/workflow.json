@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Compare reported company financials with periods and sources.",
+  "steps": [
+    "Identify the exact issuer and reporting scope.",
+    "Retrieve financial facts through Weft and check filing evidence.",
+    "Return a dated table with units, missing values and source limits."
+  ],
+  "examples": [
+    "company-financial-snapshot"
+  ]
+}

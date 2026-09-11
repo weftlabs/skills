@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Read recent SEC filings with dates, source links and clear coverage.",
+  "steps": [
+    "Confirm the issuer, filing type and date range.",
+    "Use Weft to find filings and read available source documents.",
+    "Summarize supported facts and mark unavailable document text."
+  ],
+  "examples": [
+    "sec-filings-brief"
+  ]
+}

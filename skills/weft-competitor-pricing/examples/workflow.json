@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Compare public pricing with billing terms and real source evidence.",
+  "steps": [
+    "Confirm two to four pricing pages and comparison needs.",
+    "Retrieve each page through Weft and check the observed prices.",
+    "Compare compatible plans; preserve currency, billing terms and unknowns."
+  ],
+  "examples": []
+}

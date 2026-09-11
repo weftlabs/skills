@@ -1,4 +1,11 @@
 version: 1
 prompts:
-  - title: Find relevant hiring signals
-    prompt: "Find up to ten [role or skill] job postings in [area or remote scope] relevant to [product]. Give me a sourced CSV and company brief. Separate observed hiring from buying intent, and flag unknown posting dates."
+  - title: "Find hiring evidence that helps you research target accounts"
+    prompt: |-
+      Find relevant job postings and give me a sourced CSV and company brief. Separate observed hiring from buying intent and flag unknown posting dates.
+      
+      Input data
+      Role or skill:
+      Area or remote scope:
+      My product:
+      Maximum postings: 10

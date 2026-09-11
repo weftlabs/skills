@@ -1,4 +1,12 @@
 version: 1
 prompts:
-  - title: Understand customer feedback
-    prompt: "Analyze the customer reviews for [product] at [review URL]. Show evidence for praise and problems, sample/exclusion counts, and sentiment limits."
+  - title: "Find praise and problems in customer reviews"
+    prompt: |-
+      Analyze these customer reviews. Show evidence for praise and problems, sample and exclusion counts, and sentiment limits.
+      
+      Input data
+      Product:
+      Review URL:
+      Focus: main praise, problems and questions
+      Language: English
+

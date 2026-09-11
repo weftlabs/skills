@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Screen your stock watchlist with explicit RSI and MACD rules.",
+  "steps": [
+    "Confirm up to ten tickers and a completed session date.",
+    "Retrieve matching RSI and MACD observations through Weft.",
+    "Apply the stated rules and report values, dates and unavailable data."
+  ],
+  "examples": [
+    "watchlist-technical-screen"
+  ]
+}

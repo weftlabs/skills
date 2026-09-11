@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Save a video’s available captions as reusable transcript text.",
+  "steps": [
+    "Confirm the exact video URL and reuse suitable saved text.",
+    "Retrieve available captions through Weft.",
+    "Save readable text with source, actual language and available timestamps."
+  ],
+  "examples": [
+    "youtube-to-text"
+  ]
+}

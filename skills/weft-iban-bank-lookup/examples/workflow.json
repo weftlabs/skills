@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Identify the bank and country behind an IBAN.",
+  "steps": [
+    "Check the supplied IBAN structure and checksum locally.",
+    "Use Weft to retrieve available bank reference data.",
+    "Return bank, country, BIC and the limits of the check."
+  ],
+  "examples": [
+    "iban-bank-lookup"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Check the registered identity of a Belgian prospect or supplier.",
+  "steps": [
+    "Confirm the country and exact enterprise number.",
+    "Use Weft to retrieve the registry record and compare identifiers.",
+    "Return legal identity, status, sources and verification limits."
+  ],
+  "examples": []
+}

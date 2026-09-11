@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Summarize stock-news themes with dated sources and sample limits.",
+  "steps": [
+    "Confirm the ticker, date window and spending cap.",
+    "Retrieve a bounded news sample through Weft.",
+    "Return a sourced brief; keep sentiment separate from investment advice."
+  ],
+  "examples": [
+    "stock-news-sentiment"
+  ]
+}

@@ -1,4 +1,11 @@
 version: 1
 prompts:
-  - title: Screen my watchlist
-    prompt: "Screen [ticker list] using daily RSI and MACD as of [completed session date]. Show which meets RSI below 30 and MACD above its signal line, with values, dates, and unavailable data. Spend no more than [USD cap]."
+  - title: "Screen your stock watchlist with explicit RSI and MACD rules"
+    prompt: |-
+      Screen my watchlist using daily RSI and MACD. Show which meets RSI below 30 and MACD above its signal line, with values, dates and unavailable data. Do not place trades.
+      
+      Input data
+      Tickers (maximum 10):
+      As-of completed session date:
+      Settings: RSI(14), MACD(12,26,9), daily close
+      Maximum spend USD: ask me before spending

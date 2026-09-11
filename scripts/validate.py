@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate skill frontmatter (real YAML, not line positions) and local links."""
 
+import json
 import pathlib
 import re
 import struct
@@ -17,6 +18,12 @@ COVER_WIDTH = 1600
 COVER_HEIGHT = 900
 COVER_MAX_BYTES = 750_000
 CATEGORY_MAX_LENGTH = 40
+OUTCOME_MAX_LENGTH = 120
+STEP_MAX_LENGTH = 160
+STEPS_MIN = 2
+STEPS_MAX = 6
+EXAMPLE_ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+PREVIEW_ROOT = root / "examples/session-previews"
 
 
 def webp_dimensions(path):
@@ -49,6 +56,66 @@ def webp_dimensions(path):
         offset = payload + chunk_size + (chunk_size % 2)
 
     raise ValueError("WebP image chunk not found")
+
+
+def validate_workflow(rel, skill_name, document):
+    if not isinstance(document, dict) or set(document) != {"version", "outcome", "steps", "examples"}:
+        errors.append(f"{rel}: keys must be exactly version, outcome, steps and examples")
+        return
+    if document["version"] != 1:
+        errors.append(f"{rel}: version must be 1")
+    outcome = document["outcome"]
+    if not isinstance(outcome, str) or not outcome.strip() or len(outcome) > OUTCOME_MAX_LENGTH:
+        errors.append(
+            f"{rel}: outcome must be a non-empty string of at most {OUTCOME_MAX_LENGTH} characters"
+        )
+    steps = document["steps"]
+    if not isinstance(steps, list) or not STEPS_MIN <= len(steps) <= STEPS_MAX:
+        errors.append(f"{rel}: steps must contain {STEPS_MIN} to {STEPS_MAX} entries")
+    else:
+        for index, step in enumerate(steps):
+            if not isinstance(step, str) or not step.strip() or len(step) > STEP_MAX_LENGTH:
+                errors.append(
+                    f"{rel}: steps[{index}] must be a non-empty string of at most {STEP_MAX_LENGTH} characters"
+                )
+    examples = document["examples"]
+    if not isinstance(examples, list):
+        errors.append(f"{rel}: examples must be a list")
+        return
+    seen = set()
+    for index, example_id in enumerate(examples):
+        entry = f"{rel}: examples[{index}]"
+        if not isinstance(example_id, str) or not EXAMPLE_ID_PATTERN.fullmatch(example_id):
+            errors.append(f"{entry}: must be a lowercase hyphenated id")
+            continue
+        if example_id in seen:
+            errors.append(f"{entry}: duplicate id `{example_id}`")
+            continue
+        seen.add(example_id)
+        preview_path = PREVIEW_ROOT / f"{example_id}.json"
+        preview_rel = preview_path.relative_to(root)
+        if not preview_path.is_file():
+            errors.append(f"{entry}: missing reviewed preview {preview_rel}")
+            continue
+        try:
+            preview = json.loads(preview_path.read_text())
+        except json.JSONDecodeError as exc:
+            errors.append(f"{preview_rel}: not valid JSON: {exc}")
+            continue
+        if not isinstance(preview, dict):
+            errors.append(f"{preview_rel}: must be a JSON object")
+            continue
+        if preview.get("reviewed") is not True:
+            errors.append(f"{entry}: {preview_rel} is not reviewed")
+        if preview.get("id") != example_id:
+            errors.append(f"{entry}: preview id `{preview.get('id')}` must match `{example_id}`")
+        if preview.get("skill") != skill_name:
+            errors.append(
+                f"{entry}: preview skill `{preview.get('skill')}` must match `{skill_name}`"
+            )
+        if preview.get("mode") not in {"live", "replay"}:
+            errors.append(f"{entry}: preview mode must be live or replay")
+
 
 skill_files = sorted(root.glob("skills/*/SKILL.md"))
 if not skill_files:
@@ -144,6 +211,20 @@ for path in skill_files:
                             errors.append(f"{entry}: title must be a non-empty string of at most 60 characters")
                         if not isinstance(body, str) or not body.strip() or len(body) > 800:
                             errors.append(f"{entry}: prompt must be a non-empty string of at most 800 characters")
+                        elif "\nInput data\n" not in f"\n{body}\n":
+                            errors.append(f"{entry}: prompt must include an Input data block")
+
+        workflow_path = path.parent / "examples/workflow.json"
+        workflow_rel = workflow_path.relative_to(root)
+        if not workflow_path.is_file():
+            errors.append(f"{workflow_rel}: optional skill missing examples/workflow.json")
+        else:
+            try:
+                workflow = json.loads(workflow_path.read_text())
+            except json.JSONDecodeError as exc:
+                errors.append(f"{workflow_rel}: not valid JSON: {exc}")
+            else:
+                validate_workflow(workflow_rel, name, workflow)
 
 # Safety-content invariants: these phrases are load-bearing (spending
 # safety, secret handling). A rewrite that drops one is a regression, not

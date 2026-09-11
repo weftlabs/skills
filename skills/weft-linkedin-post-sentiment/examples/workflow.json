@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Understand the praise, concerns and questions in LinkedIn comments.",
+  "steps": [
+    "Confirm the supplied post and subject.",
+    "Retrieve available comments through Weft.",
+    "Group reactions with evidence and explain sample coverage."
+  ],
+  "examples": []
+}

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Find hiring evidence that helps you research target accounts.",
+  "steps": [
+    "Set the role, area and product relevance.",
+    "Retrieve up to ten job postings through Weft.",
+    "Return sourced company signals with unknown dates and inference limits."
+  ],
+  "examples": []
+}

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Find praise, problems and recurring themes in customer reviews.",
+  "steps": [
+    "Confirm the product and review source.",
+    "Retrieve a bounded review sample through Weft.",
+    "Classify supported themes with quotes, exclusions and sample limits."
+  ],
+  "examples": []
+}

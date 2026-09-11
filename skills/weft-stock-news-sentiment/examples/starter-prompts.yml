@@ -1,4 +1,11 @@
 version: 1
 prompts:
-  - title: Summarize stock news
-    prompt: "What has the news said about [ticker] over the last seven days? Give me a sourced brief with dates, positive and negative themes, and sample limits. Spend no more than [USD cap]."
+  - title: "Summarize stock-news themes with dated sources"
+    prompt: |-
+      Summarize what the news said about this stock. Give me a sourced brief with dates, positive and negative themes, and sample limits. Do not make trading recommendations.
+      
+      Input data
+      Ticker:
+      Period: last seven days
+      Maximum spend USD: ask me before spending
+

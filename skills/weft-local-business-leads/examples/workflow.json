@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Build a sourced list of local business branches for research.",
+  "steps": [
+    "Define the category, location and research goal.",
+    "Use Weft to retrieve a bounded business sample.",
+    "Return a branch-level CSV and brief with evidence and missing details."
+  ],
+  "examples": []
+}

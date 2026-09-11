@@ -1,6 +1,11 @@
 version: 1
 prompts:
-  - title: Listen to a short recap
-    prompt: "Turn this saved transcript into a five-minute audio recap. Use Weft to generate the narration through BlockRun, and include the script and source notes."
-  - title: Reuse my YouTube transcript
-    prompt: "Use the YouTube transcript we already saved to make a short MP3 recap. Keep the original transcript unchanged and do not buy it again."
+  - title: "Turn saved source text into a short narrated MP3 recap"
+    prompt: |-
+      Turn this saved transcript into a short audio recap. Use Weft to generate narration through BlockRun. Include the script and source notes. Keep the original transcript unchanged and do not buy it again.
+      
+      Input data
+      Transcript file or text:
+      Target duration: five minutes
+      Voice: available stock voice
+      Language: same as the transcript

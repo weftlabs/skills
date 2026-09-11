@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Find flight connections with comparable flight, baggage and transfer costs.",
+  "steps": [
+    "Set the route, dates, baggage and acceptable connections.",
+    "Use Weft to compare available flights and relevant ground transfers.",
+    "Return sourced options with total costs, schedules and coverage gaps."
+  ],
+  "examples": []
+}
