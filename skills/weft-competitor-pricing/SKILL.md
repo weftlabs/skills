@@ -1,6 +1,8 @@
 ---
 name: weft-competitor-pricing
 description: Compare competitors' public pricing pages or saved pricing data. Use for "compare SaaS pricing", "competitor plan comparison", "normalize per-seat prices", or "what does each plan include". Preserve currency, billing commitment, units, source dates, custom pricing and unknowns. Do not buy subscriptions, contact sales, or invent like-for-like rankings.
+metadata:
+  category: Sales & GTM
 ---
 
 # Competitor pricing comparison

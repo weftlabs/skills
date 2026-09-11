@@ -1,6 +1,8 @@
 ---
 name: weft-company-registration-check
 description: Check a prospect or supplier's registered company identity through Weft. Use when a GTM task asks to validate a legal business name, registration number, registered address or company status before account enrichment. The tested route is Belgium KBO/BCE; ask for jurisdiction and exact identifier when ambiguous.
+metadata:
+  category: Sales & GTM
 ---
 
 # Check a company registration

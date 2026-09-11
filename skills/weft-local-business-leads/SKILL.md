@@ -1,6 +1,8 @@
 ---
 name: weft-local-business-leads
 description: Build a sourced shortlist of local businesses in a specified category and area. Use for "find local business leads", "list clinics in this city", or "find businesses that fit our product". Return a branch-level CSV and a short fit brief with source evidence and missing fields. Does not find private contacts or send outreach.
+metadata:
+  category: Sales & GTM
 ---
 
 # Local business leads

@@ -1,6 +1,8 @@
 ---
 name: weft-hiring-signals
 description: Find companies with relevant job postings and build an evidence-based hiring-signals shortlist. Use for "companies hiring this role", "hiring signals for our product", or "find employers recruiting for these skills". Return a job-evidence CSV and company brief with source links and freshness limits. Hiring does not prove buying intent; no outreach is sent.
+metadata:
+  category: Sales & GTM
 ---
 
 # Hiring signals
