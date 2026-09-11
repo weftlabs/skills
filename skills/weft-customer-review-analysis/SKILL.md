@@ -1,6 +1,8 @@
 ---
 name: weft-customer-review-analysis
 description: Analyze customer feedback from a supplied public product review page or saved reviews. Use for "what do customers like and dislike", "review themes", "customer complaints", or "analyze product reviews". Return sourced praise, problems, sample counts and limits while separating provider sentiment from agent analysis. Do not contact reviewers or claim representative market opinion.
+metadata:
+  category: Sales & GTM
 ---
 
 # Customer review analysis
