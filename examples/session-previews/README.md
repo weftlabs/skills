@@ -48,3 +48,9 @@ screenshots to the dashboard marketplace.
 Provider logos are reused from Weft's catalog (`weft-app/public/logos/catalog/`):
 Massive, x402 Atlas, Strale and BlockRun. Provider marks identify the services
 used and do not imply endorsement.
+
+## Full recorded sessions
+
+[Browse all ten Pi runs and their 30 screenshots](pi-sessions/README.md).
+These preserve the recorded messages with Markdown formatting and explicit
+private-detail redactions, including failed and rejected test attempts.

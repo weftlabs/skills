@@ -1,0 +1,92 @@
+[
+  {
+    "run": "distill-pi-blockrun-speech-test",
+    "source_sha256": "ecc821f42753b6f8ea7dbcf06e3e87ca9e22d23cd0422d8f6d2eaed6f53eec3e",
+    "screenshots": {
+      "session.png": "b3de36de826a627d81cf1821ceca68d746bee93bb48ee2366b59ce6c35aa8bf5",
+      "session-result.png": "d630c9ab7882e25dd1bdad117be064fe1fda26e19ffad74fbab49d2c111c1d1b",
+      "session-full.png": "5a958989b4b31d96fabda832f9be9940e20d6563200e8cc1380f1a0321e14ba5"
+    }
+  },
+  {
+    "run": "distill-pi-podcast-local-test",
+    "source_sha256": "96667ec258304caa2a8ccf2db744f43c78f9dd6766fac09fa25faf80c3f760ad",
+    "screenshots": {
+      "session.png": "9a480883832608fc605e016eb4eb02e422168ad50b36cf15cc3c5535860835e1",
+      "session-result.png": "0ac06c98d173d80f6dddbf7e54e7314aa95ea8ad6655e79d4cda44ef59c2b91c",
+      "session-full.png": "07868f95edf524068a1fa0af763e99221f1afc34fc8f17168f813a69c66a6fcf"
+    }
+  },
+  {
+    "run": "distill-pi-youtube-podcast-test",
+    "source_sha256": "3b522e7795e265299b02beccdaed44e6779e458f6bb092d91cff8fc6c8f13505",
+    "screenshots": {
+      "session-full.png": "b070f7819fa7f11d96ad3e12ce9f7b71590efce4352f40eb95ad0110d23efabf",
+      "session-result.png": "59ca779c7f7b936437386e7d4671ba5f7d6b3103e35b3d816a05adbbce8cc213",
+      "session.png": "aa1e556ccdc6ade2425b0ddde7b9bd340628ece9314ee5e78ac7b6d99313b02c"
+    }
+  },
+  {
+    "run": "distill-pi-youtube-podcast-test-2",
+    "source_sha256": "ae5a6a04a73c1be9572ce6fe216955e8d7d8bbdec8c92ae2c2614643c1c4e7af",
+    "screenshots": {
+      "session.png": "256d4373b3d21e70b8de8aaf952ca3dd37ea648650ada008770d658614aa611b",
+      "session-result.png": "d1053211d42af99d845b8636f5dd2c814837fbb8e75063da277ec915bf7af473",
+      "session-full.png": "6f726da02e5b612020c4665384d477538a9ec2ee7dc4ae1cc1a4c334ecbdccfc"
+    }
+  },
+  {
+    "run": "finance-skill-evals-company-run",
+    "source_sha256": "dac98f70277c92ac3b4cdd5d35b2ae770af84849c13a357d43e31e5eb2dd0df9",
+    "screenshots": {
+      "session.png": "b4c86ecf52e99604d13c9c02fa7c2abffbd3b0f8c7f9d0052ce5845507792b79",
+      "session-result.png": "6d5a8a13f819664d826b5a1a3d3ebde068487cc1eb199cb55453254c03fbad50",
+      "session-full.png": "1bce4d821d6650ccf8edd53ef55ea57dd457cbf154a753420e5f9ae719aec4e2"
+    }
+  },
+  {
+    "run": "finance-skill-evals-company-run2",
+    "source_sha256": "e976011b2c79b125e8d9ae08803bcc3c0dab891247913dfcc6b2667801c447a6",
+    "screenshots": {
+      "session.png": "4cf7b17a389ef6a0e97b67a1ca830fc2f51dfcc86af8068058981a3ea446f379",
+      "session-result.png": "6b9421717ac97862aec82cc0bf352599106e106fec1f6b0496c36bfebbc54a63",
+      "session-full.png": "5b8c0c2068b342328bc4477bc15a5a834ad3962e91cf323d0b926d1759d7297b"
+    }
+  },
+  {
+    "run": "finance-skill-evals-iban-run",
+    "source_sha256": "f52ce7a62cdb393242692757b4bb7253cdab52e4ebaebb70b61e1e6a15785ea7",
+    "screenshots": {
+      "session.png": "4c4ce0c70f52163471f957069e611a51f57a3682b79e3f150a8df4535f64fb66",
+      "session-result.png": "263352973fb9177538ef22bed2bf1be8c1e87af617f84f3add55f9f23a3f8cd2",
+      "session-full.png": "d5bc9568c3f3ad38f7242c76197f4d7517c7798211aa13ad2e7089ce8673d9d8"
+    }
+  },
+  {
+    "run": "finance-skill-evals-iban-run2",
+    "source_sha256": "bad9c97e809afa8ce404d3795b681bbd07c7dd34498851d778b53b8619566bce",
+    "screenshots": {
+      "session.png": "f1057e45b26690447755d130a9eb484510528ff6b17f8d92e4769638ea8f163a",
+      "session-result.png": "f442ad96c75fba672f8e41a7f8832e960642d19109b8c9b9a073dbcd33821328",
+      "session-full.png": "7909708e274ee4bd4db03dae14d2c18b1983bb93a9dbec0b04c9c225c12afb3e"
+    }
+  },
+  {
+    "run": "finance-skill-evals-market-replay",
+    "source_sha256": "874d954554e87259a08685b29ace60e510480b51b1b82f64186d6b25cfa562ad",
+    "screenshots": {
+      "session.png": "65b802d6adf2d18c1b15853d14578c1c28a99ffa269e2719846fe067921eba59",
+      "session-result.png": "e482fcaec64413fb5023ee4e095249e9a6fbec634307e39ac7d64c651bdfdea1",
+      "session-full.png": "cc86544b2abad010f132a58f8a3c2cafbf2273a810fb8cdf34a4c4c034fcb2c2"
+    }
+  },
+  {
+    "run": "finance-skill-evals-market-run",
+    "source_sha256": "46cdc316869416c940755d61fb2c9d8dd2b9244c9820170ddfc195e32fba676e",
+    "screenshots": {
+      "session.png": "8ee95b7b1cfaf6ca685c34f5e2f6bfd7bd44ea16578e088214c8dd51a6910583",
+      "session-result.png": "acb35453792d7f10ac7e8108ea3b160ed81166fe76f08c3ac81215fad4fd8f20",
+      "session-full.png": "9c7a01a5347d31e63bfd32c06b1d19c1c58af92b91acf942aa2b146e37308c6c"
+    }
+  }
+]
