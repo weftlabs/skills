@@ -7,6 +7,9 @@ This is an asset generator, not a live chat client or a dashboard integration.
 ## Commands
 
 ```sh
+# Install the Markdown parser for actual-session rendering.
+python3 -m pip install -r tools/session-preview/requirements.txt
+
 # Import visible messages into a PRIVATE draft. Never publish a raw import.
 python3 tools/session-preview/render.py import /path/to/pi-session.jsonl --output /tmp/draft.json
 
@@ -24,7 +27,9 @@ python3 -m unittest discover -s tools/session-preview -p 'test_*.py'
 Open the generated `index.html` to browse; each example has a PNG download.
 Screenshots use 1600px width and at least 1000px height, extending for long
 results rather than silently clipping them. Capture also checks a 390px view.
-The generator uses Python's standard library. Browser export is optional.
+Edited-example rendering uses Python's standard library. Actual-session rendering
+also requires markdown-it-py (see requirements.txt). Browser export is optional
+for edited examples and required after a skill test.
 
 ## Public example contract
 
@@ -81,8 +86,9 @@ replay. Without verified receipts, amounts remain Unknown. Session mode does
 not infer success or zero spend from the transcript.
 
 This path renders actual user and assistant text, plus recorded errors, in
-physical file order (all branches if the file contains branches). It preserves
-line breaks and literal Markdown instead of rewriting or summarizing messages.
+physical file order (all branches if the file contains branches). It renders Markdown headings, tables, lists, links, emphasis and code without
+rewriting or summarizing messages. Raw HTML is escaped, unsafe link schemes are
+rejected, and image syntax renders its alt text without fetching remote images.
 Tool calls, results, and reasoning are excluded. `source.json` records the source
 hash and message count. Outputs are private until reviewed for sharing; visible
 messages may contain private information. The public reviewed-example contract

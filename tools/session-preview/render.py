@@ -9,6 +9,18 @@ from pathlib import Path
 import re
 
 
+def markdown(text):
+    """Render Markdown safely without loading remote images or raw HTML."""
+    from markdown_it import MarkdownIt
+
+    parser = MarkdownIt('commonmark', {'html': False}).enable('table').enable('strikethrough')
+    # Images in transcripts must not cause requests when opening an offline export.
+    parser.renderer.rules['image'] = lambda tokens, idx, options, env: escape(tokens[idx].content)
+    parser.renderer.rules['table_open'] = lambda tokens, idx, options, env: '<div class="table-scroll"><table>\n'
+    parser.renderer.rules['table_close'] = lambda tokens, idx, options, env: '</table></div>\n'
+    return parser.render(text)
+
+
 def escape(value):
     return html.escape(str(value), quote=True)
 
@@ -117,9 +129,9 @@ def render(data, root, *, messages=None):
     description = 'Edited task and result excerpt.<br>Original evidence retained.'
     if messages is not None:
         conversation = ''.join(
-            f'<div class="user-row"><div class="user-bubble"><span class="message-label">YOU</span><p>{escape(m["text"])}</p></div></div>'
+            f'<div class="user-row"><div class="user-bubble"><span class="message-label">YOU</span><div class="session-text">{markdown(m["text"])}</div></div></div>'
             if m['role'] == 'user' else
-            f'<div class="assistant"><div class="assistant-label"><span class="agent-mark">w</span><strong>Agent</strong><span>with Weft</span></div><div class="session-text">{escape(m["text"])}</div></div>'
+            f'<div class="assistant"><div class="assistant-label"><span class="agent-mark">w</span><strong>Agent</strong><span>with Weft</span></div><div class="session-text">{markdown(m["text"])}</div></div>'
             for m in messages)
         description = 'Actual Pi message text, in file order.<br>Tools and reasoning omitted.<br>Private: review before sharing.'
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8">

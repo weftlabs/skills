@@ -14,5 +14,6 @@ jobs:
         run: python3 scripts/validate.py
       - name: Validate session preview rendering
         run: |
+          python3 -m pip install -r tools/session-preview/requirements.txt
           python3 -m unittest discover -s tools/session-preview -p 'test_*.py'
           python3 tools/session-preview/render.py build examples/session-previews --output /tmp/skill-previews
