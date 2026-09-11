@@ -1,6 +1,8 @@
 ---
 name: weft-transcript-to-podcast
 description: Turn a saved transcript into a short, playable audio recap with a separate script and source notes. Use for "make this episode shorter", "turn this transcript into a podcast", or "make a recap I can listen to". Reuse output from weft-youtube-to-text. Use Weft to call BlockRun text-to-speech and retrieve the completed audio.
+metadata:
+  category: Content
 compatibility: Weft connection with paid POST support and an HTTP client for returned audio URLs.
 ---
 

@@ -1,6 +1,8 @@
 ---
 name: weft-iban-bank-lookup
 description: Identify the bank and country behind a supplied IBAN and report its structural validity with a sourced result. Use for "which bank is this IBAN", "check this IBAN", or "find the BIC for this IBAN". Does not verify account ownership or send money.
+metadata:
+  category: Finance
 compatibility: A connected Weft account with GET fetch support.
 ---
 

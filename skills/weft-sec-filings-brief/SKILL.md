@@ -1,6 +1,8 @@
 ---
 name: weft-sec-filings-brief
 description: Create a sourced brief of one US public company's recent SEC 10-K, 10-Q or 8-K filings. Use for "summarize recent filings", "brief me on the latest 8-Ks", or "find annual reports and amendments". Return dated filing links, verified summaries and coverage limits. Load the weft skill for discovery and payment.
+metadata:
+  category: Finance
 ---
 
 # SEC filings brief

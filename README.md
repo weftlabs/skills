@@ -96,6 +96,12 @@ Each optional workflow also owns a `1600x900` `cover.webp` beside its
 internal mascot source or generation workflow. Core skills do not appear in the
 gallery and do not need a cover.
 
+Each optional workflow also declares a concise `metadata.category` in its
+`SKILL.md` frontmatter. The gallery reads this value directly and creates its
+filters from the categories that are present. Current categories are
+`Sales & GTM`, `Finance`, `Travel`, and `Content`. Reuse an existing label when
+it describes the outcome; add a new label only when the workflow does not fit.
+
 Each skill also includes a `512x512` PNG named `logo.png` beside its
 `SKILL.md` for square directory listings, including agency.io. Use this image
 for the listing logo and `cover.webp` for a wide workflow gallery card.

@@ -1,6 +1,8 @@
 ---
 name: weft-gtm-lead-enrichment
 description: Use whenever an agent runs GTM lead enrichment through Weft with OneShot Agent, mentions win.oneshotagent.com, enriches a LinkedIn profile, finds or verifies a work email, retrieves a social newsfeed, or needs to recover the result of a paid OneShot async request. Covers the paid POST, request_id extraction, free GET result polling with X-Agent-ID, and the current Weft MCP free-200 limitation. Load weft too when payment uses Weft.
+metadata:
+  category: Sales & GTM
 ---
 
 # OneShot Agent Async Tools
