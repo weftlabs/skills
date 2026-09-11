@@ -6,6 +6,33 @@ import render
 
 
 class PreviewTests(unittest.TestCase):
+    def test_direct_session_uses_template_and_preserves_text(self):
+        records = [
+            {'type': 'message', 'message': {'role': 'user', 'content': 'Exact question\nsecond line'}},
+            {'type': 'message', 'message': {'role': 'assistant', 'content': [
+                {'type': 'thinking', 'thinking': 'PRIVATE THOUGHT'},
+                {'type': 'text', 'text': 'Exact <answer>\nnext line'}]}},
+            {'type': 'message', 'message': {'role': 'assistant', 'content': [],
+                                          'errorMessage': 'Recorded failure'}},
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'trace.jsonl'
+            source.write_text('\n'.join(json.dumps(r) for r in records))
+            render.session(source, root / 'out')
+            page = (root / 'out/session.html').read_text()
+            self.assertIn('Exact question\nsecond line', page)
+            self.assertIn('Exact &lt;answer&gt;\nnext line', page)
+            self.assertIn('Recorded failure', page)
+            self.assertNotIn('PRIVATE THOUGHT', page)
+            self.assertIn('APIs used', page)
+            self.assertIn('Private Pi session', page)
+            self.assertIn('Unknown', page)
+            self.assertNotIn('Edited task and result excerpt.', page)
+            self.assertNotIn('$0.00', page)
+            provenance = json.loads((root / 'out/source.json').read_text())
+            self.assertEqual(provenance['message_count'], 3)
+
     def test_import_excludes_reasoning_tools_and_metadata(self):
         records = [
             {'type': 'session', 'secret': 'hidden'},
