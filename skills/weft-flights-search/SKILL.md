@@ -1,6 +1,8 @@
 ---
 name: weft-flights-search
 description: Research and compare flights with Weft, including nonstop and connecting itineraries, flexible dates, nearby airports, and public-transport transfers. Use for flight searches, fare comparisons, direct-flight requests, flexible origin or destination airports, airport-plus-train combinations, or searches where low-cost carriers and GDS results must be checked separately. Builds the answer from useful paid Weft route, schedule, airport, and fare evidence, then verifies missing fares, coverage, baggage rules, and itinerary details on public booking surfaces.
+metadata:
+  category: Travel
 ---
 
 # Weft Flight Search

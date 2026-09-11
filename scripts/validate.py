@@ -16,6 +16,7 @@ CORE_SKILLS = {"weft", "weft-setup"}
 COVER_WIDTH = 1600
 COVER_HEIGHT = 900
 COVER_MAX_BYTES = 750_000
+CATEGORY_MAX_LENGTH = 40
 
 
 def webp_dimensions(path):
@@ -82,6 +83,16 @@ for path in skill_files:
         errors.append(f"{rel}: frontmatter missing `description`")
 
     if name and name not in CORE_SKILLS:
+        metadata = meta.get("metadata")
+        category = metadata.get("category") if isinstance(metadata, dict) else None
+        if not isinstance(category, str) or not category.strip():
+            errors.append(f"{rel}: optional skill missing `metadata.category`")
+        elif category != category.strip() or len(category) > CATEGORY_MAX_LENGTH:
+            errors.append(
+                f"{rel}: metadata.category must be trimmed and at most "
+                f"{CATEGORY_MAX_LENGTH} characters"
+            )
+
         cover_path = path.parent / "cover.webp"
         cover_rel = cover_path.relative_to(root)
         if not cover_path.is_file():

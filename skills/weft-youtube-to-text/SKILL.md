@@ -1,6 +1,8 @@
 ---
 name: weft-youtube-to-text
 description: Extract readable transcript text from a supplied YouTube video and save a reusable transcript bundle. Use for "YouTube to text", "get this video's transcript", "extract the captions", or as the input step for a spoken recap. Load the weft skill for service discovery and payment.
+metadata:
+  category: Content
 ---
 
 # YouTube to text

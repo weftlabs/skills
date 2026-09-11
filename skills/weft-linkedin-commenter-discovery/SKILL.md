@@ -1,6 +1,8 @@
 ---
 name: weft-linkedin-commenter-discovery
 description: Turn a supplied LinkedIn post into a shortlist of relevant people who commented on it, with profile links and comment evidence. Use for "find prospects in these comments", "who should I contact from this discussion", or "find leads among LinkedIn comments". Does not find emails or send outreach. Load the weft skill for discovery and payment.
+metadata:
+  category: Sales & GTM
 ---
 
 # Discover relevant people in LinkedIn comments

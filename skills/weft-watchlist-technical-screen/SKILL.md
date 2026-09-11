@@ -1,6 +1,8 @@
 ---
 name: weft-watchlist-technical-screen
 description: Screen a supplied, bounded list of stock tickers using dated RSI and MACD values. Use for "screen my watchlist", "which of these stocks has RSI below 30", or "compare RSI and MACD for these tickers". Return rule matches, numeric evidence, timestamps, and missing-data limits. Does not discover an entire market universe, place trades, or monitor automatically. Load the weft skill for discovery and payment.
+metadata:
+  category: Finance
 ---
 
 # Screen a supplied stock watchlist

@@ -1,6 +1,8 @@
 ---
 name: weft-linkedin-post-sentiment
 description: Analyze audience sentiment in the comments on a supplied LinkedIn post. Use for "what do people think of this post", "analyze reactions to our announcement", "summarize praise and concerns", or "sentiment analysis of LinkedIn comments". Return a sentiment breakdown, themes, source evidence, and sample limits. Does not build prospect lists or send messages. Load the weft skill for discovery and payment.
+metadata:
+  category: Sales & GTM
 ---
 
 # Analyze sentiment in LinkedIn post comments

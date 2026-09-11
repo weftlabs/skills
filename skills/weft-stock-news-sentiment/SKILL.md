@@ -1,6 +1,8 @@
 ---
 name: weft-stock-news-sentiment
 description: Summarize recent news about a supplied stock ticker with source links, dated evidence, and ticker-specific sentiment. Use for "what has the news said about this stock", "summarize AAPL coverage", or "compare positive and negative news". Produce a bounded news brief, not a price prediction or trading action. Load the weft skill for discovery and payment.
+metadata:
+  category: Finance
 ---
 
 # Stock news and sentiment brief

@@ -1,6 +1,8 @@
 ---
 name: weft-company-financial-snapshot
 description: Create a sourced financial snapshot of one US public company. Use for "company financial snapshot", "show revenue, income, cash and debt", or "summarize the latest annual and quarterly financials". Return one table with periods, units, filing evidence and missing values. Load the weft skill for discovery and payment.
+metadata:
+  category: Finance
 ---
 
 # Company financial snapshot
