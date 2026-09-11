@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Turn a public profile into a sourced lead brief and email check.",
+  "outcome": "Learn about a prospect from their public profile and find or check a work email when available.",
   "steps": [
-    "Confirm the person and public profile.",
-    "Use Weft to retrieve professional details and verify a work email where available.",
-    "Separate verified facts from inferences and return source evidence."
+    "Share the person’s LinkedIn profile and the details you need.",
+    "Your agent looks up their professional background and any requested work-email information.",
+    "Get a prospect brief that separates sourced facts, email-check results and details still to confirm."
   ],
   "examples": []
 }

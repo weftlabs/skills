@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Find hiring evidence that helps you research target accounts.",
+  "outcome": "Find companies advertising the roles or skills you care about, with job links to guide your prospect research.",
   "steps": [
-    "Set the role, area and product relevance.",
-    "Retrieve up to ten job postings through Weft.",
-    "Return sourced company signals with unknown dates and inference limits."
+    "Enter a role or skill and the location you want to search.",
+    "Your agent looks for matching job postings and groups them by company.",
+    "Get a shortlist with job evidence and notes on dates or details that need checking. Hiring alone does not show intent to buy."
   ],
   "examples": []
 }

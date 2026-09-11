@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Find flight connections with comparable flight, baggage and transfer costs.",
+  "outcome": "Find a cheaper way to get there. Compare flights, baggage and transfer costs, with any unconfirmed costs made clear.",
   "steps": [
-    "Set the route, dates, baggage and acceptable connections.",
-    "Use Weft to compare available flights and relevant ground transfers.",
-    "Return sourced options with total costs, schedules and coverage gaps."
+    "Add where you are flying from and to, your dates, passengers and bags.",
+    "Your agent compares available routes and checks fares, baggage rules and ground transfers.",
+    "Get a shortlist with schedules, price sources and any costs still to confirm."
   ],
   "examples": []
 }

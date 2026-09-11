@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Understand the praise, concerns and questions in LinkedIn comments.",
+  "outcome": "Understand what people like, question or complain about in the comments on a LinkedIn post.",
   "steps": [
-    "Confirm the supplied post and subject.",
-    "Retrieve available comments through Weft.",
-    "Group reactions with evidence and explain sample coverage."
+    "Paste the post link and say which announcement, idea or subject you want feedback on.",
+    "Your agent groups the available comments into praise, concerns, questions and mixed reactions.",
+    "Get a feedback summary with comment examples and counts for the comments analyzed."
   ],
   "examples": []
 }

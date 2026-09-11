@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Compare public pricing with billing terms and real source evidence.",
+  "outcome": "Compare competitors’ prices and plan features side by side, including billing terms that change what you pay.",
   "steps": [
-    "Confirm two to four pricing pages and comparison needs.",
-    "Retrieve each page through Weft and check the observed prices.",
-    "Compare compatible plans; preserve currency, billing terms and unknowns."
+    "Add two to four pricing-page links and the features or usage you want to compare.",
+    "Your agent reads the available prices, plan details and billing terms.",
+    "Get a comparison with source links and clear notes where prices cannot be compared directly."
   ],
   "examples": []
 }

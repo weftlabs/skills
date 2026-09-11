@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Screen your stock watchlist with explicit RSI and MACD rules.",
+  "outcome": "See which stocks on your watchlist match your RSI and MACD rules, with the values and dates behind each result.",
   "steps": [
-    "Confirm up to ten tickers and a completed session date.",
-    "Retrieve matching RSI and MACD observations through Weft.",
-    "Apply the stated rules and report values, dates and unavailable data."
+    "Enter up to ten stock tickers and the indicator rules you want to check.",
+    "Your agent gets available RSI and MACD values for the chosen trading session.",
+    "Get a table of matches, non-matches and missing data. The results are checks against your rules, not trade recommendations."
   ],
   "examples": [
     "watchlist-technical-screen"

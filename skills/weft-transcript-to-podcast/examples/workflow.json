@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Turn saved source text into a short narrated MP3 recap.",
+  "outcome": "Turn a long transcript into a short audio recap you can listen to, with the script and source notes included.",
   "steps": [
-    "Reuse the supplied transcript and prepare a source-grounded script.",
-    "Generate narration through Weft using BlockRun.",
-    "Return the MP3, script and source notes with audio checks and limits."
+    "Share a transcript and choose the length and language of your recap.",
+    "Your agent writes a summary from the transcript and generates the narration.",
+    "Get an MP3, the script and notes linking the recap to its source."
   ],
   "examples": [
     "transcript-to-podcast"

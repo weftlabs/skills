@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "outcome": "Read recent SEC filings with dates, source links and clear coverage.",
+  "outcome": "Catch up on a US public company’s SEC filings with a short brief and links to the documents.",
   "steps": [
-    "Confirm the issuer, filing type and date range.",
-    "Use Weft to find filings and read available source documents.",
-    "Summarize supported facts and mark unavailable document text."
+    "Enter the company’s ticker and choose annual reports, quarterly reports or 8-K updates.",
+    "Your agent finds the filings and reads the available document text.",
+    "Get a dated brief with source links and clear notes when only a filing listing was available."
   ],
   "examples": [
     "sec-filings-brief"
