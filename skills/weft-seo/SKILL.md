@@ -1,215 +1,115 @@
 ---
 name: weft-seo
-description: Audit organic search with an Ilias concentration kernel. Prefer Google Search Console exports as first-party query/page evidence; never buy GSC through Weft. Inspect the target, pick one money query and one page, then load `weft` to buy only missing SERP, volume, or backlink evidence. Use for SEO audits, Blitz vs wait, keyword research, and AI-search visibility. No stored provider list, no rank promise.
+description: Audit organic search with one money query. Prefer Search Console exports; never buy GSC through Weft. Then buy only missing SERP, demand, or ranking evidence. Use for SEO audits and Blitz vs wait.
 metadata:
   category: Content
 ---
 
 # Weft SEO
 
-Turn an organic-search goal into a prioritized action plan. Inspect the target
-with free public or first-party evidence first. Use Weft for external evidence
-that the target cannot prove, such as current result pages, search demand,
-competitors, backlinks, trends, or local listings.
+Turn an organic-search goal into **one** money query, **one** page, and a
+`Blitz` / `wait` / `kill` call. Inspect the target and any Search Console
+export first. Use Weft only for evidence the target cannot prove.
 
-Load the `weft` skill before provider discovery. Its live search, contract,
-attribution, wallet, receipt, and secret-safety rules are authoritative. When
-`weft_*` tools are missing, use the `weft-setup` skill.
+Load the `weft` skill before discovery. When `weft_*` tools are missing, use
+the `weft` CLI (`search`, `balance`, `fetch --max-cost-usd`) or `weft-setup`.
 
-Read these focused references when needed:
+Read when needed:
 
-- [provider routing](references/provider-routing.md) for evidence gaps and paid
-  contract selection;
-- [report contract](references/report-contract.md) for findings, priorities,
-  and the evidence ledger;
-- [primary sources](references/primary-sources.md) before making general SEO
-  claims.
+- [Ilias kernel](references/ilias-kernel.md) — concentration, GSC, Blitz rules;
+- [provider routing](references/provider-routing.md) — live contracts, wallet rail, CLI;
+- [report contract](references/report-contract.md) — decision card and ledger;
+- [primary sources](references/primary-sources.md) — Google's current docs.
 
 ## Outcome Contract
 
 | Field | Contract |
 |---|---|
-| Goal | Explain what blocks or limits the requested organic-search outcome and identify the next actions |
-| Inputs | Target URL or domain, desired outcome, market or location, known competitors, first-party data, freshness need, and paid-data preference |
-| Output | Evidence-led findings, prioritized actions, unknowns, and an evidence and spend ledger |
+| Goal | Name the money query and page, the Blitz/wait/kill call, and the next honest actions |
+| Inputs | Target URL or domain, market, language, GSC export if any, ≤3 commercial seeds, spend cap |
+| Output | Decision card, evidence-led findings, prioritized actions, unknowns, spend ledger |
 | Acceptance | Every important finding has evidence or an inference label; every action has impact, effort, confidence, and a completion test |
-| Limits | No ranking promise, no hidden purchase, no automatic paid retry, no unobserved traffic or search-volume claim |
-| Non-goals | Editing the site, buying links or reviews, publishing content, changing Search Console, or creating a permanent provider catalog |
+| Limits | No ranking promise, no hidden purchase, no automatic paid retry, no unobserved volume claim, no parallel paid fetches |
+| Non-goals | Editing the site, buying links or reviews, publishing content, changing Search Console, storing a provider catalog |
 
 ## Required Flow
 
 ### 1. Define the decision
 
-Record what the user wants to improve. Examples are discovery for a product,
-qualified non-brand traffic, local visits, indexed documentation, or recovery
-from a known decline.
+Record the business outcome (qualified non-brand traffic, local visits, recovery
+from a drop). Record target, market, language, competitors, time range, GSC
+access, and spend cap. Missing optional inputs lower confidence; they do not
+block a first pass.
 
-Record the target, market and language, location when local intent matters,
-known competitors, time range, and access to first-party analytics or search
-data. Do not block a first pass when optional inputs are absent. State how each
-missing input limits confidence.
-
-Respect a no-spend request. If the user did not state a paid-data preference,
-free discovery is allowed, but state the expected price before each paid call
-as required by `weft`.
+If the user set a cap, stop before any fetch that would exceed remaining
+**spendable** balance on the merchant's asset.
 
 ### 2. Inspect the target first
 
-Use available public-web tools and user-supplied data to observe the target.
-Inspect only what is relevant:
+Observe only what matters: response and redirects, robots, sitemap, canonicals,
+titles, headings, copy, internal links, structured data vs visible content,
+duplicates. Record URLs, timestamps, and sample size. A blocked page is
+unknown, not a pass.
 
-- response and redirect behavior;
-- robots directives, sitemap discovery, canonical references, and index
-  signals;
-- titles, descriptions, headings, visible copy, images, and internal links;
-- structured data and whether it agrees with visible content;
-- important templates and duplicate or near-duplicate patterns;
-- performance evidence when a current field or lab source is available.
+Do not recommend meta keywords. Do not promise indexing or rank.
 
-Record exact URLs, timestamps, and sample size. A blocked page is unknown, not a
-passing page. A small sample is not a site-wide conclusion.
+### 3. Apply the Ilias kernel
 
-Do not recommend meta keywords. Do not promise that a valid sitemap, structured
-data block, or technically crawlable page will be indexed or rank.
+Follow [ilias-kernel.md](references/ilias-kernel.md) **before** Weft spend.
 
-### 2b. Ilias kernel — pick one money query from evidence
+Parse GSC `Queries.csv` / `Pages.csv` when supplied. Brand-only means **wait**
+on new URLs. Do not Blitz a slogan with zero impressions.
 
-Do this **before** any paid Weft call. Concentration is the strategy, not a
-later filter.
+### 4. Name gaps that can change the call
 
-1. **Search Console is first-party.** If the user supplies a GSC export (Queries
-   and Pages CSVs, or a dated screenshot with query/page/impressions/position),
-   treat it as observed fact. Weft does **not** sell Google Search Console.
-   Do not `weft_search` for GSC. Catalog has no `searchconsole` contract.
-2. **Read GSC in Ilias order:** impressions × commercial intent, then current
-   position. A Blitz target is already indexed and stuck around positions 5–20,
-   with revenue behind it. Brand queries at position 1 are not Blitz targets.
-3. **Zero impressions means do not Blitz that string.** Positioning copy is a
-   hypothesis until GSC or a paid demand/SERP fetch shows demand.
-4. **If GSC is brand-only** (name variants, almost no non-brand queries), the
-   money *page* is the URL with the most impressions (often the homepage).
-   Improve that page. Do not publish a cluster of new articles to invent
-   rankings.
-5. **Weft is for gaps GSC cannot show:** keyword volume, live SERP, competitor
-   organic keywords, backlink quality. Search live. Prefer Ahrefs-shaped
-   keyword/SERP operations when the catalog has an exact contract. One bounded
-   fetch per gap.
-6. **Decision output (required):** money query | money page | `Blitz` / `wait` /
-   `kill` | why, with GSC rows or provider evidence cited. Never guarantee a
-   ranking.
+Buy nothing because it exists. Write the decision each purchase must support:
 
-### 3. Name the external evidence gaps
+- domain rankings vs GSC (are we missing non-brand queries?);
+- demand for **one** user-stated commercial seed (volume, or Trends if no volume contract — label it);
+- Google SERP for that seed (can this page win?);
+- backlinks only if a **complete** contract exists.
 
-Do not buy data because it is available. Write the decision that each purchase
-will support. Common gaps are:
+Stop when the call is already `wait` or `kill` and more data cannot change it.
 
-- which queries and result pages define the real competitive set;
-- current demand, seasonality, geography, and intent;
-- which domains and pages earn relevant links;
-- current local listings, categories, reviews, or map competitors;
-- which facts need current web search or page extraction at scale.
+### 5. Discover live, then pay once per contract
 
-Keep observed facts, provider evidence, and recommendations separate.
+Search Weft with the capability, market, language, and required outputs.
+Reformulate weak matches. Do not use a remembered vendor name as a URL.
 
-### 4. Discover a current provider
+Select the cheapest exact contract per [provider routing](references/provider-routing.md).
+`weft_balance` before **each** paid call. Serialise payments. State expected
+cost and asset. Tight `max_cost_usd`. One fetch per selected contract. No retry
+after pending, timeout, or `INSUFFICIENT_BALANCE`.
 
-For each necessary gap, call `weft_search` with a capability query that includes
-the subject, geography, language, freshness, and required output fields. Search
-is free. Reformulate an empty or weak query before concluding that no operation
-exists.
-
-Read every candidate's typed inputs, request bindings, output summary,
-freshness, attribution, price, and `contract_url`. Fetch the full contract when
-the inline result is insufficient and always before an asynchronous submission.
-
-Reject a contract when it cannot bind every material input. A description that
-mentions keywords, rankings, backlinks, or local data is not enough. Do not use
-a historical provider name, endpoint, price, or sample as a current contract.
-
-Choose the cheapest exact contract. Prefer better relevance only when price is
-equal, or when its declared freshness, geography, coverage, or output is needed
-for the user's decision.
-
-### 5. Make one bounded paid call per selected contract
-
-Call `weft_balance` before the first paid fetch. Stop when balance or policy
-headroom is below the expected cost. State the provider, operation, purpose,
-expected price, inputs, and evidence it should return.
-
-Repeat discovery and selection only for evidence gaps that can change the
-decision. Each selected exact contract permits one `weft_fetch`; this is not a
-one-purchase limit for the whole report. Before every paid call, state that
-call's expected cost and prefer one contract that closes several gaps over
-several overlapping purchases.
-
-Build the request from the live contract. Copy its attribution fields. Set a
-tight `max_cost_usd` on every `weft_fetch`; never silently raise it. Make the
-smallest useful request and call that selected contract once.
-
-Do not retry a paid call after a timeout, pending receipt, or ambiguous result.
-Do not automatically retry any paid fetch. Search for a substitute provider or
-return the evidence gap. A policy or balance refusal is a hard stop.
-
-After the call, decode the result and preserve the provider, query, timestamp,
-scope, receipt identifiers, protocol, payment status, and cost. Report actual
-cost as `paid_usd + held_usd`. A held amount can mean money moved even when the
-final result is not ready.
-
-Never request or forward wallet keys, provider credentials, cookies,
-authorization headers, or payment proofs. Do not claim durable idempotency for
-a paid request.
+Decode the body. Cost is `paid_usd + held_usd`. Keep artifact / tx / protocol.
 
 ### 6. Analyze without false precision
 
-For each finding, state:
-
-- the claim;
-- whether it is an observed fact, provider evidence, or inference;
-- source and sample;
-- why it matters to the requested outcome;
-- severity and confidence;
-- the smallest action that can test or fix it.
-
-Do not create an overall numerical SEO score unless the user supplies a scoring
-model. Do not call a page's current rank, traffic, search volume, backlink
-count, local position, or performance good or bad without current evidence.
-
-For AI-search visibility, apply the same crawlability, content quality,
-structured-data, and people-first principles. Do not require special AI-only
-markup or promise inclusion in a generated answer.
+For each finding: claim, class (observed / provider / inference), source,
+why it matters, severity, confidence, smallest test. No invented SEO score.
+Trends is not volume. Two typo keywords are not a content calendar.
 
 ### 7. Deliver the report
 
-Follow the [report contract](references/report-contract.md). Lead with the few
-actions most likely to change the user's outcome. Include only applicable
-sections and put supporting detail after the action plan.
-
-End with:
-
-- unknowns and blocked checks;
-- evidence timestamps and sample limits;
-- each Weft provider and operation used;
-- receipt state and identifiers safe to show;
-- total `paid_usd + held_usd`, including zero when no purchase was made.
+Follow [report-contract.md](references/report-contract.md). Lead with the
+decision card. Then the few actions that change the outcome.
 
 ## Completion Gate
 
-Do not call the work complete until:
+Not complete until:
 
-- the target and business outcome are explicit;
-- important facts have a source, and inferences are labeled;
-- every paid result came from a live exact contract;
-- every priority names impact, effort, confidence, and a completion test;
-- missing evidence remains visible;
-- provider provenance, receipt state, and real spend are reported.
+- money query, money page, and Blitz/wait/kill are explicit;
+- important facts have sources; inferences are labeled;
+- every paid result used a live exact contract;
+- every priority has impact, effort, confidence, and a completion test;
+- missing evidence stays visible (including “no complete backlink contract”);
+- provenance, receipt state, and real spend are reported.
 
-If the evidence is insufficient, return a useful partial report. Name the next
-free check or exact capability needed. Do not fill gaps with generic SEO advice.
+If evidence is thin, return a partial report. Do not fill with generic SEO.
 
 ## Safety
 
 - Do not buy or recommend deceptive links, reviews, traffic, or content.
-- Do not bypass access controls, robots restrictions, or authenticated systems.
-- Do not expose private analytics, search data, customer data, or credentials.
-- Do not make changes to a site or third-party account without a separate,
-  explicit user request and confirmation for the exact side effect.
+- Do not bypass access controls, robots, or authenticated systems.
+- Do not expose private analytics, GSC, customer data, or credentials.
+- Do not change a site or third-party account without a separate explicit ask.

@@ -26,10 +26,26 @@
       "files": [],
       "expectations": [
         "The response translates the decision into separate capability searches with geography, language, freshness, and required output fields.",
-        "The response says to load the current weft skill and use live weft_search results instead of a remembered provider catalog.",
+        "The response says to load the current weft skill or weft CLI and use live search results instead of a remembered provider catalog.",
         "The response rejects operations whose typed inputs or request bindings omit a material constraint and chooses the cheapest exact contract.",
-        "The response calls for weft_balance before the first paid fetch, a tight max_cost_usd, copied attribution, one paid call per selected exact contract, and no automatic retry after an ambiguous outcome.",
+        "The response calls for weft_balance before each paid fetch, a tight max_cost_usd, the spendable asset (not totalUsd), serial paid calls, and no automatic retry after pending or INSUFFICIENT_BALANCE.",
         "The response reports actual cost as paid_usd + held_usd and preserves provider, operation, query, timestamp, receipt state, and sample limits."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Here is a Search Console export for acme.example. We want to rank #1 for the homepage slogan 'one integration'. Do not spend money and do not make live calls. Name the money query, money page, and Blitz/wait/kill call.",
+      "expected_output": "A wait (not Blitz) call: GSC is brand-only, slogan has zero impressions, money page is the homepage, no new article cluster.",
+      "files": [
+        "evals/files/gsc/Queries.csv",
+        "evals/files/gsc/Pages.csv"
+      ],
+      "expectations": [
+        "The response includes a decision card with money page https://acme.example/ (or the homepage) and Call wait or kill, not Blitz.",
+        "The response treats acme labs / acmelabs as brand queries and does not treat 'one integration' as a Blitz keyword.",
+        "The response cites GSC impressions and positions from the attached CSVs.",
+        "The response reports zero Weft spend and does not name a stored provider URL or price as a current contract.",
+        "The response does not recommend publishing a cluster of new Learn posts to invent rankings."
       ]
     }
   ]

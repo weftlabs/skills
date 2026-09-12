@@ -3,11 +3,21 @@
 Use this structure. Remove sections that do not apply; do not fill them with
 generic advice.
 
+## 0. Decision card
+
+```text
+Money query:
+Money page:
+Call: Blitz | wait | kill
+Why:
+Do not:
+Spend: paid_usd + held_usd = $X
+```
+
 ## 1. Executive Summary
 
 State the requested outcome, what the evidence supports, and the three to five
-highest-priority actions. State whether external evidence was bought and the
-total `paid_usd + held_usd`.
+highest-priority actions. Repeat total `paid_usd + held_usd`.
 
 ## 2. Scope And Limits
 

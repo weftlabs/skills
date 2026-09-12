@@ -1,68 +1,95 @@
 # Provider Routing
 
-Use this reference after target inspection identifies an external evidence gap.
-The current `weft` skill owns tool syntax and payment safety.
+Use this after the Ilias kernel names a real evidence gap. The current `weft`
+skill owns tool syntax and payment safety. When `weft_*` tools are missing,
+the `weft` CLI is the same loop: `weft search`, `weft balance`,
+`weft fetch <url> --max-cost-usd <n>`.
+
+Never treat a remembered provider, URL, or price as a current contract.
+Search live every time.
 
 ## Convert Gaps Into Capabilities
 
 | Decision | Useful capability query | Required contract inputs | Minimum useful output |
 |---|---|---|---|
-| Which pages compete for a query? | current search results for query, market, language, and device | query, country or location, language; device when material | ranked URLs, titles or snippets, query, location, timestamp |
-| Is a topic worth a content test? | keyword demand and trend for topic in market and date range | keyword or topic, geography, language, date range | metric definition, values, unit, geography, period |
-| Which sites link to a page or domain? | backlinks for exact URL or domain with current scope | target, target type, freshness or limit | source URL, target URL, link attributes, observed date or provider timestamp |
-| Who competes locally? | local business or map search for category near location | category or query, precise location, radius or result limit | business identity, address, category, position or order, rating scope, timestamp |
-| What changed on competing pages? | current web search and page extraction for named URLs | query or URL, freshness, extraction fields | source URLs, extracted facts, timestamp |
+| Which keywords does this domain already rank for? | domain keyword rankings with position, landing URL, and volume | domain, market/location, language | keyword, rank, url, volume definition, market, timestamp |
+| Which pages compete for a query? | current Google SERP for query, market, and language | query, country, language | ranked URLs, titles or snippets, query, location, timestamp |
+| Is a seed worth a test? | keyword demand **or** (if no volume contract) Trends-style interest | keyword, geography, language, period | **metric definition**, values, unit, geography, period |
+| Which sites link here? | backlinks for exact URL or domain | target, target type, freshness | source URL, target URL, link attributes, date |
 
-These are contract shapes, not provider recommendations. Search the live Weft
-index for the capability each time.
+These are shapes, not vendors.
 
 ## Selection Checklist
 
-Before payment, answer all of these questions from the current search result or
-its `contract_url`:
+Before payment, answer from the **current** search hit or its `contract_url`:
 
-1. Can every material user input map to a declared typed input?
-2. Does the request recipe bind each input to path, query, body, or header?
-3. Does the output contain the evidence needed for the decision?
-4. Are geography, language, device, date range, freshness, and sample size clear?
-5. Is the operation synchronous, or does its full contract define safe free
-   polling after one paid submission?
-6. Is the live price within wallet policy and the tight per-call cap?
-7. Are attribution fields present and copied exactly?
+1. Can every material input map to a declared typed input?
+2. Does the request bind each input to path, query, body, or header?
+3. Does the output contain the evidence for **this** decision (volume is not
+   Trends; Google SERP is not a generic web search)?
+4. Are geography, language, and sample size explicit? If the schema defaults to
+   another country, bind the user's market or reject.
+5. Sync vs async: if async, the full contract must define a **free** poll.
+6. Is the live price within **the spendable asset** and the tight cap?
+7. Copy attribution fields when the tool surface has them.
 
-Reject the operation when any required answer is no. Do not infer an input from
-an operation description or append an undeclared query field.
+Reject when any required answer is no.
+
+### Incomplete `callability`
+
+- **Reject** when `inputSchema` is missing, or `exampleRequest` is only a type
+  map, or the output cannot satisfy the decision.
+- **May pay** when inputs bind, the example output matches the decision, and
+  the only gap is “response schema not yet paid-probed”. Still the cheapest
+  exact fit. Label the metric honestly.
+
+### Relabeling is a bug
+
+- Google Trends `value` 0–100 is relative interest, not search volume.
+- Trends `rising` integers (often huge) are rising-score, not monthly volume.
+- Generic “web search” JSON is not a Google SERP.
+- Domain-ranking `searchVolume` is provider-defined; keep its market.
+
+## Wallet and fetch order
+
+Call `weft_balance` before **each** paid fetch, not only the first in the
+session.
+
+- `wallet.totalUsd` can include assets the merchant will not take.
+- Base mainnet x402 USDC quotes need `wallet.balanceUsdc` ≥ indexed price.
+- Tempo USD does not pay a USDC challenge.
+- `INSUFFICIENT_BALANCE` is a hard stop. Tell the user which asset ran out.
+  Do not retry. Do not start parallel paid fetches.
+
+Serialise paid calls. A parallel pair can race the same USDC balance.
+
+CLI: always pass `--max-cost-usd`. POST bodies are JSON with
+`--header Content-Type: application/json`. GET inputs go on the query string
+only when the contract says so.
 
 ## Purchase Record
 
-Before `weft_fetch`, record:
+Before pay:
 
 ```text
-purpose | provider | operation | required inputs | expected output | indexed price | max_cost_usd
+purpose | provider | operation | inputs | expected output | indexed price | max_cost_usd | spendable asset
 ```
 
-One selected exact contract permits one paid call. A report can use more than
-one selected contract when separate evidence gaps can change the decision, but
-state the expected cost before each call and avoid overlapping purchases.
-
-After `weft_fetch`, add:
+After pay:
 
 ```text
-timestamp | payment_status | paid_usd | held_usd | artifact_id or transaction identifier | returned scope
+timestamp | payment_status | paid_usd | held_usd | artifact_id or tx | returned scope
 ```
 
-Report cost as `paid_usd + held_usd`. Preserve currencies and metric definitions
-from the result. A search-volume number without its period, geography, match
-method, and provider definition is not comparable evidence.
+Cost is `paid_usd + held_usd`. `pending` plus `held_usd` means money likely
+moved — do not retry.
 
 ## Failure Rules
 
-- Empty search: reformulate the free search and read the envelope's reason.
-- Incomplete contract: do not pay. Name the missing binding or output.
-- Over-policy price: stop. Do not weaken wallet policy or silently raise the cap.
-- Pending or ambiguous payment: preserve the receipt and do not retry the paid
-  call.
-- Upstream error after payment: report the returned error and cost; search for a
-  substitute only if a new purchase is still justified.
-- Partial rows: use returned rows with their sample limit. Do not treat omitted
-  records as proof that no other records exist.
+- Empty or `matchQuality: weak`: reformulate the free search. A remembered
+  brand (including Ahrefs) missing from live results is not a catalog bug you
+  work around with a stored URL.
+- Incomplete contract: do not pay.
+- Over-policy or insufficient asset: stop.
+- Pending or ambiguous payment: keep the receipt; no retry.
+- Partial rows: use returned rows with their sample limit.
