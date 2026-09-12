@@ -60,6 +60,10 @@ session.
 - Tempo USD does not pay a USDC challenge.
 - `INSUFFICIENT_BALANCE` is a hard stop. Tell the user which asset ran out.
   Do not retry. Do not start parallel paid fetches.
+- `wallet.balanceUsdc` can still overstate headroom: **held** x402 amounts are
+  not free to spend. If a 402 says `required` > live `balance`, stop.
+- Some SEO stats settle on **Tempo MPP**, not Base USDC. Match the merchant
+  rail. Do not assume Tempo USD pays a USDC quote, or the reverse.
 
 Serialise paid calls. A parallel pair can race the same USDC balance.
 

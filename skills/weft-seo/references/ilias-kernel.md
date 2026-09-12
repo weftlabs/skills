@@ -43,7 +43,7 @@ seeds**. Buy demand or SERP only for those seeds.
 | Call | When |
 |---|---|
 | **Blitz** | One query with demand, the page is already indexed, current position is roughly 5–20, and the business earns money if that query wins. Then 30 days of pressure on **that page only**. |
-| **wait** | Brand-only GSC, no demand evidence, weak domain, or the page is not indexed. Improve the one money page. Do not spray new URLs. |
+| **wait** | Brand-only GSC, no demand evidence, weak domain (example: domain strength ~1, two organic keywords, rank ~70+), or the page is not indexed. Improve the one money page. Do not spray new URLs. |
 | **kill** | Zero demand, slogan-as-query, or a SERP you cannot win with one honest page. |
 
 Nobody serious guarantees a ranking. Control the page, the links, and the
