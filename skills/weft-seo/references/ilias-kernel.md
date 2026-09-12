@@ -44,7 +44,7 @@ seeds**. Buy demand or SERP only for those seeds.
 |---|---|
 | **Blitz** | One query with demand, the page is already indexed, current position is roughly 5–20, and the business earns money if that query wins. Then 30 days of pressure on **that page only**. |
 | **wait** | Brand-only GSC, no demand evidence, weak domain (example: domain strength ~1, two organic keywords, rank ~70+), or the page is not indexed. Improve the one money page. Do not spray new URLs. |
-| **kill** | Zero demand, slogan-as-query, or a SERP you cannot win with one honest page. |
+| **kill** | Zero demand, slogan-as-query, a homonym SERP (protocol vs projector, etc.), or a SERP owned by the standard's docs / Coinbase / Cloudflare that one homepage cannot beat. |
 
 Nobody serious guarantees a ranking. Control the page, the links, and the
 process.
@@ -52,8 +52,10 @@ process.
 ## Best links only
 
 One relevant, crawled, in-content link from a real site beats a volume package.
-If the live Weft index has no complete backlink contract, say **unknown**. Do
-not pay an incomplete “backlink check”.
+Directory, profile, and startup-list URLs (F6S, Tracxn, LinkedIn, community
+indexes) are not Best Links. If `dofollow` / `first_seen` are null, say
+**unknown quality**. Prefer a complete contract; a user may still override an
+incomplete GET when the example names `domain`.
 
 ## GEO
 
