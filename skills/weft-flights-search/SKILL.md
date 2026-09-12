@@ -243,6 +243,13 @@ the user asks to compare nonstop and connecting flights, show the cheapest
 verified row in each class before other main-airport or nearby-airport options
 that materially differ in price or timing.
 
+If the exact requested dates have no matching nonstop, do **not** stop at
+"none found." Add a second table of useful alternatives: nearest operated
+dates for that route, one-stop connections on the requested dates, and
+airport-plus-train when the ground leg is under the user's time limit. Label
+each row `not requested date` or `connection` so it is not mixed with an
+exact-date nonstop fare.
+
 Use this table:
 
 `origin | ground leg/time/cost | airline/flight | departure-arrival | fare basis | exact-date flight fare | comparable total cost | source | confidence`
@@ -260,6 +267,8 @@ verification supplied the terminal fare.
   fare operation, even if its description says "live itineraries"; it can still
   be a useful route or schedule probe.
 - A paid upstream 400/500 is not a reason to retry the same paid request.
+- An empty exact-date nonstop set is not the end of the job. Offer other
+  dates and connections before "none found."
 - A scheduled route without fare evidence is not a purchasable offer.
 - A route-level sale price cannot rank an exact-date option.
 - A fare with unclear one-way, per-leg, or return semantics is unresolved.
