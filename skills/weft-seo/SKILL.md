@@ -1,6 +1,8 @@
 ---
 name: weft-seo
 description: Audit organic search with an Ilias concentration kernel. Prefer Google Search Console exports as first-party query/page evidence; never buy GSC through Weft. Inspect the target, pick one money query and one page, then load `weft` to buy only missing SERP, volume, or backlink evidence. Use for SEO audits, Blitz vs wait, keyword research, and AI-search visibility. No stored provider list, no rank promise.
+metadata:
+  category: Content
 ---
 
 # Weft SEO
