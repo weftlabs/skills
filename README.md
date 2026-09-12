@@ -32,6 +32,7 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-customer-review-analysis`](skills/weft-customer-review-analysis/SKILL.md) | Analyze review evidence into sourced customer themes and explicit sample limits. | Experimental workflow; guided Pi test completed |
 | [`weft-competitor-pricing`](skills/weft-competitor-pricing/SKILL.md) | Compare supplied competitor pricing pages with billing units and missing-data limits. | Experimental workflow; guided Pi test completed |
 | [`weft-company-registration-check`](skills/weft-company-registration-check/SKILL.md) | Check a Belgian company’s registered identity and status before account enrichment. | Experimental workflow; guided Pi test completed |
+| [`weft-seo`](skills/weft-seo/SKILL.md) | Audit organic-search visibility: GSC first-party queries, then buy only missing SERP/volume/backlink evidence through live Weft providers. Ilias kernel: one money query, one page. | Optional outcome workflow |
 
 ## Install and update
 
@@ -87,6 +88,7 @@ npx skills add weftlabs/skills --skill weft-hiring-signals
 npx skills add weftlabs/skills --skill weft-customer-review-analysis
 npx skills add weftlabs/skills --skill weft-competitor-pricing
 npx skills add weftlabs/skills --skill weft-company-registration-check
+npx skills add weftlabs/skills --skill weft-seo
 ```
 
 Use the space-separated `--skill <name>` form. Do not use
