@@ -44,7 +44,13 @@ an Apify access contract URL. Authenticated review found a nested source output
 schema, but the normalized output schema remains null and callability remains
 incomplete. Current calibration and independent workflow tests remain open.
 Stop before payment if required request bindings, typed outputs, or execution
-lifecycle remain unresolved. Do not fill gaps by guessing.
+lifecycle remain unresolved. Do not fill gaps by guessing. Do not raise the
+user's `max_cost_usd` to buy an incomplete contract.
+
+If no callable comments contract fits the cap, collect **publicly visible**
+comments from the post page with web tools. Label that sample `public-web`,
+not Weft-paid. State the sample size and that paid coverage was unavailable.
+Still produce the sentiment brief on that sample. Do not invent comments.
 
 ## Required Flow
 
