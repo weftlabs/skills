@@ -77,8 +77,9 @@ Handle the response by `status`:
 - `failed`: return the `error`; do not repeat the paid POST automatically.
 - HTTP `404`: check both `request_id` and `X-Agent-ID`.
 
-Use bounded polling. Stop and report the pending request ID when the time limit
-is reached; the user can resume the free GET later.
+Poll `processing` jobs for minutes, not seconds. Stop and report the pending
+request ID when the time limit is reached; the user can resume the free GET
+later.
 
 ## Completed Response Shapes
 
@@ -279,6 +280,17 @@ Do not call the free result URL with `weft_fetch` today. OneShot correctly
 returns HTTP `200` without a `402` challenge, but Weft currently reports that
 as `MERCHANT_RETURNED_NON_402`. Use direct HTTP or `curl` for
 `GET /v1/requests/{id}`. This workaround does not make a second payment.
+
+## Caps and empty email
+
+- If the newsfeed live quote exceeds `max_cost_usd`, do not raise the cap and
+  do not retry. Cite recent **public** professional posts with URLs instead.
+  Label them public-web, not OneShot-paid.
+- If email lookup returns `found: false`, do not guess. Search Weft for one
+  cheaper email finder under the cap. If that also fails, report none with
+  receipts.
+- If OneShot current title/company conflicts with cited public sources, report
+  both. Do not silently keep the paid field.
 
 ## Data Rules
 
