@@ -1,0 +1,26 @@
+version: 1
+prompts:
+  - title: "Scan source code for secrets and PII"
+    prompt: |-
+      Scan this source code for hardcoded secrets (API keys, tokens, private keys) and sensitive PII (emails, phone numbers, SSNs). Return a classified audit report with risk levels, redacted output, and remediation guidance.
+
+      Input data
+      Source: paste code or provide file path
+      Scan scope: secrets and PII
+      Language: auto-detect
+  - title: "Redact credentials before sharing code"
+    prompt: |-
+      I need to share this code externally but it may contain secrets. Find all API keys, tokens, and credentials, replace them with redacted placeholders, and give me a report of what was found and what risk level each item is.
+
+      Input data
+      Source: paste code or provide file path
+      Action: redact and report
+      Output: redacted code block plus audit summary
+  - title: "Quick secrets check for a config file"
+    prompt: |-
+      Check this configuration file for any hardcoded secrets or connection strings that should not be committed. List each finding with its line location and a recommendation to move it to an environment variable or secrets manager.
+
+      Input data
+      Source: paste config file contents
+      Scan scope: secrets only
+      Output: finding table with line numbers and remediation
