@@ -151,7 +151,8 @@ Or point an agent at the hosted copies:
 | Mirror | Mechanism |
 |---|---|
 | `weft.network/setup.md` + `/skills/weft/SKILL.md` | vendored into `weft-app` at its `SKILLS_REF` commit, drift-checked in its CI |
-| Claude plugin `weftlabs/weft-claude-plugin` | vendors `skills/weft/` at its `SKILLS_REF` commit, drift-checked in its CI |
+| Claude plugin `weftlabs/weft-plugins` (`plugins/claude`) | vendors `skills/weft/` at its `SKILLS_REF` commit, drift-checked in its CI |
+| OpenClaw plugin `weftlabs/weft-plugins` (`plugins/openclaw`) | vendors `skills/weft/` at its `SKILLS_REF` commit, drift-checked in its CI |
 | `@weftlabs/cli` npm package | bundles `skills/weft/` at its `SKILLS_REF` commit, drift-checked in its CI |
 
 ## License
