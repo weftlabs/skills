@@ -1,0 +1,36 @@
+version: 1
+prompts:
+  - title: Audit a site with evidence
+    prompt: |-
+      Audit this site for its most important organic-search opportunity. Start with free target-site evidence and any Search Console export. Use Weft only for SERP, volume, or backlink gaps that can change the decision. Return one money query, one money page, Blitz/wait/kill, and the five highest-priority actions with receipts.
+
+      Input data
+      URL:
+      Search Console export: none unless supplied
+      Market:
+      Spend: ask before any paid fetch
+  - title: Find a content opportunity
+    prompt: |-
+      Find one defensible organic content opportunity. Prefer GSC queries with impressions. Do not invent a topic with zero demand. Compare current result pages only after naming the money query.
+
+      Input data
+      Business:
+      Market/language:
+      Search Console export: none unless supplied
+      Competitors:
+  - title: Diagnose a traffic decline
+    prompt: |-
+      Diagnose the organic-search decline. Separate observed facts from inference. Buy only missing external evidence through Weft. End with a prioritized recovery plan and evidence ledger.
+
+      Input data
+      Site:
+      Date range:
+      Analytics or Search Console export:
+  - title: Review local search visibility
+    prompt: |-
+      Review local organic visibility. Check the target first, then use Weft for current local competitors, listings, reviews, or result evidence when an exact contract exists.
+
+      Input data
+      Business/category:
+      Location:
+      Search Console export: none unless supplied
