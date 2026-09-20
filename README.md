@@ -17,6 +17,7 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft`](skills/weft/SKILL.md) | Find and buy paid data, APIs, and real-world actions: the search → choose → fetch loop, receipts, spending safety. [`rules/cli.md`](skills/weft/rules/cli.md) adds the machine-local CLI surface. | Installed; persists on the host |
 | [`weft-setup`](skills/weft-setup/SKILL.md) | Connect a user's Weft Account from any surface: plugin, MCP config ([per-host shapes](skills/weft-setup/rules/hosts.md)), connector UI, or bootstrap a new account. | One-shot; fetched, executed, discarded |
 | [`weft-flights-search`](skills/weft-flights-search/SKILL.md) | Experimental Weft-powered flight research with route, schedule, fare, nearby-airport, and ground-transfer evidence. | Experimental outcome workflow |
+| [`weft-house-search`](skills/weft-house-search/SKILL.md) | Research rental areas, compare asking rents, and verify original listing terms with clear availability limits. | Experimental rental workflow |
 | [`weft-gtm-lead-enrichment`](skills/weft-gtm-lead-enrichment/SKILL.md) | Enrich a LinkedIn profile, find or verify a work email, or retrieve a social newsfeed through OneShot Agent. | Optional workflow; experimental |
 | [`weft-linkedin-commenter-discovery`](skills/weft-linkedin-commenter-discovery/SKILL.md) | Find relevant leads among a LinkedIn post's comments, with profile links and comment evidence. | Experimental candidate; live validation pending |
 | [`weft-linkedin-post-sentiment`](skills/weft-linkedin-post-sentiment/SKILL.md) | Analyze sentiment, recurring themes, and uncertainty in comments on one LinkedIn post. | Experimental candidate; live validation pending |
@@ -72,6 +73,7 @@ Install an optional workflow separately:
 
 ```sh
 npx skills add weftlabs/skills --skill weft-flights-search
+npx skills add weftlabs/skills --skill weft-house-search
 npx skills add weftlabs/skills --skill weft-gtm-lead-enrichment
 npx skills add weftlabs/skills --skill weft-linkedin-commenter-discovery
 npx skills add weftlabs/skills --skill weft-linkedin-post-sentiment
@@ -130,6 +132,7 @@ for the listing logo and `cover.webp` for a wide workflow gallery card.
 | Weft | [logo.png](skills/weft/logo.png) |
 | Setup | [logo.png](skills/weft-setup/logo.png) |
 | Flight search | [logo.png](skills/weft-flights-search/logo.png) |
+| House search | [logo.png](skills/weft-house-search/logo.png) |
 | Lead enrichment | [logo.png](skills/weft-gtm-lead-enrichment/logo.png) |
 | Commenter discovery | [logo.png](skills/weft-linkedin-commenter-discovery/logo.png) |
 | Post sentiment | [logo.png](skills/weft-linkedin-post-sentiment/logo.png) |
