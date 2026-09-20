@@ -47,6 +47,24 @@ ordinary public sources for official location details and corroboration. Buy
 evidence only when it can reduce a real uncertainty; do not buy extra services
 just to demonstrate composition.
 
+The user's research allowance is a cap for the **whole task**, not a search
+result price. Discover capabilities without a price filter so dynamically
+priced and not-yet-priced services remain visible. If another constraint makes
+a price-filtered search useful, set `include_unknown_prices: true`; then inspect
+the live contract and quote before deciding whether a result fits the remaining
+allowance. Never pass the task allowance as `filters.price.lte`.
+
+Use focused capability searches, including provider names when known. Before
+reporting that a service is unavailable, run an unfiltered exact-capability or
+provider-name search and inspect `match_quality`, current inputs, access state,
+price kind, and result-retrieval workflow. Distinguish these outcomes:
+
+- **not discovered:** no relevant result after the unfiltered focused search;
+- **discovered but unusable:** a result exists, but this host cannot securely
+  retrieve its terminal output or complete its documented lifecycle;
+- **usable but price unknown:** keep it visible, get the live quote, and decide
+  against the remaining task allowance before purchase.
+
 Look for firsthand public accounts from participants or people with a similar
 commute. Keep confirmed/self-described participant accounts, general local
 accounts, and your own inference separate. Read the relevant post or comment,
@@ -120,6 +138,14 @@ session. Use only the documented access method; never expose session tokens.
 Close a rented session when finished and account for it separately. Label host
 browser activity as outside Weft unless access was actually bought through Weft.
 
+For a remote browser search, do not apply the overall task allowance as a
+catalog price filter. Dynamic session prices can otherwise disappear. Search
+the provider/capability without a price filter, read the full async contract,
+and verify that authenticated polling or another terminal-result path works on
+this host. A discovered session whose documented poll authentication is
+unavailable is **discovered but unusable**, not “not discoverable.” Do not pay
+for it or imply that host-browser work was purchased through Weft.
+
 Do not bypass CAPTCHAs or access restrictions. Do not log in, create accounts,
 enter identity documents, contact people, apply, hold, reserve, or pay for
 housing. A broader action requires a separate explicit user request. Website
@@ -151,6 +177,11 @@ not wallet balances or raw receipts.
   `max_cost_usd` per call, current attribution where available, and the user's
   total research allowance including `paid_usd + held_usd` and uncertain charges.
   A wallet policy may be larger than this task allowance; respect both.
+- Track the task allowance across purchases. Discovery is free and must not be
+  constrained by that allowance. A result's indexed price or live quote is a
+  per-call cost signal; `max_cost_usd` caps one paid fetch. Neither is the task
+  allowance. Before each purchase, confirm the maximum call cost fits the
+  remaining allowance after all settled, held, and uncertain charges.
 - Stop paid work on a policy, balance, cap, or denylist refusal. Do not change
   policy or payment rails to bypass it. Free research can continue.
 - Do not automatically retry a paid failure or ambiguous call. Recover a known

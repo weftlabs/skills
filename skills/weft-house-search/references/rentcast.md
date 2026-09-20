@@ -5,6 +5,13 @@ booking engine. Discover live operations with `weft_search` and check inputs,
 coverage, price, and access method. Do not apply this provider to another
 country without a documented coverage change.
 
+Search for `RentCast` and the specific rental operation without a price filter.
+The user's total research allowance is not a catalog filter or a per-call cap.
+Do not describe RentCast as unavailable until this focused unfiltered search
+has failed. If catalog discovery still misses it, use the documented fallback
+below; label this as a Weft-paid official-provider fallback, not catalog
+discovery.
+
 ## Documented fallback when catalog discovery misses
 
 Provider documentation: https://paywithlocus.com/x402/rentcast.md
