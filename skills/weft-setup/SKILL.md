@@ -23,8 +23,9 @@ paste, and you must never ask the user for a password, API key, or token.
 Always establish the OAuth connection for the current client first. The grant
 authorizes access to the user's account, but the client still needs its own
 persisted token store. A new device or rebuilt sandbox must connect again when
-that store is absent. The CLI is an optional machine-local add-on, offered last
-and only where it can survive.
+that store is absent. The CLI is a machine-local add-on. Install it when
+this session needs shell commands, as in Step 3; its local files need not
+survive the session.
 
 ## Step 1 — establish the account connection (always)
 
@@ -93,8 +94,8 @@ gains balance and fetch access — treat it like money from the start.
   data without printing it. It needs Claude Code 2.1.195 or newer — on an
   older version, update Claude Code or use branch 2. Do not add a manual
   MCP connection beside the plugin, and do not use the shell flow below.
-- **Editable-config host (branch 2) with a persistent filesystem:** use
-  the CLI's bootstrap — it stores the
+- **Editable-config host (branch 2) with a persistent filesystem:** install
+  and verify the CLI as in Step 3, then use its bootstrap. It stores the
   credential in a mode-0600 local file and never prints it. Read the email
   through terminal input so user text is never inserted into shell syntax:
 
@@ -103,7 +104,7 @@ gains balance and fetch access — treat it like money from the start.
     set -eu
     printf 'Email: ' >&2
     IFS= read -r WEFT_EMAIL
-    npx --package @weftlabs/cli weft bootstrap --email "$WEFT_EMAIL" \
+    weft bootstrap --email "$WEFT_EMAIL" \
       --agent-name "MCP setup agent" --reason "Connect this client to Weft"
   )
   ```
@@ -137,8 +138,8 @@ weft --help
 ```
 
 If global install is refused, install into a session directory and put that
-`bin` on PATH. Do **not** treat `npx --package @weftlabs/cli weft` as
-`weft --help` success.
+`bin` on PATH. Verify with `command -v weft` and `weft --help`. Do not use
+`npx` as a substitute for installation.
 
 If this session only needs MCP tools and will not run CLI commands, you may
 skip CLI on an ephemeral host. Do not skip CLI when the rubric or the user

@@ -18,18 +18,17 @@ flag.
 
 ## Install
 
+Install the CLI so `weft` is available on PATH. Do not use `npx` as a
+substitute for installation.
+
 ```sh
 npm install -g @weftlabs/cli
+command -v weft
+weft --help
 ```
 
-To run one command without a persistent installation:
-
-```sh
-npx --package @weftlabs/cli weft --help
-```
-
-This does not put a `weft` binary on PATH. When the task requires that binary,
-install it and verify `command -v weft` and `weft --help` instead.
+If global installation is refused, use the session-directory installation
+and PATH setup in [weft-setup Step 3](../../weft-setup/SKILL.md#step-3--cli-when-this-session-needs-a-weft-binary).
 
 ## Commands
 
