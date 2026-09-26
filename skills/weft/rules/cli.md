@@ -2,9 +2,14 @@
 
 The `weft` CLI is the machine-local surface for the same account: same
 search → choose → fetch loop, same receipts, same safety rules as the MCP
-tools in [SKILL.md](../SKILL.md). Use it on a persistent machine with a
-shell — for headless runs, scripts, and pipelines. Never install it in an
-ephemeral cloud sandbox: its credential store dies with the container.
+tools in [SKILL.md](../SKILL.md). Use it with a shell for headless runs,
+scripts, and pipelines. When the task needs a `weft` binary in this session,
+install it even on an ephemeral filesystem, as described in
+[weft-setup Step 3](../../weft-setup/SKILL.md#step-3--cli-when-this-session-needs-a-weft-binary).
+For MCP-only work, the CLI can be skipped on an ephemeral host. Its local
+credential file disappears with the container; do not promise that the next
+session will stay connected. Use the normal setup flow if no credential is
+available in a later session.
 
 It prints one versioned JSON object per command — parse the output instead
 of reading prose. `weft --help` and `weft <command> --help` return
@@ -17,11 +22,14 @@ flag.
 npm install -g @weftlabs/cli
 ```
 
-Zero-install equivalent for any command below:
+To run one command without a persistent installation:
 
 ```sh
 npx --package @weftlabs/cli weft --help
 ```
+
+This does not put a `weft` binary on PATH. When the task requires that binary,
+install it and verify `command -v weft` and `weft --help` instead.
 
 ## Commands
 
