@@ -1,0 +1,23 @@
+version: 1
+prompts:
+  - title: Find a home for a temporary move
+    prompt: |
+      Use weft-house-search to help us decide where to live and find three rental options. Compare rents, commute, and original listing terms. Show sources, uncertainties, and actual research spend. Do not contact anyone or book.
+
+      Input data
+      Destination: [workplace, program, or city]
+      Stay: [dates or months]
+      Household and bedrooms: [people and bedrooms]
+      Monthly housing budget: [amount and currency]
+      Must-haves: [features, furnishing, commute limit]
+      Paid research allowance: [amount and currency]
+  - title: Check a rental shortlist
+    prompt: |
+      Use weft-house-search to compare these rentals. Check asking rents, original portals, lease length, dates, occupants, fees, and commute. Mark missing facts as unknown. Do not contact anyone, apply, or book.
+
+      Input data
+      Listing links: [URLs]
+      Destination and commute mode: [destination and mode]
+      Stay and household: [dates and people]
+      Housing budget: [amount and currency]
+      Paid research allowance: [amount and currency]
