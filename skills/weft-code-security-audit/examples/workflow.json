@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "outcome": "Security audit of source code with secrets and PII findings, risk levels, and redacted output.",
+  "steps": [
+    "Provide a source file path, paste an inline code snippet, or specify the scan scope.",
+    "Your agent searches the Weft marketplace for a code security scanning provider and fetches findings.",
+    "Receive an audit report with classified findings, redacted source code, and remediation advice."
+  ],
+  "examples": [
+    "code-security-audit"
+  ]
+}
