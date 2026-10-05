@@ -54,8 +54,8 @@ process.
 One relevant, crawled, in-content link from a real site beats a volume package.
 Directory, profile, and startup-list URLs (F6S, Tracxn, LinkedIn, community
 indexes) are not Best Links. If `dofollow` / `first_seen` are null, say
-**unknown quality**. Prefer a complete contract; a user may still override an
-incomplete GET when the example names `domain`.
+**unknown quality**. Reject an incomplete GET even when the example names
+`domain`. A user request does not waive typed bindings for every material input.
 
 ## GEO
 
