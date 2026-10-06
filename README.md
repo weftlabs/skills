@@ -38,9 +38,9 @@ each consumer's `SKILLS_REF` and re-vendor.
 Skill installation needs Git, Node.js with npm/npx available, network access
 and an existing supported agent host selected in the
 [Skills CLI](https://github.com/vercel-labs/skills#readme). It copies skill
-files; it does not install an agent runtime. In the Weft workspace, Mise owns
-Node and Python through the
-[workspace tool configuration](https://github.com/weftlabs/weft-dev/blob/main/.mise.toml).
+files; it does not install an agent runtime. In the private Weft workspace,
+Mise owns Node and Python through `weft-dev/.mise.toml`, available after cloning
+with the required GitHub access.
 A standalone contributor can use [Mise](https://mise.jdx.dev/getting-started.html)
 and its [Python setup](https://mise.jdx.dev/lang/python.html).
 
