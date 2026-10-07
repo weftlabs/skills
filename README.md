@@ -33,6 +33,29 @@ each consumer's `SKILLS_REF` and re-vendor.
 | [`weft-competitor-pricing`](skills/weft-competitor-pricing/SKILL.md) | Compare supplied competitor pricing pages with billing units and missing-data limits. | Experimental workflow; guided Pi test completed |
 | [`weft-company-registration-check`](skills/weft-company-registration-check/SKILL.md) | Check a Belgian company’s registered identity and status before account enrichment. | Experimental workflow; guided Pi test completed |
 
+## Prerequisites and safe setup
+
+Skill installation needs Git, Node.js with npm/npx available, network access
+and an existing supported agent host selected in the
+[Skills CLI](https://github.com/vercel-labs/skills#readme). It copies skill
+files; it does not install an agent runtime. In the private Weft workspace,
+Mise owns Node and Python through `weft-dev/.mise.toml`, available after cloning
+with the required GitHub access.
+A standalone contributor can use [Mise](https://mise.jdx.dev/getting-started.html)
+and its [Python setup](https://mise.jdx.dev/lang/python.html).
+
+No Weft account or credential is needed to install files or run the local
+[source validator](#check-a-source-change). A connection/account is needed
+only when you choose to use Weft; the canonical
+[setup router](skills/weft-setup/SKILL.md) owns that process. Optional paid
+workflows and [session previews](examples/session-previews/README.md) are not
+installation smoke checks. Do not run a paid workflow, bootstrap an account
+or import a private session merely to verify this checkout.
+
+This is a document/asset repository. There is no application build or server
+to start/stop. After installation, confirm that the requested `SKILL.md`
+files exist in the host/project directory selected by the installer.
+
 ## Install and update
 
 Install every Weft skill, then choose which agents to use:
@@ -145,6 +168,30 @@ Or point an agent at the hosted copies:
 
 - Setup (start here): `https://weft.network/setup.md`
 - Usage: `https://weft.network/skills/weft/SKILL.md`
+
+## Check a source change
+
+Run from the repository root with Python available through Mise and
+[Mise activated in your interactive shell](https://mise.jdx.dev/getting-started.html#activate-mise).
+The existing
+[scripts/validate.py](scripts/validate.py) checks skill frontmatter, metadata,
+assets, safety phrases and local links without calling Weft or an agent.
+It imports PyYAML; [validation CI](.github/workflows/validate.yml) runs the
+validator but does not install that dependency before the validation step.
+Install it into a temporary virtual environment, not system Python:
+
+```sh
+check_env="$(mktemp -d "${TMPDIR:-/tmp}/weft-skills-check.XXXXXX")"
+python -m venv "$check_env"
+"$check_env/bin/python" -m pip install PyYAML
+"$check_env/bin/python" scripts/validate.py
+```
+
+Expect exit 0 and `ok: ... skills` for a valid checkout. This is a one-shot
+local check, not live workflow acceptance. Remove only your own temporary
+virtual environment when finished; no service stop applies. Preview export
+has separate dependencies and evidence-review steps in the
+[preview generator README](tools/session-preview/README.md).
 
 ## Distribution
 
