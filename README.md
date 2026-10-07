@@ -171,7 +171,9 @@ Or point an agent at the hosted copies:
 
 ## Check a source change
 
-Run from the repository root with Python available through Mise. The existing
+Run from the repository root with Python available through Mise and
+[Mise activated in your interactive shell](https://mise.jdx.dev/getting-started.html#activate-mise).
+The existing
 [scripts/validate.py](scripts/validate.py) checks skill frontmatter, metadata,
 assets, safety phrases and local links without calling Weft or an agent.
 It imports PyYAML; [validation CI](.github/workflows/validate.yml) runs the
@@ -180,7 +182,7 @@ Install it into a temporary virtual environment, not system Python:
 
 ```sh
 check_env="$(mktemp -d "${TMPDIR:-/tmp}/weft-skills-check.XXXXXX")"
-mise exec -- python -m venv "$check_env"
+python -m venv "$check_env"
 "$check_env/bin/python" -m pip install PyYAML
 "$check_env/bin/python" scripts/validate.py
 ```
