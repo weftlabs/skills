@@ -252,12 +252,46 @@ REQUIRED_CONTENT = {
         "promotional balance",
         "do not add a second manual",
     ],
+    # V0 requires these spend-safety phrases in the SEO workflow itself.
+    # Generic core-skill checks do not cover this package.
+    "skills/weft-seo/SKILL.md": [
+        "weft_balance` before",
+        "max_cost_usd",
+        "paid_usd + held_usd",
+        "No retry",
+        "Do not use a remembered vendor name",
+        "cheapest exact contract",
+    ],
+    "skills/weft-seo/references/provider-routing.md": [
+        "typed input",
+        "Reject when any required answer is no",
+        "Incomplete contract: do not pay",
+        "weft_balance",
+        "paid_usd + held_usd",
+        "do not retry",
+        "hard stop",
+        "--max-cost-usd",
+    ],
+    "skills/weft-seo/references/ilias-kernel.md": [
+        "Reject an incomplete GET even when the example names",
+        "does not waive typed bindings for every material input",
+    ],
+}
+FORBIDDEN_CONTENT = {
+    "skills/weft-seo/references/ilias-kernel.md": [
+        "user may still override an incomplete GET",
+    ],
 }
 for rel, phrases in REQUIRED_CONTENT.items():
     text = (root / rel).read_text()
     for phrase in phrases:
         if phrase.lower() not in text.lower():
             errors.append(f"{rel}: required safety phrase missing: `{phrase}`")
+for rel, phrases in FORBIDDEN_CONTENT.items():
+    text = (root / rel).read_text()
+    for phrase in phrases:
+        if phrase.lower() in text.lower():
+            errors.append(f"{rel}: forbidden contract override present: `{phrase}`")
 
 # Relative links in every markdown file must resolve.
 for path in sorted(root.glob("skills/**/*.md")):
