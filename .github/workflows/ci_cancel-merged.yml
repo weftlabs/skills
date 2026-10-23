@@ -1,80 +1,26 @@
 name: "CI: Cancel merged PR runs"
 
-# A merge starts no run in the pull request's concurrency group
-# (`refs/pull/<N>/merge`), so `cancel-in-progress` never fires and a merged
-# pull request's CI keeps running and billing after the branch is gone.
-# GitHub has no built-in cancel-on-merge, so this workflow closes that gap.
-# Patrick, CORE-669, 2026-10-23.
-#
-# Scope: only `pull_request` runs of the merged head SHA. Deploy workflows run
-# on `push` to main or on `workflow_run`, so this never cancels a deploy.
+# A merge starts no run in the pull request's concurrency group, so
+# `cancel-in-progress` never fires and the merged pull request's CI keeps
+# billing. event=pull_request keeps this off every push and workflow_run run.
 on:
   pull_request:
     types: [closed]
 
 permissions:
-  contents: read
   actions: write
-
-defaults:
-  run:
-    shell: bash --noprofile --norc -euo pipefail {0}
-
-# One run per pull request. A close cannot repeat, and the group keeps a
-# re-open/re-close race from starting two cancellers.
-concurrency:
-  group: cancel-merged-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
 
 jobs:
   cancel:
-    # A closed pull request that was not merged changed nothing on main, so its
-    # CI is still wanted (for example a revert branch).
-    if: ${{ github.event.pull_request.merged == true }}
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SHA: ${{ github.event.pull_request.head.sha }}
     steps:
-      - name: Cancel live runs for the merged head SHA
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SHA: ${{ github.event.pull_request.head.sha }}
-          PR: ${{ github.event.pull_request.number }}
-        run: |
-          # This run is itself a `pull_request` run of the same head SHA, so it
-          # can appear in this list. Its numeric run ID is always excluded.
-          ids="${RUNNER_TEMP}/run-ids.txt"
-          raw="${RUNNER_TEMP}/runs.raw"
-          if ! gh api --paginate \
-            "repos/${GITHUB_REPOSITORY}/actions/runs?head_sha=${SHA}&event=pull_request&per_page=100" \
-            --jq '.workflow_runs[]
-                  | select(.status == "queued" or .status == "in_progress"
-                           or .status == "pending" or .status == "waiting")
-                  | .id' > "${raw}"; then
-            # Listing failed: auth, network, or rate limit. Say so and stay
-            # green, because a helper that cannot cancel is not a CI failure.
-            echo "::warning::Could not list runs for ${SHA} (PR #${PR}); nothing cancelled."
-            exit 0
-          fi
-          # Removing every line is the normal case when this run is the only
-          # live one, and `grep -v` then exits 1. That is not an error.
-          grep -v -x "${GITHUB_RUN_ID}" "${raw}" > "${ids}" || true
-
-          if [ ! -s "${ids}" ]; then
-            echo "No other live pull request run for ${SHA} (PR #${PR}). Nothing to cancel."
-            exit 0
-          fi
-
-          cancelled=0
-          while read -r id; do
-            [ -n "${id}" ] || continue
-            echo "Cancelling run ${id} (PR #${PR}, ${SHA})."
-            if gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/runs/${id}/cancel" > /dev/null; then
-              cancelled=$((cancelled + 1))
-            else
-              # A run that already finished, or a fork PR with a read-only
-              # token, must not turn this helper red.
-              echo "::warning::Could not cancel run ${id}; it may have finished already."
-            fi
-          done < "${ids}"
-
-          echo "Cancelled ${cancelled} run(s) for PR #${PR}."
+      - run: |
+          set -o pipefail
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$SHA&event=pull_request" \
+            --jq '.workflow_runs[]|select(.status!="completed")|select(.id!=(env.GITHUB_RUN_ID|tonumber))|.id' |
+            xargs -r -I@ gh api -X POST "repos/$GITHUB_REPOSITORY/actions/runs/@/cancel" --silent ||
+            echo "::warning::could not list or cancel runs for $SHA; check manually."
