@@ -1,0 +1,71 @@
+name: "CI: Cancel merged PR runs"
+
+# A merge starts no run in the pull request's concurrency group
+# (`refs/pull/<N>/merge`), so `cancel-in-progress` never fires and a merged
+# pull request's CI keeps running and billing after the branch is gone.
+# GitHub has no built-in cancel-on-merge, so this workflow closes that gap.
+# Patrick, CORE-669, 2026-10-23.
+#
+# Scope: only `pull_request` runs of the merged head SHA. Deploy workflows run
+# on `push` to main or on `workflow_run`, so this never cancels a deploy.
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+  actions: write
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+# One run per pull request. A close cannot repeat, and the group keeps a
+# re-open/re-close race from starting two cancellers.
+concurrency:
+  group: cancel-merged-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  cancel:
+    # A closed pull request that was not merged changed nothing on main, so its
+    # CI is still wanted (for example a revert branch).
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Cancel live runs for the merged head SHA
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          # `head_sha` of this run is the merge commit, so it never matches the
+          # pull request head SHA. Filter it out anyway rather than rely on that.
+          gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/actions/runs?head_sha=${SHA}&event=pull_request&per_page=100" \
+            --jq '.workflow_runs[]
+                  | select(.status == "queued" or .status == "in_progress"
+                           or .status == "pending" or .status == "waiting")
+                  | .id' \
+            | grep -v -x "${GITHUB_RUN_ID}" > "${RUNNER_TEMP}/run-ids.txt" || true
+
+          if [ ! -s "${RUNNER_TEMP}/run-ids.txt" ]; then
+            echo "No live pull request run for ${SHA} (PR #${PR}). Nothing to cancel."
+            exit 0
+          fi
+
+          cancelled=0
+          while read -r id; do
+            [ -n "${id}" ] || continue
+            echo "Cancelling run ${id} (PR #${PR}, ${SHA})."
+            if gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/runs/${id}/cancel" > /dev/null; then
+              cancelled=$((cancelled + 1))
+            else
+              # A run that already finished, or a fork PR with a read-only
+              # token, must not turn this helper red.
+              echo "::warning::Could not cancel run ${id}; it may have finished already."
+            fi
+          done < "${RUNNER_TEMP}/run-ids.txt"
+
+          echo "Cancelled ${cancelled} run(s) for PR #${PR}."
