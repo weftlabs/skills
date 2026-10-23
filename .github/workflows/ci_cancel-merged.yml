@@ -40,18 +40,27 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha }}
           PR: ${{ github.event.pull_request.number }}
         run: |
-          # `head_sha` of this run is the merge commit, so it never matches the
-          # pull request head SHA. Filter it out anyway rather than rely on that.
-          gh api --paginate \
+          # This run is itself a `pull_request` run of the same head SHA, so it
+          # can appear in this list. Its numeric run ID is always excluded.
+          ids="${RUNNER_TEMP}/run-ids.txt"
+          raw="${RUNNER_TEMP}/runs.raw"
+          if ! gh api --paginate \
             "repos/${GITHUB_REPOSITORY}/actions/runs?head_sha=${SHA}&event=pull_request&per_page=100" \
             --jq '.workflow_runs[]
                   | select(.status == "queued" or .status == "in_progress"
                            or .status == "pending" or .status == "waiting")
-                  | .id' \
-            | grep -v -x "${GITHUB_RUN_ID}" > "${RUNNER_TEMP}/run-ids.txt" || true
+                  | .id' > "${raw}"; then
+            # Listing failed: auth, network, or rate limit. Say so and stay
+            # green, because a helper that cannot cancel is not a CI failure.
+            echo "::warning::Could not list runs for ${SHA} (PR #${PR}); nothing cancelled."
+            exit 0
+          fi
+          # Removing every line is the normal case when this run is the only
+          # live one, and `grep -v` then exits 1. That is not an error.
+          grep -v -x "${GITHUB_RUN_ID}" "${raw}" > "${ids}" || true
 
-          if [ ! -s "${RUNNER_TEMP}/run-ids.txt" ]; then
-            echo "No live pull request run for ${SHA} (PR #${PR}). Nothing to cancel."
+          if [ ! -s "${ids}" ]; then
+            echo "No other live pull request run for ${SHA} (PR #${PR}). Nothing to cancel."
             exit 0
           fi
 
@@ -66,6 +75,6 @@ jobs:
               # token, must not turn this helper red.
               echo "::warning::Could not cancel run ${id}; it may have finished already."
             fi
-          done < "${RUNNER_TEMP}/run-ids.txt"
+          done < "${ids}"
 
           echo "Cancelled ${cancelled} run(s) for PR #${PR}."
