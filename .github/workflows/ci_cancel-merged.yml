@@ -1,0 +1,26 @@
+name: "CI: Cancel merged PR runs"
+
+# A merge starts no run in the pull request's concurrency group, so
+# `cancel-in-progress` never fires and the merged pull request's CI keeps
+# billing. event=pull_request keeps this off every push and workflow_run run.
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  actions: write
+
+jobs:
+  cancel:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - run: |
+          set -o pipefail
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$SHA&event=pull_request" \
+            --jq '.workflow_runs[]|select(.status!="completed")|select(.id!=(env.GITHUB_RUN_ID|tonumber))|.id' |
+            xargs -r -I@ gh api -X POST "repos/$GITHUB_REPOSITORY/actions/runs/@/cancel" --silent ||
+            echo "::warning::could not list or cancel runs for $SHA; check manually."
