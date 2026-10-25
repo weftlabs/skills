@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "outcome": "Find a place to rent with local research, rent checks, original listing evidence, and clear availability limits.",
+  "steps": [
+    "Describe your destination, stay period, household, housing needs, and budget.",
+    "Your agent researches areas and commutes, finds rentals, and compares asking rents through Weft.",
+    "It checks original listing portals for dates, occupants, lease terms, furnishing, and fees.",
+    "Get a sourced shortlist, actual research costs, and the facts still to confirm."
+  ],
+  "examples": []
+}
