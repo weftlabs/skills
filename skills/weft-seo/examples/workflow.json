@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "outcome": "Know which search query and page to win first, with evidence and a next action.",
+  "steps": [
+    "Add the site, any Search Console export, and the business outcome.",
+    "Your agent inspects the site, reads GSC if supplied, and buys only missing SERP or demand data through Weft.",
+    "Get one money query, one page, a Blitz/wait/kill call, and a spend ledger."
+  ],
+  "examples": []
+}
